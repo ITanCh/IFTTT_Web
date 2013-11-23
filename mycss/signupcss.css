@@ -1,0 +1,35 @@
+/*
+link with signup.html
+*/
+/* 
+    Created on : 2013-11-22, 19:11:27
+    Author     : TianChi
+*/
+
+div{
+    width:60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#top{
+    margin-top:20px;
+    border-bottom: 1.5px solid #ccc;
+     font-family: Microsoft YaHei UI;
+}
+
+#mainbody{
+    padding-left: 200px;
+    padding-top: 50px;
+    line-height: 300%;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+/*    background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));*/
+    height: 500px;
+    margin-top:30px;
+/*    -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2) ;*/
+    font-size:20px;
+    font-family:Microsoft YaHei UI;
+    font-weight: bold;
+}
+

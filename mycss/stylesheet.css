@@ -1,0 +1,133 @@
+/*link with homepage */
+#top{
+    margin-top:-10px;
+    margin-left: -10px;
+    margin-right: -10px; 
+    margin-bottom: 10px;
+    height: 50px;
+    background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
+    border-bottom: 1.5px solid #ccc;
+    -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) ;
+}
+
+#logo{
+    float:left;
+    padding-top:10px; 
+    padding-left: 70px;
+    height: 100%;
+    width:300px;
+    border-right: 1.5px solid #ccc;
+}
+
+#title{
+        float:left;
+        margin-left: 50px;
+        margin-top: 13px;
+}
+#title ul{
+	list-style: none;
+}
+
+#title li{
+	float:left;
+	margin-right: 50px;
+}
+
+#title a{
+	font-size:16px;	
+        color:#555555;
+        text-decoration: none;  
+        font-family: Verdana;
+}
+
+#title a:hover{
+    color: #50B1FE;
+}
+
+#signup{
+	float:right;
+        height: 30px;
+	margin-right: 20px;
+	margin-top: 15px;
+        font-size:10px;
+}
+#signup button{
+	height:25px;
+	width:93px;
+	padding-top:4px;
+}
+
+#signup label{
+        color:#555555;
+        font-family: Verdana;
+}
+
+#header {
+        margin-left: -10px;
+        margin-right: -10px; 
+	height:400px;
+	background-image: url(../img/back2.jpg);
+	margin-bottom: 10px;
+        margin-top: 10px;
+}
+
+
+
+#signin{
+        float:right;
+	margin-right: 130px;
+	margin-top: 100px;
+	font-size: 25px;
+}
+
+#mybiglabel{
+        margin-top: 50px;
+        margin-left: 300px;
+        float:left;
+        color:#ffffff;
+        font-family: Microsoft YaHei UI;
+}
+
+#mybiglabel h1{
+    line-height: 80%; 
+}
+
+#mylist1{
+    margin-top:10px;
+    border-radius: 5px;
+    width:30%;
+    -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2) ;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 150px;
+    font-size: 25px;
+    font-family: Microsoft YaHei UI;
+}
+
+#googlelogo{
+    width:20%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:50px;
+    font-size: 20px;
+    font-family: Microsoft YaHei UI;
+}
+
+#footer {
+        margin-left: -10px;
+        margin-right: -10px;
+	position: relative;
+	height: 50px;
+	clear: both;
+	font-family: Verdana, sans-serif;
+	font-size: 14px;
+	text-align: center;
+	color: #ffffff;
+}
+
+#footer p {
+	position: relative;
+        margin-top: -20px;
+        color:#555555;
+}
+
