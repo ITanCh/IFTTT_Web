@@ -8,26 +8,77 @@ show all information of this user
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link type="text/css" rel="stylesheet" href="../mycss/perpagecss.css"/>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="../js/kickstart.js"></script> <!-- KICKSTART -->
         <link rel="stylesheet" href="../css/kickstart.css" media="all" /> <!-- KICKSTART -->
     </head>
     <body>
         
         <div id="top">
-                <div id="logo">
-                    <a href=""><i class="icon-2x"><i class="icon-fire"> IFTTT</i> </i></a>
-                </div>
+            <div id="logo">
+                    <a href=""><i class="icon-2x icon-fire"> IFTTT</i> </a>
+            </div>
                
-                <div id="title">
+            <div id="title">
 		<ul>
 		<li><a href="">Home</a></li>
 		<li><a href="">Bolg</a></li>
 		<li><a href="">About</a></li>
                 <li><a href="">Help</a></li>
 		</ul>
-                </div>   
-       
+            </div>   
+            
+            <div id="top_right">
+                <i class="icon-user"> username</i>
+                <a href=""><i class="icon-cog tooltip setting" title="Account settings"></i></a>
+                <a href=""><i class="icon-signout tooltip signout" title="Sign out"></i></a>
+            </div>   
         </div>
+        
+        <div id="left">
+            <img class="head" src="../img/slider1.jpg" width="245" height="245"/>
+            <h5 class="user_name">UserName</h5> 
+            <i class="icon-star tooltip level_icon" title="Your level"></i>
+            <label class="level">35</label>  
+            <i class="icon-money tooltip money_icon" title="Balance of account"></i>
+            <label class="money">100</label>
+            <i class="icon-envelope-alt tooltip mail_icon" title="Mail address"></i>
+            <label class="mail">liutianchi@gmail.com</label>
+        </div>
+        
+        <div id="right">
+            <!-- Tabs Left -->
+            <ul class="tabs left">
+            <li><a href="#tabr1">My Task</a></li>
+            <li><a href="#tabr2">Create Task</a></li>
+            <li><a href="#tabr3">Personal Information</a></li>
+            </ul>
+
+            <div id="tabr1" class="tab-content">
+                <ul class="menu">
+                    <li class="current"><a href="">Item 1</a></li>
+                    <li><a href="">Item 2</a></li>
+                    <li><a href=""><i class="icon-inbox"></i> Item 3</a>
+               <ul>
+                    <li><a href=""><i class="icon-cog"></i> Sub Item</a></li>
+                    <li><a href=""><i class="icon-envelope-alt"></i> Sub Item</a>
+              	<ul>
+                    <li><a href=""><i class="icon-wrench"></i> Sub Item</a></li>
+                    <li><a href=""><i class="icon-camera-retro"></i> Sub Item</a></li>
+                    <li><a href=""><i class="icon-coffee"></i> Sub Item</a></li>
+                    <li><a href=""><i class="icon-twitter"></i> Sub Item</a></li>
+		</ul>
+                    </li>
+                    <li class="divider"><a href=""><i class="icon-trash"></i> li.divider</a></li>
+                </ul>
+                    </li>
+                    <li><a href="">Item 4</a></li>
+                </ul>
+            </div>
+            <div id="tabr2" class="tab-content">Tab2</div>
+            <div id="tabr3" class="tab-content">Tab3</div>
+        </div>
+            
         
     </body>
 </html>

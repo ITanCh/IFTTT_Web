@@ -4,7 +4,7 @@
     top:0px;
     left: 0px;
     height: 50px;
-    width: 1360px;
+    width: 1366px;
     margin-bottom: 10px;
     background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
     border-bottom: 1.5px solid #ccc;
@@ -69,7 +69,7 @@
         top:80px;
         left:0px;
         right: 0px; 
-        width: 1360px;
+        width: 1366px;
 	height:400px;
 	background-image: url(../img/back2.jpg);
 	margin-bottom: 10px;

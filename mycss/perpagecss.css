@@ -10,7 +10,7 @@ link with personalpage.html
     top:0px;
     left: 0px;
     height: 45px;
-    width: 1360px;
+    width: 1366px;
     margin-bottom: 10px;
     background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
     border-bottom: 1.5px solid #ccc;
@@ -20,9 +20,9 @@ link with personalpage.html
 #logo{
     position: absolute;
     top:0px; 
-    left: 100px;
+    left: 200px;
     height: 100%;
-    width:250px;
+    width:150px;
     padding-top: 7px;
     border-right: 1.5px solid #ccc;
 }
@@ -50,4 +50,84 @@ link with personalpage.html
 
 #title a:hover{
     color: #50B1FE;
+}
+
+#top_right{
+    position: absolute;
+    left:1000px;
+    top:13px;  
+}
+
+.setting{
+    margin-left:10px; 
+}
+
+.signout{
+    margin-left: 10px;
+}
+
+#left{
+    position: absolute;
+    top:70px;
+    left: 200px;
+    width:250px;
+    height: 430px;
+    font-family: Microsoft YaHei UI;
+    border-bottom: 1px solid   #ccc;
+}
+.head{
+    border-radius:10px;
+}
+
+.user_name{
+    height: 60px;
+    border-bottom: 1px solid   #ccc;
+}
+
+.level_icon{
+    position: absolute;
+    top:324px;
+    color: #FC730A;
+}
+.level{
+    position: absolute;
+    top:323px;
+    left: 30px;
+    margin-left: 5px;
+}
+.money_icon{
+    position: absolute;
+    top:355px;
+    color: #080;
+}
+
+.money{
+    position: absolute;
+    top:354px; 
+    left: 30px;
+}
+
+.mail_icon{
+    position: absolute;
+    top:386px;
+    color: #EF0251;
+}
+
+.mail{
+    position: absolute;
+    top:385px; 
+    left: 30px; 
+}
+
+
+#right{
+    position: absolute;
+    top:70px; 
+    left: 500px; 
+    width: 600px;
+    height: 600px;
+    font-family:  Microsoft YaHei UI;
+}
+
+#tabr1{
 }
