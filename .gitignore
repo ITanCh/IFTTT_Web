@@ -7,7 +7,6 @@
 .metadata
 bin/
 tmp/
-nbproject/
 *.tmp
 *.bak
 *.swp
