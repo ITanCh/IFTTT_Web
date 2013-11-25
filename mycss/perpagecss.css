@@ -127,8 +127,6 @@ link with personalpage.html
     height: fit-content;
     width: 700px;
     font-family:  Microsoft YaHei UI;
-    border:1px solid #000;
-
 }
 
 #tabr1{
@@ -151,6 +149,35 @@ link with personalpage.html
 }
 #taskview{
     margin-top: 20px;
-    height: 400px;
-    border:1px solid  #000;
+}
+
+#thismenu{
+    height:100px;
+    width:155px;
+}
+
+#thiscontent{
+    margin-top: 0px;
+    height: 200px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+}
+
+#thatmenu{
+    height:80px;
+    width:155px;
+    margin-top: 20px;
+}
+
+
+#thatcontent{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    height: 200px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+}
+
+#taskview button{
+    border: #fff;
 }
