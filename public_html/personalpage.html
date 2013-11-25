@@ -8,7 +8,7 @@ show all information of this user
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link type="text/css" rel="stylesheet" href="../mycss/perpagecss.css"/>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="../js/ajax.js"></script>
         <script src="../js/kickstart.js"></script> <!-- KICKSTART -->
         <link rel="stylesheet" href="../css/kickstart.css" media="all" /> <!-- KICKSTART -->
     </head>
@@ -49,31 +49,56 @@ show all information of this user
         <div id="right">
             <!-- Tabs Left -->
             <ul class="tabs left">
-            <li><a href="#tabr1">My Task</a></li>
-            <li><a href="#tabr2">Create Task</a></li>
-            <li><a href="#tabr3">Personal Information</a></li>
+                <li><a href="#tabr1"><i class="icon-tasks"></i> My Tasks</a></li>
+                <li><a href="#tabr2"><i class="icon-plus-sign"></i>Create Task</a></li>
+                <li><a href="#tabr3"><i class="icon-info-sign"></i>Personal Information</a></li>
             </ul>
 
             <div id="tabr1" class="tab-content">
-                <ul class="menu">
-                    <li class="current"><a href="">Item 1</a></li>
-                    <li><a href="">Item 2</a></li>
-                    <li><a href=""><i class="icon-inbox"></i> Item 3</a>
-               <ul>
-                    <li><a href=""><i class="icon-cog"></i> Sub Item</a></li>
-                    <li><a href=""><i class="icon-envelope-alt"></i> Sub Item</a>
-              	<ul>
-                    <li><a href=""><i class="icon-wrench"></i> Sub Item</a></li>
-                    <li><a href=""><i class="icon-camera-retro"></i> Sub Item</a></li>
-                    <li><a href=""><i class="icon-coffee"></i> Sub Item</a></li>
-                    <li><a href=""><i class="icon-twitter"></i> Sub Item</a></li>
-		</ul>
-                    </li>
-                    <li class="divider"><a href=""><i class="icon-trash"></i> li.divider</a></li>
-                </ul>
-                    </li>
-                    <li><a href="">Item 4</a></li>
-                </ul>
+                
+                <div id="taskstable">
+                    <h5>Tasks:</h5>
+                    <table   cellspacing="0" cellpadding="0">
+                    <thead><tr>
+                        <th>Name</th>
+                        <th>Create Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                        </tr></thead>
+                    <tbody><tr>
+                        <td>Item1</td>
+                        <td>Item2</td>
+                        <td>Item3</td>
+                        <td><a href=""><i class="icon-pencil tooltip" title="view and modify"></i></a>
+                            <a class="stopicon" href=""><i class="icon-stop tooltip" title="stop it"></i></a>
+                            <a class="starticon" href=""><i class="icon-play tooltip" title="start it"></i></a></td>
+                    </tr><tr>
+                        <td>Item1</td>
+                        <td>Item2</td>
+                        <td>Item3</td>
+                         <td><a href=""><i class="icon-pencil tooltip" title="view and modify"></i></a>
+                            <a class="stopicon" href=""><i class="icon-stop tooltip" title="stop it"></i></a>
+                            <a class="starticon" href=""><i class="icon-play tooltip" title="start it"></i></a></td>
+                    </tr><tr>
+                        <td>Item1</td>
+                        <td>Item2</td>
+                        <td>Item3</td>
+                        <td><a href=""><i class="icon-pencil tooltip" title="view and modify"></i></a>
+                            <a class="stopicon" href="#tabr2"><i class="icon-stop tooltip" title="stop it"></i></a>
+                            <a class="starticon" href=""><i class="icon-play tooltip" title="start it"></i></a></td>
+                    </tr><tr>
+                        <td>Item1</td>
+                        <td>Item2</td>
+                        <td>Item3</td>
+                        <td><a href=""><i class="icon-pencil tooltip" title="view and modify"></i></a>
+                            <a class="stopicon" href=""><i class="icon-stop tooltip" title="stop it"></i></a>
+                            <a class="starticon" href=""><i class="icon-play tooltip" title="start it"></i></a></td>
+                        </tr></tbody>
+                        </table> 
+                </div>
+                <div id="taskview">
+                    
+                </div>
             </div>
             <div id="tabr2" class="tab-content">Tab2</div>
             <div id="tabr3" class="tab-content">Tab3</div>

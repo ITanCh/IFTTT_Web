@@ -124,10 +124,33 @@ link with personalpage.html
     position: absolute;
     top:70px; 
     left: 500px; 
-    width: 600px;
-    height: 600px;
+    height: fit-content;
+    width: 700px;
     font-family:  Microsoft YaHei UI;
+    border:1px solid #000;
+
 }
 
 #tabr1{
+    padding: 0px;
+    border-color: #fff;
+}
+
+#taskstable{
+     margin-top: 20px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+}
+
+.stopicon{
+    color: #EF0251;
+}
+
+.starticon{
+    color: limegreen;
+}
+#taskview{
+    margin-top: 20px;
+    height: 400px;
+    border:1px solid  #000;
 }
