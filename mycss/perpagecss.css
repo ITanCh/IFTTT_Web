@@ -129,6 +129,7 @@ link with personalpage.html
     font-family:  Microsoft YaHei UI;
 }
 
+/*about view task*/
 #tabr1{
     padding: 0px;
     border-color: #fff;
@@ -151,9 +152,17 @@ link with personalpage.html
     margin-top: 20px;
 }
 
+.viewtaskbutton{
+    border: #fff;
+}
+
 #thismenu{
     height:100px;
     width:155px;
+}
+
+#thismenu fieldset{
+    margin-top: 0px;
 }
 
 #thiscontent{
@@ -169,6 +178,10 @@ link with personalpage.html
     margin-top: 20px;
 }
 
+#thatmenu fieldset{
+    margin-top: 0px;
+}
+
 
 #thatcontent{
     margin-top: 0px;
@@ -179,5 +192,52 @@ link with personalpage.html
 }
 
 #taskview button{
+    border: #fff;
+}
+
+/*about create task*/
+#tabr2{
+    border: #fff;
+}
+#createtaskview{
+    margin-top: 20px;
+}
+
+#createthismenu{
+    height:100px;
+    width:155px;
+}
+
+#createthismenu fieldset{
+    margin-top: 0px;
+}
+
+#createthiscontent{
+    margin-top: 0px;
+    height: 200px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+}
+
+#createthatmenu{
+    height:80px;
+    width:155px;
+    margin-top: 20px;
+}
+
+#createthatmenu fieldset{
+    margin-top: 0px;
+}
+
+
+#createthatcontent{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    height: 200px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+}
+
+#createtaskview button{
     border: #fff;
 }

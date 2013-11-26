@@ -8,7 +8,7 @@ show all information of this user
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width">
         <link type="text/css" rel="stylesheet" href="../mycss/perpagecss.css"/>
-        <script type="text/javascript" src="../js/ajax.js"></script>
+        <script type="text/javascript" src="../js/bxslider.js"></script>
         <script src="../js/kickstart.js"></script> <!-- KICKSTART -->
         <link rel="stylesheet" href="../css/kickstart.css" media="all" /> <!-- KICKSTART -->
     </head>
@@ -36,7 +36,7 @@ show all information of this user
         </div>
         
         <div id="left">
-            <img class="head" src="../img/slider1.jpg" width="245" height="245"/>
+            <img class="head" src="../img/slider3.jpg" alt="your head" width="245" height="245"/>
             <h5 class="user_name">UserName</h5> 
             <i class="icon-star tooltip level_icon" title="Your level"></i>
             <label class="level">35</label>  
@@ -124,45 +124,43 @@ show all information of this user
                     </div>
                     
                     <ul class="button-bar">
-                    <li><button><i class="icon-pencil"></i> Edit</button></li>
-                    <li><button><i class="icon-tag"></i> Ok</button></li>
-                    <li><button><i class="icon-upload-alt"></i> Delete</button></li>
+                    <li><button class="orange"><i class="icon-pencil"></i> Edit</button></li>
+                    <li><button class="green"><i class="icon-ok-sign"></i> Ok</button></li>
+                    <li><button class="red"><i class="icon-remove-sign"></i> Delete</button></li>
                     </ul>
                     <hr class="alt2" /> 
                 </div>
             </div>
+            
+            <!--create task-->
             <div id="tabr2" class="tab-content">
-                 <div id="taskview">
-                    <hr class="alt2" />             
-                    <div id="thismenu">
+                 <div id="createtaskview">
+                                 
+                    <div id="createthismenu">
                         <fieldset>
                         <legend>IF</legend>
-                        <input type="radio" name="this" id="thisradio1" /> <label for="thisradio1" class="inline">Option1</label><br />
-                        <input type="radio" name="this" id="thisradio2" /> <label for="thisradio2" class="inline">Option1</label><br />
-                        <input type="radio" name="this" id="thisradio3" /> <label for="thisradio3" class="inline">Option1</label>
+                        <input type="radio" name="this" id="createthisradio1" /> <label for="createthisradio1" class="inline">Option1</label><br />
+                        <input type="radio" name="this" id="createthisradio2" /> <label for="createthisradio2" class="inline">Option1</label><br />
+                        <input type="radio" name="this" id="createthisradio3" /> <label for="createthisradio3" class="inline">Option1</label>
                         </fieldset>
                     </div>
-                    <div id="thiscontent">
+                    <div id="createthiscontent">
                         
                     </div>
                     
-                    <div id="thatmenu">
+                    <div id="createthatmenu">
                         <fieldset>
                         <legend>THEN</legend>
-                            <input type="radio" name="that" id="thatradio1" /> <label for="thatradio1" class="inline">Option1</label><br />
-                            <input type="radio" name="that" id="thatradio2" /> <label for="thatradio2" class="inline">Option1</label><br />
-                            <input type="radio" name="that" id="thatradio3" /> <label for="thatradio3" class="inline">Option1</label>
+                            <input type="radio" name="that" id="createthatradio1" /> <label for="createthatradio1" class="inline">Option1</label><br />
+                            <input type="radio" name="that" id="createthatradio2" /> <label for="createthatradio2" class="inline">Option1</label><br />
+                            <input type="radio" name="that" id="createthatradio3" /> <label for="createthatradio3" class="inline">Option1</label>
                         </fieldset>
                     </div>
-                    <div id="thatcontent">
+                    <div id="createthatcontent">
                         
                     </div>
-                    
-                    <ul class="button-bar">
-                    <li><button><i class="icon-pencil"></i> Edit</button></li>
-                    <li><button><i class="icon-tag"></i> Ok</button></li>
-                    <li><button><i class="icon-upload-alt"></i> Delete</button></li>
-                    </ul>
+                    <button class="green"><i class="icon-ok-sign"></i> Ok</button>
+
                     <hr class="alt2" /> 
                 </div>
             </div>
