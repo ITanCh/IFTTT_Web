@@ -34,10 +34,11 @@ build/
  
 #netbeans specific
 core
-nbproject/*
+nbproject/
 !nbproject/project.properties
 !nbproject/project.xml
- 
+build.xml
+
 #java specific
 *.class
  
@@ -49,3 +50,6 @@ nbproject/*
 *.swp
 *.DS_Store
 *.lock
+
+#docs
+lib_docs/
