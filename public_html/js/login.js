@@ -50,7 +50,6 @@ function pwvalid(){
 var request;
 function login(){
     if(namevalid()&&pwvalid()){
-        alter("!!");
         var nameObj=document.getElementsByName("name");
         var name=nameObj[0].value;
         var pwObj=document.getElementsByName("pw");
@@ -70,12 +69,13 @@ function login(){
        
 }
 
-function createback(){
+function loginback(){
         if(request.readyState===4){  
                 if(request.status===200){  
                     var flag=request.responseText;
                     if(flag==="success"){
                         //go to personal page
+                        location.href="personalpage.html";
                     }
                    else{
                        var info="<div class='notice error'><i class='icon-remove-sign '>\n\

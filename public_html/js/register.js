@@ -33,7 +33,7 @@ function namevalid(){
         requset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if(request!==null){  
-        var url = "register?name="+name;        //OB servlet name
+        var url = "getreg?name="+name;        //OB servlet name
         request.open("GET",url,true);
         request.onreadystatechange=nameback;
         request.send(null);
@@ -99,7 +99,7 @@ function mailvalid(){
         requset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if(request!==null){  
-        var url = "register?mail="+mail;        //OB servlet name
+        var url = "getreg?mail="+mail;        //OB servlet name
         request.open("GET",url,true);
         request.onreadystatechange=mailback;
         request.send(null);
@@ -210,6 +210,7 @@ function createback(){
                     var flag=request.responseText;
                     if(flag==="success"){
                         //go to personal page
+                        location.href="personalpage.html";
                     }
                    else{
                        var info="<div class='notice error'><i class='icon-remove-sign '>\n\
