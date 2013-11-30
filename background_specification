@@ -1,63 +1,63 @@
 后台（带方框的是后期可以考虑添加的）：
-back/register.jsp
+servelet: register
 	request: <form>用户名、密码、确认密码、[验证码]</form>
 	response:成功/失败
 	
-back/login.jsp
+servelet: login
 	request：<form>用户名、密码、[验证码]</form>
 	response：成功、SetCookies/失败
 	
 /* Task  相关*/
-back/gettasks.jsp（可前台直接调用方法）
+servelet: gettasks（可前台直接调用方法）
 	request：[页码]、Cookies
 	response：任务总数（若使用页码则不需要），每一个任务的信息
 	
-back/addtask.jsp（可用表单方式提交）
+servelet: addtask（可用表单方式提交）
 	request：要新建的任务信息、Cookies
 	response:成功/失败
 	
-back/edittask.jsp（可用表单方式提交）
+servelet: edittask（可用表单方式提交）
 	request：任务ID、修改后的任务信息、Cookies
 	response:成功/失败
 	
-back/deltask.jsp（可用表单方式提交）
+servelet: deltask（可用表单方式提交）
 	request：任务ID、Cookies
 	response：成功/失败
 	
 /* RunningTask  相关*/	
-back/getrunningtasks.jsp（可前台直接调用方法）
+servelet: getrunningtasks（可前台直接调用方法）
 	request：[页码]、Cookies
 	response：正在运行的任务总数（若使用页码则不需要），每一个任务的信息
 	
-back/starttask.jsp（可用表单方式提交）
+servelet: starttask（可用表单方式提交）
 	request：要开始的任务ID、Cookies
 	response:成功/失败
 	
-back/pausetask.jsp（可用表单方式提交）
+servelet: pausetask（可用表单方式提交）
 	request：要暂停的任务ID、Cookies
 	response:成功/失败
 	
-back/stoptask.jsp（可用表单方式提交）
+servelet: stoptask（可用表单方式提交）
 	request：要停止的任务ID、Cookies
 	response：成功/失败
 	
 /* 短消息  相关*/
-back/sendpm.jsp
+servelet: sendpm
 	request：目标用户ID(可改成用户名)、Cookies
 	response:成功/失败
 	
-back/getpm.jsp
+servelet: getpm
 	request：[页码]、Cookies
 	response：短消息总数（若使用页码则不需要），每一个短消息的内容
 
 /* 微博授权  相关*/
-[back/getcode.jsp]（若自动登录授权的功能不可用）
-	授权登陆之后自动跳转到诸如 http://Domain/back/getcode.jsp?code=XXXXXXX的页面，因为有Cookies，所以能根据Cookies对应用户、时间存储起来。
+[servelet: getcode]（若自动登录授权的功能不可用）
+	授权登陆之后自动跳转到诸如 http://Domain/servelet: getcode?code=XXXXXXX的页面，因为有Cookies，所以能根据Cookies对应用户、时间存储起来。
 
-[back/getaccesstoken.jsp]（若自动登录授权的功能不可用）
+[servelet: getaccesstoken]（若自动登录授权的功能不可用）
 	request：Cookies
 	response：最近一次该用户获取的AccessToken
-	前台在打开一个授权登陆的页面之后，向getaccesstoken.jsp发送请求，直到获取AccessToken。而getaccesstoken.jsp直到查询到一个时间接近的该用户accesstoken再返回值。
+	前台在打开一个授权登陆的页面之后，向getaccesstoken发送请求，直到获取AccessToken。而getaccesstoken直到查询到一个时间接近的该用户accesstoken再返回值。
 
 	
 /*任务类开始*/
@@ -116,7 +116,7 @@ TaskLog 任务运行的日志
 /*正在运行类结束*/	
 
 
-back/gettasks.jsp（可前台直接调用方法）
+servelet: gettasks（可前台直接调用方法）
 若直接在前台用JAVA调用方法，则可用ob.Taskmanager.getTasks(),返回一个ArrayList<Task>。
-back/getrunningtasks.jsp（可前台直接调用方法）
+servelet: getrunningtasks（可前台直接调用方法）
 若直接在前台用JAVA调用方法，则可用ob.Taskmanager.getRunningTasks(),返回一个ArrayList<RunningTask>。
