@@ -33,7 +33,7 @@ function namevalid(){
         requset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if(request!==null){  
-        var url = "OBservlet?registername="+name;        //OB servlet name
+        var url = "register?name="+name;        //OB servlet name
         request.open("GET",url,true);
         request.onreadystatechange=nameback;
         request.send(null);
@@ -44,10 +44,11 @@ function namevalid(){
         if(request.readyState===4){  
             if(request.status===200){  
                     var flag=request.responseText;
-                    if(flag==="true"){                      //use "true" or "false"
+                    if(flag==="nameavailble"){                      //a good name 
                         var info="<div class='notice success'><i class='icon-ok'></i>\n\
                                 A good name<a href='#close' class='icon-remove'></a></div>";  
                         document.getElementById("nameinfo").innerHTML=info;
+                        return true;
                     }
                     else{
                         var info="<div class='notice error'><i class='icon-remove-sign'>\n\
@@ -55,17 +56,18 @@ function namevalid(){
                         document.getElementById("nameinfo").innerHTML=info;
                     }  
             }
-             else{
+             else if(flag==="nameused"){                        //name is used 
                 var info="<div class='notice error'><i class='icon-remove-sign'>\n\
-                          </i>Sorry, a server exception<a href='#close' class='icon-remove'></a></div>";
+                          </i>name has been used<a href='#close' class='icon-remove'></a></div>";
                 document.getElementById("nameinfo").innerHTML=info;
-            }  
+            }
         }
        else{
             var info="<div class='notice error'><i class='icon-remove-sign'>\n\
                 </i>Sorry, a server exception<a href='#close' class='icon-remove'></a></div>";
             document.getElementById("nameinfo").innerHTML=info;
-       }  
+       }
+       return false;
     }   
 
 
@@ -83,7 +85,7 @@ function mailvalid(){
         return false;
     }
     
-    var reg=/^[0-9a-z][a-z0-9\._-]{1,}@[a-z0-9-]{1,}[a-z0-9]\.[a-z\.]{1,}[a-z]$/;               //mail address
+    var reg=/^[a-z0-9][a-z0-9\._-]*@[a-z0-9][a-z0-9-]*\.([a-z0-9][a-z0-9-]*\.)*[a-z]+$/;               //mail address
     if(!reg.test(mail)){
          var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Mail address is not valid <a href='#close' class='icon-remove'></a></div>";
@@ -97,7 +99,7 @@ function mailvalid(){
         requset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if(request!==null){  
-        var url = "OBservlet?registermail="+mail;        //OB servlet name
+        var url = "register?mail="+mail;        //OB servlet name
         request.open("GET",url,true);
         request.onreadystatechange=mailback;
         request.send(null);
@@ -108,14 +110,15 @@ function mailvalid(){
         if(request.readyState===4){  
             if(request.status===200){  
                     var flag=request.responseText;
-                    if(flag==="true"){                      //use "true" or "false"
+                    if(flag==="mailavailble"){                      //good mail
                         var info="<div class='notice success'><i class='icon-ok'></i>\n\
                                 A good mail<a href='#close' class='icon-remove'></a></div>";  
                         document.getElementById("mailinfo").innerHTML=info;
+                        return true;
                     }
-                    else{
+                    else if(flag==="mailused"){
                         var info="<div class='notice error'><i class='icon-remove-sign'>\n\
-                                   </i>Please change the mail address<a href='#close' class='icon-remove'></a></div>";
+                                   </i>this mail address has been used<a href='#close' class='icon-remove'></a></div>";
                         document.getElementById("mailinfo").innerHTML=info;
                     }  
             }  
@@ -130,6 +133,7 @@ function mailvalid(){
                      </i>Sorry, a server exception<a href='#close' class='icon-remove'></a></div>";
             document.getElementById("mailinfo").innerHTML=info;
         } 
+        return false;
     }  
     
 /*
@@ -157,6 +161,7 @@ function pw1valid(){
    var info="<div class='notice success'><i class='icon-ok'></i>\n\
                                 OK<a href='#close' class='icon-remove'></a></div>";  
    document.getElementById("pw1info").innerHTML=info;  
+   return true;
 }
 
 function pw2valid(){
@@ -173,6 +178,55 @@ function pw2valid(){
     var info="<div class='notice error'><i class='icon-remove-sign '>\n\
               </i>The two passwords differ<a href='#close' class='icon-remove'></a></div>";
     document.getElementById("pw2info").innerHTML=info;
+    return false;
  
 }
+
+function create(){
+    if(mailvalid()&&namevalid()&&pw1valid()&&pw2valid()){
+        var nameObj=document.getElementsByName("username");
+        var name=nameObj[0].value;
+        var mailObj=document.getElementsByName("usermail");
+        var mail=mailObj[0].value;
+        var pw1Obj=document.getElementsByName("pw1");
+        var pw1=pw1Obj[0].value;
+        var url = "register?mail="+mail+"&name="+name+"&pw="+pw1;        //OB servlet 
+        if(window.XMLHttpRequest) {  
+            request = new XMLHttpRequest();  //IE7, Firefox, Opera 
+        }else if(window.ActiveXObject) {  
+            requset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+        }
+        if(request!==null){  
+            request.open("GET",url,true);
+            request.onreadystatechange=createback;
+            request.send(null);
+        }
+    }
+}
+
+function createback(){
+        if(request.readyState===4){  
+                if(request.status===200){  
+                    var flag=request.responseText;
+                    if(flag==="success"){
+                        //go to personal page
+                    }
+                   else{
+                       var info="<div class='notice error'><i class='icon-remove-sign '>\n\
+                        </i>Failed to create a user<a href='#close' class='icon-remove'></a></div>";
+                       document.getElementById("pw2info").innerHTML=info;  
+                   }
+                }else{
+                         var info="<div class='notice error'><i class='icon-remove-sign '>\n\
+                            </i>Failed to create a user<a href='#close' class='icon-remove'></a></div>";
+                        document.getElementById("pw2info").innerHTML=info;  
+                }
+        }else{
+            var info="<div class='notice error'><i class='icon-remove-sign '>\n\
+                        </i>Failed to create a user<a href='#close' class='icon-remove'></a></div>";
+            document.getElementById("pw2info").innerHTML=info;  
+        }
+            
+}
+    
       

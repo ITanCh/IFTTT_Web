@@ -5,6 +5,7 @@
 		<link type="text/css" rel="stylesheet" href="mycss/stylesheet.css"/>
                 <script type="text/javascript" src="js/bxslider.js"></script>
 		<script type="text/javascript" src="js/kickstart.js"></script>    <!-- KICKSTART -->
+                <script type="text/javascript" src="js/login.js"></script>
 		<link rel="stylesheet" href="css/kickstart.css" media="all" /> <!-- KICKSTART -->
 		<title>IFTTT</title>
 	</head>
@@ -41,13 +42,12 @@
             <div id="header">
                 <div id="signin">
 		<!--Sign In-->
-                    <input id="text2" type="text" placeholder="Username" />
+                    <input id="text2" name="name" type="text" placeholder="Username" onblur="namevalid()"/>
+                    <br> 
+                    <input id="text2" name="pw" type="password" placeholder="Password" onblur="pwvalid()"/>
                     <br>
-                    <br>
-                    <input id="text2" type="password" placeholder="Password" />
-                    <br>
-                    <br>
-                    <button class="green"><i class="icon-ok"></i>Let's Go!</button>
+                    <span id="logininfo"></span>
+                    <button class="green" id="loginbutton" onclick="login()"><i class="icon-ok"></i>Let's Go!</button>
                 </div>
                 <div id="mybiglabel">
                     <h1>Put</h1>
