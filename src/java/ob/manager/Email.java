@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 
-package oubeichen;
+package ob.manager;
 
 /**
- * 数据库配置
+ * 暂时不用，留着以后扩展Email的设置
  * @author oubeichen
  */
-public class Dbconfig {
-	static final String DBINFO = "jdbc:mysql://localhost:3306/ifttt";
-	static final String DBUSERNAME = "ifttt";
-	static final String DBPASSWD = "ifttt";
+public class Email {
+    
 }

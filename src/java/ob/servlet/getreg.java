@@ -3,21 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package oubeichen;
+package ob.servlet;
 
+import ob.util.Log;
+import PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Iterator;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ob.dao.LoginRegisterDao;
 
 /**
  *
@@ -39,43 +37,41 @@ public class getreg extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String outinfo = null,reqstr;
-        try {
-            //初始化数据库
-            Class.forName("com.mysql.jdbc.Driver");	
-            Connection conn = DriverManager.getConnection(Dbconfig.DBINFO,Dbconfig.DBUSERNAME,Dbconfig.DBUSERNAME);
-            PreparedStatement pstmt;
-            ResultSet rs;
-            //判断用户名
-            if ((reqstr = request.getParameter("registername")) != null) {
-                pstmt = conn.prepareStatement("SELECT * FROM user WHERE username = ?");
-                pstmt.setString(1, reqstr);
-                rs = pstmt.executeQuery();
-                if(rs.next()){        //如果数据库执行没有问题则设置输出
-                    outinfo = "false";
+        LoginRegisterDao dao = new LoginRegisterDao();
+        List list;
+        Iterator it;
+        //判断用户名
+        if ((reqstr = request.getParameter("registername")) != null) {
+            list = dao.queryInfo("username", reqstr);
+            if (list != null) {//数据库出错会返回空list
+                it = list.iterator();
+                while (it.hasNext()) {
+                    if (((UserInfoPO) it.next()).getUsername().equals(reqstr)) {
+                        outinfo = "nameused";
+                    }
                 }
-                else{
-                    outinfo = "true";
-                }
-            } //判断邮箱
-            else if ((reqstr = request.getParameter("registermail")) != null) {
-                pstmt = conn.prepareStatement("SELECT * FROM user WHERE mail = ?");
-                pstmt.setString(1, reqstr);
-                rs = pstmt.executeQuery();
-                if(rs.next()){        //如果数据库执行没有问题则设置输出
-                    outinfo = "false";
-                }
-                else{
-                    outinfo = "true";
-                }
+                if(outinfo == null)//没有数据库故障，也没有查到相同用户名
+                    outinfo = "nameavailble";
+            } else {
+                outinfo = Log.DBERROR;
             }
-        } catch (SQLException ex) {
-            outinfo = "Database Error";
-            Logger.getLogger(getreg.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            outinfo = "Database Error";
-            Logger.getLogger(getreg.class.getName()).log(Level.SEVERE, null, ex);
+        } //判断邮箱
+        else if ((reqstr = request.getParameter("registermail")) != null) {
+            list = dao.queryInfo("mail", reqstr);
+            if (list != null) {//数据库出错会返回空list
+                it = list.iterator();
+                while (it.hasNext()) {
+                    if (((UserInfoPO) it.next()).getMail().equals(reqstr)) {
+                        outinfo = "mailused";
+                    }
+                }
+                if(outinfo == null)//没有数据库故障，也没有查到相同用户名
+                    outinfo = "mailavailble";
+            } else {
+                outinfo = Log.DBERROR;
+            }
         }
-        
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
