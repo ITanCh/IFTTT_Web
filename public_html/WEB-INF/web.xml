@@ -16,6 +16,10 @@
         <servlet-name>getlogin</servlet-name>
         <servlet-class>ob.servlet.getlogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getuserinfo</servlet-name>
+        <servlet-class>ob.servlet.getuserinfo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getreg</servlet-name>
         <url-pattern>/getreg</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>getlogin</servlet-name>
         <url-pattern>/getlogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getuserinfo</servlet-name>
+        <url-pattern>/getuserinfo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

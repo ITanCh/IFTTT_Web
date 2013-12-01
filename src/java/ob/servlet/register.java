@@ -156,7 +156,7 @@ public class register extends HttpServlet {
     private String password;
     private String mail;
     private String outinfo;
-    LoginRegisterDao dao = new LoginRegisterDao();
+    private final LoginRegisterDao dao = new LoginRegisterDao();
 
     public UserInfoPO userinfo() {
         UserInfoPO info = new UserInfoPO();
