@@ -5,6 +5,10 @@
  */
 
 var request;
+var nametrue=false;
+var mailtrue=false;
+var pw1true=false;
+var pw2true=false;
 /*
  * user name
  */
@@ -16,6 +20,7 @@ function namevalid(){
         var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Name cannot be empty<a href='#close' class='icon-remove'></a></div>";
         document.getElementById("nameinfo").innerHTML=info;
+        nametrue=false;
         return false;
     }
     
@@ -24,6 +29,7 @@ function namevalid(){
          var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Name must consist of 'a-z'or'A-Z'or' _'<a href='#close' class='icon-remove'></a></div>";
         document.getElementById("nameinfo").innerHTML=info;
+        nametrue=false;
         return false;
     }
     
@@ -48,6 +54,7 @@ function namevalid(){
                         var info="<div class='notice success'><i class='icon-ok'></i>\n\
                                 A good name<a href='#close' class='icon-remove'></a></div>";  
                         document.getElementById("nameinfo").innerHTML=info;
+                        nametrue=true;
                         return true;
                     }
                     else{
@@ -67,6 +74,7 @@ function namevalid(){
                 </i>Sorry, a server exception<a href='#close' class='icon-remove'></a></div>";
             document.getElementById("nameinfo").innerHTML=info;
        }
+       nametrue=false;
        return false;
     }   
 
@@ -82,6 +90,7 @@ function mailvalid(){
         var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Mail address cannot be empty<a href='#close' class='icon-remove'></a></div>";
         document.getElementById("mailinfo").innerHTML=info;
+        mailtrue=false;
         return false;
     }
     
@@ -90,6 +99,7 @@ function mailvalid(){
          var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Mail address is not valid <a href='#close' class='icon-remove'></a></div>";
         document.getElementById("mailinfo").innerHTML=info;
+        mailtrue=false;
         return false;
     }
     
@@ -114,6 +124,7 @@ function mailvalid(){
                         var info="<div class='notice success'><i class='icon-ok'></i>\n\
                                 A good mail<a href='#close' class='icon-remove'></a></div>";  
                         document.getElementById("mailinfo").innerHTML=info;
+                        mailtrue=true;
                         return true;
                     }
                     else if(flag==="mailused"){
@@ -133,6 +144,7 @@ function mailvalid(){
                      </i>Sorry, a server exception<a href='#close' class='icon-remove'></a></div>";
             document.getElementById("mailinfo").innerHTML=info;
         } 
+        mailtrue=false;
         return false;
     }  
     
@@ -147,6 +159,7 @@ function pw1valid(){
         var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Password cannot be empty<a href='#close' class='icon-remove'></a></div>";
         document.getElementById("pw1info").innerHTML=info;
+        pw1=false;
         return false;
     }
     
@@ -155,12 +168,14 @@ function pw1valid(){
          var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Password must consist of 'a-z'or'A-Z'(length>=6) <a href='#close' class='icon-remove'></a></div>";
         document.getElementById("pw1info").innerHTML=info;
+        pw1=false;
         return false;
     }
     
    var info="<div class='notice success'><i class='icon-ok'></i>\n\
                                 OK<a href='#close' class='icon-remove'></a></div>";  
    document.getElementById("pw1info").innerHTML=info;  
+   pw1=false;
    return true;
 }
 
@@ -172,18 +187,20 @@ function pw2valid(){
     if(pw1===pw2){                                      //if pw are different
         var info="<div class='notice success'><i class='icon-ok'></i>\n\
                   OK<a href='#close' class='icon-remove'></a></div>";  
-        document.getElementById("pw2info").innerHTML=info;  
+        document.getElementById("pw2info").innerHTML=info; 
+        pw2=true;
         return true;
     }
     var info="<div class='notice error'><i class='icon-remove-sign '>\n\
               </i>The two passwords differ<a href='#close' class='icon-remove'></a></div>";
     document.getElementById("pw2info").innerHTML=info;
+    pw2=false;
     return false;
  
 }
 
 function create(){
-    if(mailvalid()&&namevalid()&&pw1valid()&&pw2valid()){
+    if(mailtrue&&nametrue&&pw1true&&pw2true){
         var nameObj=document.getElementsByName("username");
         var name=nameObj[0].value;
         var mailObj=document.getElementsByName("usermail");
