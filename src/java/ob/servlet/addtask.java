@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ob.dao.TaskDao;
 import ob.dao.UserDao;
-import ob.util.Log;
+import ob.config.LogText;
 
 /**
  *
@@ -46,10 +46,10 @@ public class addtask extends HttpServlet {
                     if (po.getUsername().equals(loginedUserName)) {//找到了对应用户
                         if (getdata(request) && validate())//获取数据并且验证输入合法
                         {
-                            if (taskdao.saveinfo(task()).equals("success")) {//新建Task
+                            if (taskdao.savetask(task()).equals("success")) {//新建Task
                                 outinfo = "success";
                             } else {
-                                outinfo = Log.ADDTASKERROR;
+                                outinfo = LogText.ADDTASKERROR;
                             }
                         }
                     }
@@ -115,6 +115,7 @@ public class addtask extends HttpServlet {
      */
     public boolean getdata(HttpServletRequest request) {
         uid = po.getUid();
+        tid = request.getParameter("tid");
         taskname = request.getParameter("taskname");
         try {
             thistype = Integer.parseInt(request.getParameter("thistype"));
@@ -168,6 +169,8 @@ public class addtask extends HttpServlet {
     private UserInfoPO po;
 
     //用于处理Task的临时变量
+    private String del;//如果是删除任务，则需要用到tid
+    private String tid;//如果是编辑、删除任务，则需要用到tid
     private int uid;//代表所属的用户
     private String taskname;
     //getter和setter设置的东西太多，所以干脆用public，请原谅

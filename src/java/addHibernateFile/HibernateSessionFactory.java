@@ -16,22 +16,21 @@ import org.hibernate.cfg.Configuration;
  * @author oubeichen
  */
 public class HibernateSessionFactory {
-    private SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
+    private static Configuration configuration = new Configuration();
     public HibernateSessionFactory(){
         
     }
-    public SessionFactory config(){
+    static{
         try{
-            Configuration configuration = new Configuration();
             Configuration configure = configuration.configure("hibernate.cfg.xml");
-            return configure.buildSessionFactory();
+            sessionFactory = configure.buildSessionFactory();
         }catch(HibernateException e){
             e.getMessage();
-            return null;
         }
     }
-    public Session getSession(){
-        sessionFactory=config();
+    
+    public static Session getSession(){
         return sessionFactory.openSession();
     }
 }

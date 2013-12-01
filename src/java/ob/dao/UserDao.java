@@ -22,7 +22,6 @@ public class UserDao {
     private Session session;
     private Transaction transaction;
     private Query query;
-    HibernateSessionFactory getSession;
 
     public UserDao() {
 
@@ -30,8 +29,7 @@ public class UserDao {
 
     public String saveinfo(UserInfoPO info) {
         String log = "error";
-        getSession = new HibernateSessionFactory();
-        session = getSession.getSession();
+        session = HibernateSessionFactory.getSession();
         try {
             transaction = session.beginTransaction();
             session.save(info);
@@ -45,8 +43,7 @@ public class UserDao {
     }
 
     public List queryInfo(String type, Object value) {
-        getSession = new HibernateSessionFactory();
-        session = getSession.getSession();
+        session = HibernateSessionFactory.getSession();
         try {
             String stmt = "";
             if (type.equals("username")) {
@@ -63,6 +60,20 @@ public class UserDao {
         } catch (HibernateException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public boolean updateInfo(UserInfoPO info){
+        try{
+            session = HibernateSessionFactory.getSession();
+            transaction = session.beginTransaction();
+            session.update(info);
+            transaction.commit();
+            session.close();
+            return true;
+        }catch(HibernateException e){
+            e.printStackTrace();
+            return false;
         }
     }
 }

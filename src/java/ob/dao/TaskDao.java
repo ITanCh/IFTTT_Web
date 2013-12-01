@@ -19,19 +19,17 @@ import org.hibernate.Transaction;
  * @author oubeichen
  */
 public class TaskDao {
-        private Session session;
+    private Session session;
     private Transaction transaction;
     private Query query;
-    HibernateSessionFactory getSession;
 
     public TaskDao() {
 
     }
 
-    public String saveinfo(TaskPO task) {
+    public String savetask(TaskPO task) {
         String log = "error";
-        getSession = new HibernateSessionFactory();
-        session = getSession.getSession();
+        session = HibernateSessionFactory.getSession();
         try {
             transaction = session.beginTransaction();
             session.save(task);
@@ -44,9 +42,8 @@ public class TaskDao {
         return log;
     }
 
-    public List queryInfo(String type, Object value) {
-        getSession = new HibernateSessionFactory();
-        session = getSession.getSession();
+    public List queryTask(String type, Object value) {
+        session = HibernateSessionFactory.getSession();
         try {
             String stmt = "";
             if (type.equals("uid")) {
@@ -63,6 +60,20 @@ public class TaskDao {
         } catch (HibernateException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public boolean updateTask(TaskPO task){
+        try{
+            session = HibernateSessionFactory.getSession();
+            transaction = session.beginTransaction();
+            session.update(task);
+            transaction.commit();
+            session.close();
+            return true;
+        }catch(HibernateException e){
+            e.printStackTrace();
+            return false;
         }
     }
 }

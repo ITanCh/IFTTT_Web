@@ -5,7 +5,7 @@
  */
 package ob.servlet;
 
-import ob.util.Log;
+import ob.config.LogText;
 import PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -64,7 +64,7 @@ public class register extends HttpServlet {
                 outinfo = "success";
                 request.getSession().setAttribute("username", username);
             } else {
-                outinfo = Log.REGERROR;
+                outinfo = LogText.REGERROR;
             }
         }
         processRequest(request, response);
@@ -110,7 +110,7 @@ public class register extends HttpServlet {
             //判断数据库是否有该username
             list = dao.queryInfo("username", username);
             if (list == null) {
-                outinfo = Log.DBERROR;
+                outinfo = LogText.DBERROR;
                 return false;
             }
             it = list.iterator();
@@ -136,7 +136,7 @@ public class register extends HttpServlet {
             //判断数据库是否有该email
             list = dao.queryInfo("mail", mail);
             if (list == null) {
-                outinfo = Log.DBERROR;
+                outinfo = LogText.DBERROR;
                 return false;
             }
             it = list.iterator();

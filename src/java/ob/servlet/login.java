@@ -6,7 +6,7 @@
 
 package ob.servlet;
 
-import ob.util.Log;
+import ob.config.LogText;
 import PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -79,7 +79,7 @@ public class login extends HttpServlet {
                     outinfo = "Wrong username or password";
                 }
             }else{
-                outinfo = Log.DBERROR;
+                outinfo = LogText.DBERROR;
             }
         }
         processRequest(request, response);

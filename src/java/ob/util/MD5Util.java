@@ -1,12 +1,18 @@
 package ob.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import ob.config.Config;
 
+/**
+ * MD5单向加密修改版，用于加密用户密码
+ * from http://my.oschina.net/xiaomaoandhong/blog/74572
+ * @author Security
+ * @modifier oubeichen
+ */
 public class MD5Util {
 	public final static String MD5(String pwd) {
 		//用于加密的字符
-		char md5String[] = {'9' ,'5' ,'2', 'E', 'F' ,'1', '6', 'C', '8', '0',
-				'B', 'A', '7', 'D', '3', '4' };//自定义乱序版MD5，提高破解难度
+		char md5String[] = Config.md5String;//使用配置中弄好的md5
 		try {
 			//使用平台的默认字符集将此 String 编码为 byte序列，并将结果存储到一个新的 byte数组中
 			byte[] btInput = pwd.getBytes();

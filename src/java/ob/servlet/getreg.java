@@ -5,7 +5,7 @@
  */
 package ob.servlet;
 
-import ob.util.Log;
+import ob.config.LogText;
 import PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -53,7 +53,7 @@ public class getreg extends HttpServlet {
                 if(outinfo == null)//没有数据库故障，也没有查到相同用户名
                     outinfo = "nameavailble";
             } else {
-                outinfo = Log.DBERROR;
+                outinfo = LogText.DBERROR;
             }
         } //判断邮箱
         else if ((reqstr = request.getParameter("mail")) != null) {
@@ -68,7 +68,7 @@ public class getreg extends HttpServlet {
                 if(outinfo == null)//没有数据库故障，也没有查到相同用户名
                     outinfo = "mailavailble";
             } else {
-                outinfo = Log.DBERROR;
+                outinfo = LogText.DBERROR;
             }
         }
 
