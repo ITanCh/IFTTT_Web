@@ -6,10 +6,13 @@
 
 package PO;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 /**
- *
+ * 存储用户信息
  * @author oubeichen
  */
+@JsonFilter("userFilter")
 public class UserInfoPO {
     private int uid;
     private String username;

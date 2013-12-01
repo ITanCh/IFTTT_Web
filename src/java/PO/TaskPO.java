@@ -6,25 +6,28 @@
 
 package PO;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+
 /**
  * 存储任务基本数据
  * @author oubeichen
  */
+@JsonFilter("taskFilter")
 public class TaskPO extends Thread implements Cloneable{
     private String TID;//唯一的标识符，用于识别
     private String TaskName;
     //getter和setter设置的东西太多，所以干脆用public，请原谅
     private int ThisType;
-    
+    //新浪API限制了不能访问其他用户的微博，所以只能登陆后访问自己的微博了
     private String ThisStr1;//type == 0 date//type == 1 email//type == 2 weiboid
-    private String ThisStr2;//type == 0 time//type == 1 emailpass
+    private String ThisStr2;//type == 0 time//type == 1 emailpass//type ==2 weibopass
     
     private int ThatType;
     
-    private String ThatUsername;//type==0 weiboname//type==1 email
-    private String ThatPassword;//type==0 weiboname//type==1 email
-    private boolean UseThisEmail;//以下均为Type == 1是否使用在This中配置的Email
-    private String ThatDstEmail;
+    private String ThatUsername;//type==0 weiboname//type==1 src email
+    private String ThatPassword;//type==0 weiboname//type==1 src email
+    private boolean UseThis;//type ==0是否使用在This中配置的weibo //type ==1是否使用在This中配置的Email
+    private String ThatDstEmail;//以下均为Type == 1
     private String ThatEmailTitle;
     private String ThatEmailText;
     
@@ -153,15 +156,15 @@ public class TaskPO extends Thread implements Cloneable{
     /**
      * @return the UseThisEmail
      */
-    public boolean isUseThisEmail() {
-        return UseThisEmail;
+    public boolean isUseThis() {
+        return UseThis;
     }
 
     /**
      * @param UseThisEmail the UseThisEmail to set
      */
-    public void setUseThisEmail(boolean UseThisEmail) {
-        this.UseThisEmail = UseThisEmail;
+    public void setUseThis(boolean UseThisEmail) {
+        this.UseThis = UseThisEmail;
     }
 
     /**

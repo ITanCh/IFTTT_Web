@@ -8,6 +8,9 @@ package ob.servlet;
 
 import PO.UserInfoPO;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.FilterProvider;
+import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
+import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;
@@ -65,9 +68,9 @@ public class getuserinfo extends HttpServlet {
                 while(it.hasNext()){
                     po = (UserInfoPO)it.next();
                     if(po.getUsername().equals(loginedUserName)){
-                        PrintWriter out = response.getWriter();
-                        mapper.writeValue(out, po);
-                        return;//直接返回不进行processRequest
+                        FilterProvider filters = new SimpleFilterProvider().addFilter("userFilter",
+                                SimpleBeanPropertyFilter.serializeAllExcept("password"));//不显示password
+                        outinfo = mapper.writer(filters).writeValueAsString(po);//输出JSON
                     }
                 }
             }
@@ -98,7 +101,7 @@ public class getuserinfo extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    private ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
+    private final ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
     private String outinfo = null;
     private final LoginRegisterDao dao = new LoginRegisterDao();
     private UserInfoPO po = null;
