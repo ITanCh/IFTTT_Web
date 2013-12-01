@@ -79,7 +79,7 @@ ThatType That的类型0为发邮件，1为发微博
 	UseThisEmail（若ThisType = 1且UseThisEmail = true，则ThatSrcEmail直接使用收邮件的邮箱，也就是ThisEmail）
 	ThatDstEmail That所需要发送的目标邮箱地址
 	ThatEmailTitle 发送邮件标题
-	ThatEmailText 发送邮件内容
+	ThatText 发送邮件/微博内容
 若ThatType = 1
 	ThatWeiboUserName 微博登录用户名（若基于HTMLParser的自动登录授权的功能仍可用）
 	ThatWeiboPassWord 微博登陆密码（若基于HTMLParser的自动登录授权的功能仍可用）（只能添加修改，不能获取）
