@@ -14,4 +14,5 @@ public class Log {
     public static final String DBERROR = "Database Error";
     public static final String REGERROR = "Reg Error";
     public static final String LOGINERROR = "Login Error";
+    public static final String ADDTASKERROR = "Add Task Error";
 }

@@ -8,5 +8,6 @@
     <property name="hibernate.connection.username">ifttt</property>
     <property name="hibernate.connection.password">ifttt</property>
     <mapping resource="UserInfoPO.hbm.xml"/>
+    <mapping resource="TaskPO.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

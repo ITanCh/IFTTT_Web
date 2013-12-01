@@ -20,6 +20,10 @@
         <servlet-name>getuserinfo</servlet-name>
         <servlet-class>ob.servlet.getuserinfo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addtask</servlet-name>
+        <servlet-class>ob.servlet.addtask</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getreg</servlet-name>
         <url-pattern>/getreg</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>getuserinfo</servlet-name>
         <url-pattern>/getuserinfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addtask</servlet-name>
+        <url-pattern>/addtask</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

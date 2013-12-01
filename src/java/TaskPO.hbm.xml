@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="PO.TaskPO" table="task">
+        <id name="tid" type="string">
+            <column name="tid"/>
+            <generator class="uuid"/>
+        </id>
+        <property name="uid" type="integer">
+            <column name="uid" not-null="true"/>
+        </property>
+        <property name="taskname" type="string">
+            <column name="taskname" length="50" not-null="true"/>
+        </property>
+        <property name="thistype" type="integer">
+            <column name="thistype" not-null="true"/>
+        </property>
+        <property name="thattype" type="integer">
+            <column name="thattype" not-null="true"/>
+        </property>
+        <property name="thisstr1" type="string">
+            <column name="thisstr1" length="50" not-null="true"/>
+        </property>
+        <property name="thisstr2" type="string">
+            <column name="thisstr2" length="30" not-null="true"/>
+        </property>
+        <property name="thatusername" type="string">
+            <column name="thatusername" length="50" not-null="true"/>
+        </property>
+        <property name="thatpassword" type="string">
+            <column name="thatpassword" length="30" not-null="true"/>
+        </property>
+        <property name="usethis" type="boolean">
+            <column name="usethis" not-null="false"/>
+        </property>
+        <property name="thatdstemail" type="string">
+            <column name="thatdstemail" length="50" not-null="false"/>
+        </property>
+        <property name="thatemailtitle" type="string">
+            <column name="thatemailtitle" length="50" not-null="false"/>
+        </property>
+        <property name="thatemailtext" type="text">
+            <column name="thatemailtext" not-null="false"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -17,14 +17,14 @@ import org.hibernate.Transaction;
  *
  * @author oubeichen
  */
-public class LoginRegisterDao {
+public class UserDao {
 
     private Session session;
     private Transaction transaction;
     private Query query;
     HibernateSessionFactory getSession;
 
-    public LoginRegisterDao() {
+    public UserDao() {
 
     }
 

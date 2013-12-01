@@ -16,7 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ob.dao.LoginRegisterDao;
+import ob.dao.UserDao;
 import ob.util.MD5Util;
 
 /**
@@ -61,7 +61,7 @@ public class login extends HttpServlet {
         username = request.getParameter("name");
         password = request.getParameter("pw");
         if(validate()){
-            LoginRegisterDao dao = new LoginRegisterDao();
+            UserDao dao = new UserDao();
             List list = dao.queryInfo("username", username);
             if(list != null){//数据库查询没有出错
                 Iterator it = list.iterator();

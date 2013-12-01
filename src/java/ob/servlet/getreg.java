@@ -15,7 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ob.dao.LoginRegisterDao;
+import ob.dao.UserDao;
 
 /**
  *
@@ -37,7 +37,7 @@ public class getreg extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String outinfo = null,reqstr;
-        LoginRegisterDao dao = new LoginRegisterDao();
+        UserDao dao = new UserDao();
         List list;
         Iterator it;
         //判断用户名

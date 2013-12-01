@@ -14,22 +14,23 @@ import com.fasterxml.jackson.annotation.JsonFilter;
  */
 @JsonFilter("taskFilter")
 public class TaskPO extends Thread implements Cloneable{
-    private String TID;//唯一的标识符，用于识别
-    private String TaskName;
+    private String tid;//唯一的标识符，用于识别
+    private int uid;//代表所属的用户
+    private String taskname;
     //getter和setter设置的东西太多，所以干脆用public，请原谅
-    private int ThisType;
+    private int thistype;
     //新浪API限制了不能访问其他用户的微博，所以只能登陆后访问自己的微博了
-    private String ThisStr1;//type == 0 date//type == 1 email//type == 2 weiboid
-    private String ThisStr2;//type == 0 time//type == 1 emailpass//type ==2 weibopass
+    private String thisstr1;//type == 0 date//type == 1 email//type == 2 weiboid
+    private String thisstr2;//type == 0 time//type == 1 emailpass//type ==2 weibopass
     
-    private int ThatType;
+    private int thattype;
     
-    private String ThatUsername;//type==0 weiboname//type==1 src email
-    private String ThatPassword;//type==0 weiboname//type==1 src email
-    private boolean UseThis;//type ==0是否使用在This中配置的weibo //type ==1是否使用在This中配置的Email
-    private String ThatDstEmail;//以下均为Type == 1
-    private String ThatEmailTitle;
-    private String ThatEmailText;
+    private String thatusername;//type==0 weiboname//type==1 src email
+    private String thatpassword;//type==0 weiboname//type==1 src email
+    private boolean usethis;//type ==0是否使用在This中配置的weibo //type ==1是否使用在This中配置的Email
+    private String thatdstemail;//以下均为Type == 1
+    private String thatemailtitle;
+    private String thatemailtext;
     
     public TaskPO(){
         
@@ -42,170 +43,185 @@ public class TaskPO extends Thread implements Cloneable{
     }
 
     /**
-     * @return the TID
+     * @return the tid
      */
-    public String getTID() {
-        return TID;
+    public String getTid() {
+        return tid;
     }
 
     /**
-     * @param TID the TID to set
+     * @param tid the tid to set
      */
-    public void setTID(String TID) {
-        this.TID = TID;
+    public void setTid(String tid) {
+        this.tid = tid;
     }
 
     /**
-     * @return the TaskName
+     * @return the uid
      */
-    public String getTaskName() {
-        return TaskName;
+    public int getUid() {
+        return uid;
     }
 
     /**
-     * @param TaskName the TaskName to set
+     * @param uid the uid to set
      */
-    public void setTaskName(String TaskName) {
-        this.TaskName = TaskName;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     /**
-     * @return the ThisType
+     * @return the taskname
      */
-    public int getThisType() {
-        return ThisType;
+    public String getTaskname() {
+        return taskname;
     }
 
     /**
-     * @param ThisType the ThisType to set
+     * @param taskname the taskname to set
      */
-    public void setThisType(int ThisType) {
-        this.ThisType = ThisType;
+    public void setTaskname(String taskname) {
+        this.taskname = taskname;
     }
 
     /**
-     * @return the ThisStr1
+     * @return the thistype
      */
-    public String getThisStr1() {
-        return ThisStr1;
+    public int getThistype() {
+        return thistype;
     }
 
     /**
-     * @param ThisStr1 the ThisStr1 to set
+     * @param thistype the thistype to set
      */
-    public void setThisStr1(String ThisStr1) {
-        this.ThisStr1 = ThisStr1;
+    public void setThistype(int thistype) {
+        this.thistype = thistype;
     }
 
     /**
-     * @return the ThisStr2
+     * @return the thisstr1
      */
-    public String getThisStr2() {
-        return ThisStr2;
+    public String getThisstr1() {
+        return thisstr1;
     }
 
     /**
-     * @param ThisStr2 the ThisStr2 to set
+     * @param thisstr1 the thisstr1 to set
      */
-    public void setThisStr2(String ThisStr2) {
-        this.ThisStr2 = ThisStr2;
+    public void setThisstr1(String thisstr1) {
+        this.thisstr1 = thisstr1;
     }
 
     /**
-     * @return the ThatType
+     * @return the thisstr2
      */
-    public int getThatType() {
-        return ThatType;
+    public String getThisstr2() {
+        return thisstr2;
     }
 
     /**
-     * @param ThatType the ThatType to set
+     * @param thisstr2 the thisstr2 to set
      */
-    public void setThatType(int ThatType) {
-        this.ThatType = ThatType;
+    public void setThisstr2(String thisstr2) {
+        this.thisstr2 = thisstr2;
     }
 
     /**
-     * @return the ThatUsername
+     * @return the thattype
      */
-    public String getThatUsername() {
-        return ThatUsername;
+    public int getThattype() {
+        return thattype;
     }
 
     /**
-     * @param ThatUsername the ThatUsername to set
+     * @param thattype the thattype to set
      */
-    public void setThatUsername(String ThatUsername) {
-        this.ThatUsername = ThatUsername;
+    public void setThattype(int thattype) {
+        this.thattype = thattype;
     }
 
     /**
-     * @return the ThatPassword
+     * @return the thatusername
      */
-    public String getThatPassword() {
-        return ThatPassword;
+    public String getThatusername() {
+        return thatusername;
     }
 
     /**
-     * @param ThatPassword the ThatPassword to set
+     * @param thatusername the thatusername to set
      */
-    public void setThatPassword(String ThatPassword) {
-        this.ThatPassword = ThatPassword;
+    public void setThatusername(String thatusername) {
+        this.thatusername = thatusername;
     }
 
     /**
-     * @return the UseThisEmail
+     * @return the thatpassword
      */
-    public boolean isUseThis() {
-        return UseThis;
+    public String getThatpassword() {
+        return thatpassword;
     }
 
     /**
-     * @param UseThisEmail the UseThisEmail to set
+     * @param thatpassword the thatpassword to set
      */
-    public void setUseThis(boolean UseThisEmail) {
-        this.UseThis = UseThisEmail;
+    public void setThatpassword(String thatpassword) {
+        this.thatpassword = thatpassword;
     }
 
     /**
-     * @return the ThatDstEmail
+     * @return the usethis
      */
-    public String getThatDstEmail() {
-        return ThatDstEmail;
+    public boolean isUsethis() {
+        return usethis;
     }
 
     /**
-     * @param ThatDstEmail the ThatDstEmail to set
+     * @param usethis the usethis to set
      */
-    public void setThatDstEmail(String ThatDstEmail) {
-        this.ThatDstEmail = ThatDstEmail;
+    public void setUsethis(boolean usethis) {
+        this.usethis = usethis;
     }
 
     /**
-     * @return the ThatEmailTitle
+     * @return the thatdstemail
      */
-    public String getThatEmailTitle() {
-        return ThatEmailTitle;
+    public String getThatdstemail() {
+        return thatdstemail;
     }
 
     /**
-     * @param ThatEmailTitle the ThatEmailTitle to set
+     * @param thatdstemail the thatdstemail to set
      */
-    public void setThatEmailTitle(String ThatEmailTitle) {
-        this.ThatEmailTitle = ThatEmailTitle;
+    public void setThatdstemail(String thatdstemail) {
+        this.thatdstemail = thatdstemail;
     }
 
     /**
-     * @return the ThatEmailText
+     * @return the thatemailtitle
      */
-    public String getThatEmailText() {
-        return ThatEmailText;
+    public String getThatemailtitle() {
+        return thatemailtitle;
     }
 
     /**
-     * @param ThatEmailText the ThatEmailText to set
+     * @param thatemailtitle the thatemailtitle to set
      */
-    public void setThatEmailText(String ThatEmailText) {
-        this.ThatEmailText = ThatEmailText;
+    public void setThatemailtitle(String thatemailtitle) {
+        this.thatemailtitle = thatemailtitle;
     }
+
+    /**
+     * @return the thatemailtext
+     */
+    public String getThatemailtext() {
+        return thatemailtext;
+    }
+
+    /**
+     * @param thatemailtext the thatemailtext to set
+     */
+    public void setThatemailtext(String thatemailtext) {
+        this.thatemailtext = thatemailtext;
+    }
+
 }

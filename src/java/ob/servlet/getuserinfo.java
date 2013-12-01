@@ -19,7 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ob.dao.LoginRegisterDao;
+import ob.dao.UserDao;
 
 /**
  *
@@ -103,6 +103,6 @@ public class getuserinfo extends HttpServlet {
     }// </editor-fold>
     private final ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
     private String outinfo = null;
-    private final LoginRegisterDao dao = new LoginRegisterDao();
+    private final UserDao dao = new UserDao();
     private UserInfoPO po = null;
 }

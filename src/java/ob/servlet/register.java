@@ -15,7 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ob.dao.LoginRegisterDao;
+import ob.dao.UserDao;
 import ob.util.MD5Util;
 
 /**
@@ -156,7 +156,7 @@ public class register extends HttpServlet {
     private String password;
     private String mail;
     private String outinfo;
-    private final LoginRegisterDao dao = new LoginRegisterDao();
+    private final UserDao dao = new UserDao();
 
     public UserInfoPO userinfo() {
         UserInfoPO info = new UserInfoPO();
