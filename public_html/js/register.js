@@ -57,25 +57,23 @@ function namevalid(){
                         nametrue=true;
                         return true;
                     }
-                    else{
-                        var info="<div class='notice error'><i class='icon-remove-sign'>\n\
-                                   </i>Please change the name<a href='#close' class='icon-remove'></a></div>";
-                        document.getElementById("nameinfo").innerHTML=info;
-                    }  
+                    else if(flag==="nameused"){                        //name is used
+                            var info="<div class='notice error'><i class='icon-remove-sign'>\n\
+                            </i>name has been used<a href='#close' class='icon-remove'></a></div>";
+                            document.getElementById("nameinfo").innerHTML=info;
+                            nametrue=false;
+                            return false;
+                    }
             }
-             else if(flag==="nameused"){                        //name is used 
-                var info="<div class='notice error'><i class='icon-remove-sign'>\n\
-                          </i>name has been used<a href='#close' class='icon-remove'></a></div>";
-                document.getElementById("nameinfo").innerHTML=info;
-            }
+               else{
+                      var info="<div class='notice error'><i class='icon-remove-sign'>\n\
+                                 </i>Network errors<a href='#close' class='icon-remove'></a></div>";
+                      document.getElementById("nameinfo").innerHTML=info;
+                      nametrue=false;
+                      return false;
+                   }  
         }
-       else{
-            var info="<div class='notice error'><i class='icon-remove-sign'>\n\
-                </i>Sorry, a server exception<a href='#close' class='icon-remove'></a></div>";
-            document.getElementById("nameinfo").innerHTML=info;
-       }
-       nametrue=false;
-       return false;
+     
     }   
 
 
@@ -131,21 +129,18 @@ function mailvalid(){
                         var info="<div class='notice error'><i class='icon-remove-sign'>\n\
                                    </i>this mail address has been used<a href='#close' class='icon-remove'></a></div>";
                         document.getElementById("mailinfo").innerHTML=info;
+                        mailtrue=false;
+                        return false;
                     }  
             }  
             else{
                 var info="<div class='notice error'><i class='icon-remove-sign'>\n\
-                          </i>Sorry, a server exception<a href='#close' class='icon-remove'></a></div>";
+                          </i>Network errors<a href='#close' class='icon-remove'></a></div>";
                 document.getElementById("mailinfo").innerHTML=info;
+                mailtrue=false;
+                return false;
             }  
         }
-        else{
-            var info="<div class='notice error'><i class='icon-remove-sign'>\n\
-                     </i>Sorry, a server exception<a href='#close' class='icon-remove'></a></div>";
-            document.getElementById("mailinfo").innerHTML=info;
-        } 
-        mailtrue=false;
-        return false;
     }  
     
 /*
@@ -229,22 +224,17 @@ function createback(){
                         //go to personal page
                         location.href="personalpage.html";
                     }
-                   else{
+                    else{
                        var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                         </i>Failed to create a user<a href='#close' class='icon-remove'></a></div>";
                        document.getElementById("pw2info").innerHTML=info;  
                    }
                 }else{
                          var info="<div class='notice error'><i class='icon-remove-sign '>\n\
-                            </i>Failed to create a user<a href='#close' class='icon-remove'></a></div>";
+                            </i>Network error<a href='#close' class='icon-remove'></a></div>";
                         document.getElementById("pw2info").innerHTML=info;  
                 }
-        }else{
-            var info="<div class='notice error'><i class='icon-remove-sign '>\n\
-                        </i>Failed to create a user<a href='#close' class='icon-remove'></a></div>";
-            document.getElementById("pw2info").innerHTML=info;  
         }
-            
 }
     
       

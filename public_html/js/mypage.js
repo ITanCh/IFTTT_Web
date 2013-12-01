@@ -22,9 +22,9 @@ function checkback(){
         if(request.status===200){  
             var flag=request.responseText;
             if(flag==="true")return;
-        }
-    }
-    location.href="index.html";
+        }            
+       location.href="index.html";        //this uer dosen't log in ,so he cannot get into this page
+    }  
 }
 
 
