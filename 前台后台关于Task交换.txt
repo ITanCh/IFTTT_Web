@@ -24,6 +24,7 @@
 	如果thistype == 0则给thisstr2 否则不给（因为都是密码）
 	thattype thatusername usethis thattext 
 	如果thattype == 1给:thatdstemail thatemailtitle 否则不给 
+	isrunning（代表是否正在运行）
 
 前台发后台 
 2.增加任务 taskmanage：
