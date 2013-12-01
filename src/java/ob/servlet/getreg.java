@@ -41,7 +41,7 @@ public class getreg extends HttpServlet {
         List list;
         Iterator it;
         //判断用户名
-        if ((reqstr = request.getParameter("registername")) != null) {
+        if ((reqstr = request.getParameter("name")) != null) {
             list = dao.queryInfo("username", reqstr);
             if (list != null) {//数据库出错会返回空list
                 it = list.iterator();
@@ -56,7 +56,7 @@ public class getreg extends HttpServlet {
                 outinfo = Log.DBERROR;
             }
         } //判断邮箱
-        else if ((reqstr = request.getParameter("registermail")) != null) {
+        else if ((reqstr = request.getParameter("mail")) != null) {
             list = dao.queryInfo("mail", reqstr);
             if (list != null) {//数据库出错会返回空list
                 it = list.iterator();
