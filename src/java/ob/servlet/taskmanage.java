@@ -18,12 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import ob.dao.TaskDao;
 import ob.dao.UserDao;
 import ob.config.LogText;
+import ob.util.AESUtil;
 
 /**
  *
  * @author oubeichen
  */
-public class addtask extends HttpServlet {
+public class taskmanage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -115,6 +116,7 @@ public class addtask extends HttpServlet {
      */
     public boolean getdata(HttpServletRequest request) {
         uid = po.getUid();
+        del = request.getParameter("del");
         tid = request.getParameter("tid");
         taskname = request.getParameter("taskname");
         try {
@@ -145,23 +147,27 @@ public class addtask extends HttpServlet {
         return true;
     }
 
-     public TaskPO task() {
+    public TaskPO task() {
         TaskPO taskpo = new TaskPO();
         taskpo.setUid(uid);
         taskpo.setTaskname(taskname);
         taskpo.setThistype(thistype);
         taskpo.setThattype(thattype);
         taskpo.setThisstr1(thisstr1);
-        taskpo.setThisstr2(thisstr2);
+        if (thistype == 1 || thistype == 2) {
+            taskpo.setThisstr2(AESUtil.Encrytor(thisstr2));
+        } else {
+            taskpo.setThisstr2(thisstr2);
+        }
         taskpo.setThatusername(thatusername);
-        taskpo.setThatpassword(thatpassword);
+        taskpo.setThatpassword(AESUtil.Encrytor(thatpassword));
         taskpo.setUsethis(usethis);
         taskpo.setThatdstemail(thatdstemail);
         taskpo.setThatemailtitle(thatemailtitle);
         taskpo.setThatemailtext(thatemailtext);
         return taskpo;
     }
-    
+
     private String outinfo;
     private final UserDao userdao = new UserDao();
     private final TaskDao taskdao = new TaskDao();

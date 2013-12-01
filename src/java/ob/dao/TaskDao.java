@@ -62,7 +62,20 @@ public class TaskDao {
             return null;
         }
     }
-    
+    public boolean deleteTask(String id){
+        try{
+            session = HibernateSessionFactory.getSession();
+            transaction = session.beginTransaction();
+            TaskPO task = (TaskPO)session.get(TaskPO.class, id);
+            session.delete(task);
+            transaction.commit();
+            session.close();
+            return true;
+        }catch(HibernateException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
     public boolean updateTask(TaskPO task){
         try{
             session = HibernateSessionFactory.getSession();
