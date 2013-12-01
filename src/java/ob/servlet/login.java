@@ -71,7 +71,7 @@ public class login extends HttpServlet {
                         if(MD5Util.MD5(password).equals(po.getPassword())){
                             outinfo = "success";
                             request.getSession().setAttribute("username", username);
-                            request.getSession().setAttribute("userid",po.getUid());
+                            //request.getSession().setAttribute("userid",po.getUid());
                         }
                     }
                 }
