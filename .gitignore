@@ -51,5 +51,6 @@ build.xml
 *.DS_Store
 *.lock
 
-#docs
+#lib and docs
+lib/
 lib_docs/
