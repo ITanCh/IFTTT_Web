@@ -62,6 +62,7 @@ public class register extends HttpServlet {
         if (validate()) {
             if (dao.saveinfo(userinfo()).equals("success")) {
                 outinfo = "success";
+                request.getSession().setAttribute("username", username);
             } else {
                 outinfo = Log.REGERROR;
             }

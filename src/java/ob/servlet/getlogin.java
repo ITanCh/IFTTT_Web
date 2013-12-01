@@ -32,9 +32,9 @@ public class getlogin extends HttpServlet {
             throws ServletException, IOException {
         String loginedUserName = (String)request.getSession().getAttribute("username");
         if(loginedUserName == null || loginedUserName.equals("") ){
-            outinfo = "false";
-        }else{
             outinfo = "true";
+        }else{
+            outinfo = "false";
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
