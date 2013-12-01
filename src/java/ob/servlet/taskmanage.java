@@ -134,7 +134,7 @@ public class taskmanage extends HttpServlet {
         usethis = temp != null && temp.equals("true");
         thatdstemail = request.getParameter("thatdstemail");
         thatemailtitle = request.getParameter("thatemailtitle");
-        thatemailtext = request.getParameter("thatemailtext");
+        thattext = request.getParameter("thattext");
         return true;
     }
 
@@ -164,7 +164,7 @@ public class taskmanage extends HttpServlet {
         taskpo.setUsethis(usethis);
         taskpo.setThatdstemail(thatdstemail);
         taskpo.setThatemailtitle(thatemailtitle);
-        taskpo.setThatemailtext(thatemailtext);
+        taskpo.setThattext(thattext);
         return taskpo;
     }
 
@@ -192,5 +192,5 @@ public class taskmanage extends HttpServlet {
     private boolean usethis;//type ==0是否使用在This中配置的weibo //type ==1是否使用在This中配置的Email
     private String thatdstemail;//以下均为Type == 1
     private String thatemailtitle;
-    private String thatemailtext;
+    private String thattext;
 }

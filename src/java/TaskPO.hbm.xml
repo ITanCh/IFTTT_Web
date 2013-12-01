@@ -39,8 +39,8 @@
         <property name="thatemailtitle" type="string">
             <column name="thatemailtitle" length="50" not-null="false"/>
         </property>
-        <property name="thatemailtext" type="text">
-            <column name="thatemailtext" not-null="false"/>
+        <property name="thattext" type="text">
+            <column name="thattext" not-null="false"/>
         </property>
     </class>
 </hibernate-mapping>

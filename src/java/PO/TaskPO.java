@@ -17,7 +17,7 @@ public class TaskPO extends Thread implements Cloneable{
     private String tid;//唯一的标识符，用于识别
     private int uid;//代表所属的用户
     private String taskname;
-    //getter和setter设置的东西太多，所以干脆用public，请原谅
+    
     private int thistype;
     //新浪API限制了不能访问其他用户的微博，所以只能登陆后访问自己的微博了
     private String thisstr1;//type == 0 date//type == 1 email//type == 2 weiboid
@@ -28,9 +28,9 @@ public class TaskPO extends Thread implements Cloneable{
     private String thatusername;//type==0 weiboname//type==1 src email
     private String thatpassword;//type==0 weiboname//type==1 src email
     private boolean usethis;//type ==0是否使用在This中配置的weibo //type ==1是否使用在This中配置的Email
-    private String thatdstemail;//以下均为Type == 1
+    private String thatdstemail;//以下均为Type == 1时需要填写
     private String thatemailtitle;
-    private String thatemailtext;
+    private String thattext;
     
     public TaskPO(){
         
@@ -211,17 +211,17 @@ public class TaskPO extends Thread implements Cloneable{
     }
 
     /**
-     * @return the thatemailtext
+     * @return the thattext
      */
-    public String getThatemailtext() {
-        return thatemailtext;
+    public String getThattext() {
+        return thattext;
     }
 
     /**
-     * @param thatemailtext the thatemailtext to set
+     * @param thattext the thattext to set
      */
-    public void setThatemailtext(String thatemailtext) {
-        this.thatemailtext = thatemailtext;
+    public void setThattext(String thattext) {
+        this.thattext = thattext;
     }
 
 }
