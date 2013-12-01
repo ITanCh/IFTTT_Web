@@ -1,0 +1,43 @@
+﻿    private String tid;//唯一的标识符，用于识别
+    private int uid;//代表所属的用户
+    private String taskname;
+    
+    private int thistype;
+    //新浪API限制了不能访问其他用户的微博，所以只能登陆后访问自己的微博了
+    private String thisstr1;//type == 0 date//type == 1 email//type == 2 weiboid
+    private String thisstr2;//type == 0 time//type == 1 emailpass//type ==2 weibopass
+    
+    private int thattype;
+    
+    private String thatusername;//type==0 weiboname//type==1 src email
+    private String thatpassword;//type==0 weiboname//type==1 src email
+    private boolean usethis;//type ==0是否使用在This中配置的weibo //type ==1是否使用在This中配置的Email
+	private String thattext;//type ==0微博发送内容//type==1 邮件发送内容
+    private String thatdstemail;//以下均为Type == 1的情况
+    private String thatemailtitle;
+
+
+后台给前台  
+1.查看任务 gettaskinfo：
+	tid taskname 
+	thistype thisstr1
+	如果thistype == 0则给thisstr2 否则不给（因为都是密码）
+	thattype thatusername usethis thattext 
+	如果thattype == 1给:thatdstemail thatemailtitle 否则不给 
+
+前台发后台 
+2.增加任务 taskmanage：
+	taskname
+	thistype thisstr1 thisstr2
+	thattype thatusername thatpassword usethis thattext
+	如果thattype == 1(发邮件)给:thatdstemail thatemailtitle 否则不给
+
+3.修改任务 同样是taskmanage：
+	tid(给后台来判断要修改哪个任务) taskname
+	thistype thisstr1 thisstr2(如果是密码type!=0，为空字符串代表不修改)
+	thattype thatusername thatpassword(为空字符串代表不修改)
+	usethis thattext 
+	如果thattype == 1(发邮件)给:thatdstemail thatemailtitle 否则不给
+
+4.删除任务 同样是taskmanage：
+	新字段del = true（或其他什么的） tid(给后台来判断要删除哪个任务)
