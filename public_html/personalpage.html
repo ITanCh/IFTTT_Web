@@ -13,7 +13,7 @@ show all information of this user
         <script type="text/javascript" src="js/mypage.js"></script>
         <link rel="stylesheet" href="css/kickstart.css" media="all" /> <!-- KICKSTART -->
     </head>
-    <body onload="checklogin()">
+    <body>
         
         <div id="top">
             <div id="logo">
@@ -30,7 +30,7 @@ show all information of this user
             </div>   
             
             <div id="top_right">
-                <i class="icon-user"> username</i>
+                <i class="icon-user" id="username"></i>
                 <a href=""><i class="icon-cog tooltip setting" title="Account settings"></i></a>
                 <a href=""><i class="icon-signout tooltip signout" title="Sign out"></i></a>
             </div>   
@@ -38,19 +38,19 @@ show all information of this user
         
         <div id="left">
             <img class="head" src="img/slider3.jpg" alt="your head" width="245" height="245"/>
-            <h5 class="user_name">UserName</h5> 
+            <h5 class="user_name" id="bigusername">UserName</h5> 
             <i class="icon-star tooltip level_icon" title="Your level"></i>
             <label class="level">35</label>  
             <i class="icon-money tooltip money_icon" title="Balance of account"></i>
-            <label class="money">100</label>
+            <label id="money" class="money">100</label>
             <i class="icon-envelope-alt tooltip mail_icon" title="Mail address"></i>
-            <label class="mail">liutianchi@gmail.com</label>
+            <label id="mail" class="mail">liutianchi@gmail.com</label>
         </div>
         
         <div id="right">
             <!-- Tabs Left -->
             <ul class="tabs left">
-                <li><a href="#tabr1"><i class="icon-tasks"></i> My Tasks</a></li>
+                <li><a href="#tabr1" onclick="createtable()"><i class="icon-tasks"></i> My Tasks</a></li>
                 <li><a href="#tabr2"><i class="icon-plus-sign"></i>Create Task</a></li>
                 <li><a href="#tabr3"><i class="icon-info-sign"></i>Personal Information</a></li>
             </ul>
@@ -66,14 +66,17 @@ show all information of this user
                         <th>Status</th>
                         <th>Actions</th>
                         </tr></thead>
-                    <tbody><tr>
+                    <tbody id="tablebody">
+                        <tr> 
                         <td>Item1</td>
                         <td>Item2</td>
                         <td>Item3</td>
                         <td><a href=""><i class="icon-pencil tooltip" title="view and modify"></i></a>
-                            <a class="stopicon" href=""><i class="icon-stop tooltip" title="stop it"></i></a>
+                            <a class="stopicon" ><i class="icon-stop tooltip" title="stop it"></i></a>
                             <a class="starticon" href=""><i class="icon-play tooltip" title="start it"></i></a></td>
-                    </tr><tr>
+                        </tr>
+                        
+                        <tr>
                         <td>Item1</td>
                         <td>Item2</td>
                         <td>Item3</td>
