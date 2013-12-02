@@ -22,7 +22,7 @@ show all information of this user
                
             <div id="title">
 		<ul>
-		<li><a href="">Home</a></li>
+		<li><a href="index.html">Home</a></li>
 		<li><a href="">Blog</a></li>
 		<li><a href="">About</a></li>
                 <li><a href="">Help</a></li>
@@ -30,7 +30,7 @@ show all information of this user
             </div>   
             
             <div id="top_right">
-                <i class="icon-user" id="username"></i>
+                <i class="icon-user" id="username">username</i>
                 <a href=""><i class="icon-cog tooltip setting" title="Account settings"></i></a>
                 <a href=""><i class="icon-signout tooltip signout" title="Sign out"></i></a>
             </div>   
@@ -106,9 +106,9 @@ show all information of this user
                     <div id="thismenu">
                         <fieldset>
                         <legend>IF</legend>
-                        <input type="radio" name="this" id="thisradio1" /> <label for="thisradio1" class="inline">Option1</label><br />
-                        <input type="radio" name="this" id="thisradio2" /> <label for="thisradio2" class="inline">Option1</label><br />
-                        <input type="radio" name="this" id="thisradio3" /> <label for="thisradio3" class="inline">Option1</label>
+                        <input type="radio" name="this" id="thisradio1"  onclick="this"/> <label for="thisradio1" class="inline">Time Out</label><br />
+                        <input type="radio" name="this" id="thisradio2" /> <label for="thisradio2" class="inline">Receive Mail</label><br />
+                        <input type="radio" name="this" id="thisradio3" /> <label for="thisradio3" class="inline">Monitor Weibo</label>
                         </fieldset>
                     </div>
                     <div id="thiscontent">
@@ -118,9 +118,8 @@ show all information of this user
                     <div id="thatmenu">
                         <fieldset>
                         <legend>THEN</legend>
-                            <input type="radio" name="that" id="thatradio1" /> <label for="thatradio1" class="inline">Option1</label><br />
-                            <input type="radio" name="that" id="thatradio2" /> <label for="thatradio2" class="inline">Option1</label><br />
-                            <input type="radio" name="that" id="thatradio3" /> <label for="thatradio3" class="inline">Option1</label>
+                            <input type="radio" name="that" id="thatradio1" /> <label for="thatradio1" class="inline">Send Weibo</label><br />
+                            <input type="radio" name="that" id="thatradio2" /> <label for="thatradio2" class="inline">Send Mail</label>
                         </fieldset>
                     </div>
                     <div id="thatcontent">
@@ -139,38 +138,38 @@ show all information of this user
             <!--create task-->
             <div id="tabr2" class="tab-content">
                  <div id="createtaskview">
-                                 
+                    <label for="ctaskname">Task Name:</label>
+                    <input id="ctaskname" type="text" />  
+                    <hr class="alt2" />           
                     <div id="createthismenu">
                         <fieldset>
                         <legend>IF</legend>
-                        <input type="radio" name="this" id="createthisradio1" /> <label for="createthisradio1" class="inline">Option1</label><br />
-                        <input type="radio" name="this" id="createthisradio2" /> <label for="createthisradio2" class="inline">Option1</label><br />
-                        <input type="radio" name="this" id="createthisradio3" /> <label for="createthisradio3" class="inline">Option1</label>
+                        <input type="radio" name="cthis" id="createthisradio1" onclick="choosethis(this.id)"/> <label for="createthisradio1" class="inline">Time Out</label><br />
+                        <input type="radio" name="cthis" id="createthisradio2" onclick="choosethis(this.id)"/> <label for="createthisradio2" class="inline">Receive Mail</label><br />
+                        <input type="radio" name="cthis" id="createthisradio3" onclick="choosethis(this.id)"/> <label for="createthisradio3" class="inline">Monitor Weibo</label>
                         </fieldset>
                     </div>
                     <div id="createthiscontent">
-                        
                     </div>
-                    
+                     
                     <div id="createthatmenu">
                         <fieldset>
                         <legend>THEN</legend>
-                            <input type="radio" name="that" id="createthatradio1" /> <label for="createthatradio1" class="inline">Option1</label><br />
-                            <input type="radio" name="that" id="createthatradio2" /> <label for="createthatradio2" class="inline">Option1</label><br />
-                            <input type="radio" name="that" id="createthatradio3" /> <label for="createthatradio3" class="inline">Option1</label>
+                            <input type="radio" name="cthat" id="createthatradio1" onclick="choosethat(this.id)"/> <label for="createthatradio1" class="inline">Send Weibo</label><br />
+                            <input type="radio" name="cthat" id="createthatradio2" onclick="choosethat(this.id)"/> <label for="createthatradio2" class="inline">Send Mail</label>
                         </fieldset>
                     </div>
-                    <div id="createthatcontent">
-                        
+                    <div id="createthatcontent">   
                     </div>
-                    <button class="green"><i class="icon-ok-sign"></i> Ok</button>
+                    <button class="green" onclick="createtask()"><i class="icon-ok-sign"></i> Ok</button>
+                    <span id="createback">
+                        <div class="notice success"><i class="icon-ok icon-large"></i> This is a Success Notice <a href="#close" class="icon-remove"></a></div></span>
 
                     <hr class="alt2" /> 
                 </div>
             </div>
             <div id="tabr3" class="tab-content">Tab3</div>
         </div>
-             
         
     </body>
 </html>

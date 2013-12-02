@@ -158,7 +158,7 @@ link with personalpage.html
 
 #thismenu{
     height:100px;
-    width:155px;
+    width:170px;
 }
 
 #thismenu fieldset{
@@ -205,7 +205,7 @@ link with personalpage.html
 
 #createthismenu{
     height:100px;
-    width:155px;
+    width:170px;
 }
 
 #createthismenu fieldset{
@@ -217,6 +217,8 @@ link with personalpage.html
     height: 200px;
     border:1px solid #ccc;
     border-radius: 5px;
+    padding-top:50px;
+    padding-left: 30px;
 }
 
 #createthatmenu{
@@ -236,8 +238,16 @@ link with personalpage.html
     height: 200px;
     border:1px solid #ccc;
     border-radius: 5px;
+    padding-top:20px;
+    padding-left: 30px;
+    padding-right: 200px;
 }
 
-#createtaskview button{
-    border: #fff;
+#createthatcontent input{
+    float: left;
+}
+
+#createthatcontent textArea{
+    float: right;
+    height:150px;
 }
