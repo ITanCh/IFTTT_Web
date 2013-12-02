@@ -19,26 +19,140 @@
 
 后台给前台  
 1.查看任务 gettaskinfo：
-	tid taskname 
-	thistype thisstr1
-	如果thistype == 0则给thisstr2 否则不给（因为都是密码）
-	thattype thatusername usethis thattext 
-	如果thattype == 1给:thatdstemail thatemailtitle 否则不给 
-	isrunning（代表是否正在运行）
-
+	
+	总格式：
+	{"task":
+	[{task1},
+	{task2}
+	]}
+	
+	task格式：
+	{
+	 "ctime":"2013-02-03 12:00"//创建任务时间
+	 "isrunning":"false"//是否正在运行
+	 "tid":"1234abcd"//任务id，用这个确定数据库中唯一一个任务，并不是全数字
+	 "taskname":"任务一"//可能是中文要注意
+	 
+	 "thistype":"1"//thistype == 0 定时//thistype == 1 收新邮件//thistype == 2 检测微博
+	 "thisstr1":"2013-02-03"//thistype == 0 日期//type == 1 邮箱账号//thistype == 2 微博账号
+	 
+	 if(thistype == 0){
+		"thisstr2":"13:10"//thistype == 0 代表小时分钟，如果thistype != 0 则不给。
+	 }
+	 
+	 "thattype":"1"//thattype == 0 发微博//thattype == 1 发邮件
+	 
+	 if(((thattype == 0 && thistype == 2)||(thattype == 1 && thistype == 1))){
+		"usethis":"true"//代表发邮件 or 微博用的账号密码和收邮件 or 微博用的账号密码一致
+		if(usethis == "false"){
+			"thatusername":"oubeichen"//发送微博 or 邮件的账号
+		}
+	 }else{
+		"thatusername":"oubeichen"//发送微博 or 邮件的账号
+	 }
+	 
+	 if(thattype == 1){
+	 "thatdstemail":"diamondwave@qq.com" //接收邮件的邮箱
+	 "thatemailtitle":"这是测试邮件的标题"//邮件标题
+	 }
+	 
+	 "thattext":"这是一个测试"//发微博 or 邮件的内容
+	}
+	
+	同其他任务区别：多了isrunning，ctime，tid。少了两个可能是密码的字段thisstr2，thatpassword
+	后台发前台是把所有任务都发了过去，是数组。
+	
+	
 前台发后台 
 2.增加任务 taskmanage：
-	taskname
-	thistype thisstr1 thisstr2
-	thattype thatusername thatpassword usethis thattext
-	如果thattype == 1(发邮件)给:thatdstemail thatemailtitle 否则不给
+	
+	前台发后台只需要发一个，可以是json，也可以是get、post
+	
+	总格式：
+
+	 "taskname":"任务一"//可能是中文要注意
+	 
+	 "thistype":"1"//thistype == 0 定时//thistype == 1 收新邮件//thistype == 2 检测微博
+	 "thisstr1":"2013-02-03"//thistype == 0 日期//type == 1 邮箱账号//thistype == 2 微博账号
+	 
+	 "thisstr2":"13:10"//thistype == 0 代表小时分钟//type == 1 邮箱密码//thistype == 2 微博密码
+	 
+	 
+	 "thattype":"1"//thattype == 0 发微博//thattype == 1 发邮件
+	 
+	 if(((thattype == 0 && thistype == 2)||(thattype == 1 && thistype == 1))){
+		"usethis":"true"//代表发邮件 or 微博用的账号密码和收邮件 or 微博用的账号密码一致
+		if(usethis == "false"){
+			"thatusername":"oubeichen"//发送微博 or 邮件的账号
+			"thatpassword":"obdepassword"//发送微博 or 邮件的密码
+		}
+	 }else{
+			"thatusername":"oubeichen"//发送微博 or 邮件的账号
+			"thatpassword":"obdepassword"//发送微博 or 邮件的密码
+	 }
+	 
+	 if(thattype == 1){
+	 "thatdstemail":"diamondwave@qq.com" //接收邮件的邮箱
+	 "thatemailtitle":"这是测试邮件的标题"//邮件标题
+	 }
+	 
+	 "thattext":"这是一个测试"//发微博 or 邮件的内容
+
+	
+	同查看任务的区别：少了tid（因为刚创建还没分配），ctime（同左），isrunning（同左），
+	多了thisstr2（不管是定时的时间还是邮件 or 微博密码都要给后台），thatpassword（同理）
+	
+	注意的是：把好关卡，内容根据不同type不同，需要注意验证，当然你也可以完全给后台判断，后台给不同错误提示。
+	
 
 3.修改任务 同样是taskmanage：
-	tid(给后台来判断要修改哪个任务) taskname
-	thistype thisstr1 thisstr2(如果是密码type!=0，为空字符串代表不修改)
-	thattype thatusername thatpassword(为空字符串代表不修改)
-	usethis thattext 
-	如果thattype == 1(发邮件)给:thatdstemail thatemailtitle 否则不给
+	总格式：
+
+	 "tid":"122332abcd"//我用这个来改数据。任务id，用这个确定数据库中唯一一个任务，并不是全数字
+	 "taskname":"任务一"//可能是中文要注意
+	 
+	 "thistype":"1"//thistype == 0 定时//thistype == 1 收新邮件//thistype == 2 检测微博
+	 "thisstr1":"2013-02-03"//thistype == 0 日期//type == 1 邮箱账号//thistype == 2 微博账号
+	 
+	 "thisstr2":"13:10"//thistype == 0 代表小时分钟//type == 1 邮箱密码 为空字符串代表维持不变//thistype == 2 微博密码 为空字符串代表维持不变
+	 
+	 
+	 "thattype":"1"//thattype == 0 发微博//thattype == 1 发邮件
+	 
+	 if(((thattype == 0 && thistype == 2)||(thattype == 1 && thistype == 1))){
+		"usethis":"true"//代表发邮件 or 微博用的账号密码和收邮件 or 微博用的账号密码一致
+		if(usethis == "false"){
+			"thatusername":"oubeichen"//发送微博 or 邮件的账号
+			"thatpassword":"obdepassword"//发送微博 or 邮件的密码 为空字符串代表维持不变
+		}
+	 }else{
+			"thatusername":"oubeichen"//发送微博 or 邮件的账号
+			"thatpassword":"obdepassword"//发送微博 or 邮件的密码 为空字符串代表维持不变
+	 }
+	 
+	 if(thattype == 1){
+	 "thatdstemail":"diamondwave@qq.com" //接收邮件的邮箱
+	 "thatemailtitle":"这是测试邮件的标题"//邮件标题
+	 }
+	 
+	 "thattext":"这是一个测试"//发微博 or 邮件的内容
+
+	
+	修改之前要判断是否正在运行，否则不能修改。
+	
+	与新建任务区别；多了tid，我好知道要改哪个任务
+	其他基本一致，要验证的也基本一致，不过可能是密码的地方thisstr2 thatpassword因为后台不会返回给前台，可以为空字符串 or null，代表不修改。
+	
 
 4.删除任务 同样是taskmanage：
-	新字段del = true（或其他什么的） tid(给后台来判断要删除哪个任务)
+	总格式：
+	tid = "abcd1234"(给后台来判断要删除哪个任务)
+	新字段del = true（或其他什么的，只要这个字段不为空字符串） 
+	
+5.开始任务 同样是taskmanage：
+	tid(给后台来判断要开始哪个任务)
+	新字段start = true （或其他什么的，只要这个字段不为空字符串） 
+
+5.停止任务 同样是taskmanage：
+	tid(给后台来判断要停止哪个任务)
+	新字段stop = true （或其他什么的，只要这个字段不为空字符串） 
