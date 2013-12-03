@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!--
 show all information of this user 
+@author tianchi
 -->
 <html>
     <head>
@@ -51,7 +52,7 @@ show all information of this user
             <!-- Tabs Left -->
             <ul class="tabs left">
                 <li><a href="#tabr1" onclick="createtable()"><i class="icon-tasks"></i> My Tasks</a></li>
-                <li><a href="#tabr2"><i class="icon-plus-sign"></i>Create Task</a></li>
+                <li><a href="#tabr2" onclick="getcreateview()"><i class="icon-plus-sign"></i>Create Task</a></li>
                 <li><a href="#tabr3"><i class="icon-info-sign"></i>Personal Information</a></li>
             </ul>
 
@@ -106,13 +107,13 @@ show all information of this user
                     <div id="thismenu">
                         <fieldset>
                         <legend>IF</legend>
-                        <input type="radio" name="this" id="thisradio1"  onclick="this"/> <label for="thisradio1" class="inline">Time Out</label><br />
+                        <input type="radio" name="this" id="thisradio1" /> <label for="thisradio1" class="inline">Time Out</label><br />
                         <input type="radio" name="this" id="thisradio2" /> <label for="thisradio2" class="inline">Receive Mail</label><br />
                         <input type="radio" name="this" id="thisradio3" /> <label for="thisradio3" class="inline">Monitor Weibo</label>
                         </fieldset>
                     </div>
                     <div id="thiscontent">
-                        
+                       <!--insert when user want to view some task-->
                     </div>
                     
                     <div id="thatmenu">
@@ -123,12 +124,13 @@ show all information of this user
                         </fieldset>
                     </div>
                     <div id="thatcontent">
-                        
+                        <!--insert when user want to view some task-->
+                        <textarea ></textarea>
                     </div>
                     
                     <ul class="button-bar">
-                    <li><button class="orange"><i class="icon-pencil"></i> Edit</button></li>
-                    <li><button class="green"><i class="icon-ok-sign"></i> Ok</button></li>
+                    <li><button class="orange" onclick="edittask()"><i class="icon-pencil"></i> Edit</button></li>
+                    <li><button class="green"  onclick="disableedit()"><i class="icon-ok-sign"></i> Ok</button></li>
                     <li><button class="red"><i class="icon-remove-sign"></i> Delete</button></li>
                     </ul>
                     <hr class="alt2" /> 
@@ -138,34 +140,7 @@ show all information of this user
             <!--create task-->
             <div id="tabr2" class="tab-content">
                  <div id="createtaskview">
-                    <label for="ctaskname">Task Name:</label>
-                    <input id="ctaskname" type="text" />  
-                    <hr class="alt2" />           
-                    <div id="createthismenu">
-                        <fieldset>
-                        <legend>IF</legend>
-                        <input type="radio" name="cthis" id="createthisradio1" onclick="choosethis(this.id)"/> <label for="createthisradio1" class="inline">Time Out</label><br />
-                        <input type="radio" name="cthis" id="createthisradio2" onclick="choosethis(this.id)"/> <label for="createthisradio2" class="inline">Receive Mail</label><br />
-                        <input type="radio" name="cthis" id="createthisradio3" onclick="choosethis(this.id)"/> <label for="createthisradio3" class="inline">Monitor Weibo</label>
-                        </fieldset>
-                    </div>
-                    <div id="createthiscontent">
-                    </div>
-                     
-                    <div id="createthatmenu">
-                        <fieldset>
-                        <legend>THEN</legend>
-                            <input type="radio" name="cthat" id="createthatradio1" onclick="choosethat(this.id)"/> <label for="createthatradio1" class="inline">Send Weibo</label><br />
-                            <input type="radio" name="cthat" id="createthatradio2" onclick="choosethat(this.id)"/> <label for="createthatradio2" class="inline">Send Mail</label>
-                        </fieldset>
-                    </div>
-                    <div id="createthatcontent">   
-                    </div>
-                    <button class="green" onclick="createtask()"><i class="icon-ok-sign"></i> Ok</button>
-                    <span id="createback">
-                        <div class="notice success"><i class="icon-ok icon-large"></i> This is a Success Notice <a href="#close" class="icon-remove"></a></div></span>
-
-                    <hr class="alt2" /> 
+                  <!--insert when click create task-->
                 </div>
             </div>
             <div id="tabr3" class="tab-content">Tab3</div>

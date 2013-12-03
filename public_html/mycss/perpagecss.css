@@ -170,7 +170,20 @@ link with personalpage.html
     height: 200px;
     border:1px solid #ccc;
     border-radius: 5px;
+    padding-top:50px;
+    padding-left: 30px;
+    padding-right: 200px;
 }
+#thiscontent input{
+    float: left;
+}
+
+#thiscontent textArea{
+    float: right;
+    height:100px;
+}
+
+
 
 #thatmenu{
     height:80px;
@@ -189,11 +202,25 @@ link with personalpage.html
     height: 200px;
     border:1px solid #ccc;
     border-radius: 5px;
+    padding-top:20px;
+    padding-left: 30px;
+    padding-right: 200px;
+}
+
+#thatcontent input{
+    float: left;
+}
+
+#thatcontent textArea{
+    float: right;
+    height:150px;
 }
 
 #taskview button{
     border: #fff;
 }
+
+
 
 /*about create task*/
 #tabr2{
@@ -219,6 +246,15 @@ link with personalpage.html
     border-radius: 5px;
     padding-top:50px;
     padding-left: 30px;
+    padding-right: 200px;
+}
+#createthiscontent input{
+    float: left;
+}
+
+#createthiscontent textArea{
+    float: right;
+    height:100px;
 }
 
 #createthatmenu{

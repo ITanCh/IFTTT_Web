@@ -1,6 +1,7 @@
 /* 
  * create a new account
  * link with signup.html
+ * @author tianchi
  */
 
 var request;
