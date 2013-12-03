@@ -7,6 +7,8 @@
 package PO;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 存储用户信息
@@ -20,7 +22,7 @@ public class UserInfoPO {
     private String mail;
     private boolean admin = false;//默认值
     private long coins = 1000;//默认值
-
+    private Set tasks = new HashSet();
     /**
      * @return the uid
      */
@@ -103,6 +105,20 @@ public class UserInfoPO {
      */
     public void setAdmin(boolean admin) {
         this.admin = admin;
+    }
+
+    /**
+     * @return the tasks
+     */
+    public Set getTasks() {
+        return tasks;
+    }
+
+    /**
+     * @param tasks the tasks to set
+     */
+    public void setTasks(Set tasks) {
+        this.tasks = tasks;
     }
     
 }

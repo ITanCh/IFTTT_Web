@@ -69,7 +69,8 @@ public class getuserinfo extends HttpServlet {
                     po = (UserInfoPO)it.next();
                     if(po.getUsername().equals(loginedUserName)){
                         FilterProvider filters = new SimpleFilterProvider().addFilter("userFilter",
-                                SimpleBeanPropertyFilter.serializeAllExcept("password"));//不显示password
+                                SimpleBeanPropertyFilter.serializeAllExcept("password"))
+                                .addFilter("userFilter", SimpleBeanPropertyFilter.serializeAllExcept("tasks"));//不显示tasks
                         outinfo = mapper.writer(filters).writeValueAsString(po);//输出JSON
                     }
                 }

@@ -22,7 +22,7 @@
     </servlet>
     <servlet>
         <servlet-name>addtask</servlet-name>
-        <servlet-class>ob.servlet.taskmanage</servlet-class>
+        <servlet-class>ob.servlet.taskmanager</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>getreg</servlet-name>

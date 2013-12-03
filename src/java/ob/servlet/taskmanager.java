@@ -24,7 +24,7 @@ import ob.util.AESUtil;
  *
  * @author oubeichen
  */
-public class taskmanage extends HttpServlet {
+public class taskmanager extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

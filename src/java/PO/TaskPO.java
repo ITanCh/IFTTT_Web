@@ -39,7 +39,7 @@ public class TaskPO extends Thread implements Cloneable{
     public Object clone() throws CloneNotSupportedException {
         Object obj = super.clone();
         //((TaskPO)obj).email = email.clone();//若扩充Email类，则需要加上这几句话
-        return super.clone();//因为都是string或者基本数据类型，只需要super.clone就足够。
+        return obj;//因为都是string或者基本数据类型，只需要super.clone就足够。
     }
 
     /**
