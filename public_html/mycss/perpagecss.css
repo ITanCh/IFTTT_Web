@@ -10,7 +10,8 @@ link with personalpage.html
     top:0px;
     left: 0px;
     height: 45px;
-    width: 1366px;
+    width: 100%;
+    min-width: 1200px;
     margin-bottom: 10px;
     background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
     border-bottom: 1.5px solid #ccc;
@@ -20,7 +21,7 @@ link with personalpage.html
 #logo{
     position: absolute;
     top:0px; 
-    left: 200px;
+    left: 15%;
     height: 100%;
     width:150px;
     padding-top: 7px;
@@ -29,7 +30,7 @@ link with personalpage.html
 
 #title{ 
         position: absolute;
-        left: 400px;
+        left: 30%;
         top: 12px;
 }
 #title ul{
@@ -54,7 +55,7 @@ link with personalpage.html
 
 #top_right{
     position: absolute;
-    left:1000px;
+    left:75%;
     top:13px;  
 }
 
@@ -69,7 +70,7 @@ link with personalpage.html
 #left{
     position: absolute;
     top:70px;
-    left: 200px;
+    left: 15%;
     width:250px;
     height: 430px;
     font-family: Microsoft YaHei UI;
@@ -123,7 +124,7 @@ link with personalpage.html
 #right{
     position: absolute;
     top:70px; 
-    left: 500px; 
+    left: 38%; 
     height: fit-content;
     width: 700px;
     font-family:  Microsoft YaHei UI;

@@ -10,7 +10,7 @@ link with signup.html
 #top{
     position: absolute;
     width: 700px;
-    left: 300px;
+    left: 25%;
     top:20px;
     border-bottom: 1.5px solid #ccc;
     font-family: Microsoft YaHei UI;
@@ -19,7 +19,7 @@ link with signup.html
 #mainbody{
     position: absolute;
     width: 700px;
-    left: 300px;
+    left: 25%;
     top:150px;
     padding-left: 200px;
     padding-top: 50px;
