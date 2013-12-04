@@ -12,6 +12,9 @@
         <property name="taskname" type="string">
             <column name="taskname" length="50" not-null="true"/>
         </property>
+        <property name="ctime" type="string">
+            <column name="ctime" not-null="true" />
+        </property>
         <property name="thistype" type="integer">
             <column name="thistype" not-null="true"/>
         </property>
@@ -29,15 +32,6 @@
         </property>
         <property name="thatpassword" type="string">
             <column name="thatpassword" length="30" not-null="true"/>
-        </property>
-        <property name="usethis" type="boolean">
-            <column name="usethis" not-null="false"/>
-        </property>
-        <property name="thatdstemail" type="string">
-            <column name="thatdstemail" length="50" not-null="false"/>
-        </property>
-        <property name="thatemailtitle" type="string">
-            <column name="thatemailtitle" length="50" not-null="false"/>
         </property>
         <property name="thattext" type="text">
             <column name="thattext" not-null="false"/>

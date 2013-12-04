@@ -22,7 +22,7 @@ public class UserInfoPO {
     private String mail;
     private boolean admin = false;//默认值
     private long coins = 1000;//默认值
-    private Set tasks = new HashSet();
+    private Set task = new HashSet();
     /**
      * @return the uid
      */
@@ -110,15 +110,15 @@ public class UserInfoPO {
     /**
      * @return the tasks
      */
-    public Set getTasks() {
-        return tasks;
+    public Set getTask() {
+        return task;
     }
 
     /**
      * @param tasks the tasks to set
      */
-    public void setTasks(Set tasks) {
-        this.tasks = tasks;
+    public void setTask(Set task) {
+        this.task = task;
     }
     
 }

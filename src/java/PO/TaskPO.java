@@ -17,7 +17,9 @@ public class TaskPO extends Thread implements Cloneable{
     private String tid;//唯一的标识符，用于识别
     private int uid;//代表所属的用户
     private String taskname;
-    
+    private String ctime;
+    private String status;
+
     private int thistype;
     //新浪API限制了不能访问其他用户的微博，所以只能登陆后访问自己的微博了
     private String thisstr1;//type == 0 date//type == 1 email//type == 2 weiboid
@@ -27,9 +29,6 @@ public class TaskPO extends Thread implements Cloneable{
     
     private String thatusername;//type==0 weiboname//type==1 src email
     private String thatpassword;//type==0 weiboname//type==1 src email
-    private boolean usethis;//type ==0是否使用在This中配置的weibo //type ==1是否使用在This中配置的Email
-    private String thatdstemail;//以下均为Type == 1时需要填写
-    private String thatemailtitle;
     private String thattext;
     
     public TaskPO(){
@@ -169,48 +168,6 @@ public class TaskPO extends Thread implements Cloneable{
     }
 
     /**
-     * @return the usethis
-     */
-    public boolean isUsethis() {
-        return usethis;
-    }
-
-    /**
-     * @param usethis the usethis to set
-     */
-    public void setUsethis(boolean usethis) {
-        this.usethis = usethis;
-    }
-
-    /**
-     * @return the thatdstemail
-     */
-    public String getThatdstemail() {
-        return thatdstemail;
-    }
-
-    /**
-     * @param thatdstemail the thatdstemail to set
-     */
-    public void setThatdstemail(String thatdstemail) {
-        this.thatdstemail = thatdstemail;
-    }
-
-    /**
-     * @return the thatemailtitle
-     */
-    public String getThatemailtitle() {
-        return thatemailtitle;
-    }
-
-    /**
-     * @param thatemailtitle the thatemailtitle to set
-     */
-    public void setThatemailtitle(String thatemailtitle) {
-        this.thatemailtitle = thatemailtitle;
-    }
-
-    /**
      * @return the thattext
      */
     public String getThattext() {
@@ -222,6 +179,34 @@ public class TaskPO extends Thread implements Cloneable{
      */
     public void setThattext(String thattext) {
         this.thattext = thattext;
+    }
+
+    /**
+     * @return the ctime
+     */
+    public String getCtime() {
+        return ctime;
+    }
+
+    /**
+     * @param ctime the ctime to set
+     */
+    public void setCtime(String ctime) {
+        this.ctime = ctime;
+    }
+
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(String status) {
+        this.status = status;
     }
 
 }

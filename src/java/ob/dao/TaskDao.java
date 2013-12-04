@@ -37,11 +37,29 @@ public class TaskDao {
             log = "success";
             return log;
         } catch (HibernateException e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally{
+            HibernateSessionFactory.closeSession();
         }
         return log;
     }
-
+    public TaskPO getTask(String tid){
+        try{
+            session = HibernateSessionFactory.getSession();
+            transaction = session.beginTransaction();
+            TaskPO task = (TaskPO)session.get(TaskPO.class, tid);
+            session.delete(task);
+            transaction.commit();
+            return task;
+        } catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        } finally{
+            HibernateSessionFactory.closeSession();
+        }
+    }
     public List queryTask(String type, Object value) {
         session = HibernateSessionFactory.getSession();
         try {
@@ -58,8 +76,11 @@ public class TaskDao {
             transaction.commit();
             return list;
         } catch (HibernateException e) {
+            transaction.rollback();
             e.printStackTrace();
             return null;
+        } finally{
+            HibernateSessionFactory.closeSession();
         }
     }
     public boolean deleteTask(String id){
@@ -69,11 +90,13 @@ public class TaskDao {
             TaskPO task = (TaskPO)session.get(TaskPO.class, id);
             session.delete(task);
             transaction.commit();
-            session.close();
             return true;
-        }catch(HibernateException e){
+        } catch (HibernateException e) {
+            transaction.rollback();
             e.printStackTrace();
             return false;
+        } finally{
+            HibernateSessionFactory.closeSession();
         }
     }
     public boolean updateTask(TaskPO task){
@@ -82,11 +105,13 @@ public class TaskDao {
             transaction = session.beginTransaction();
             session.update(task);
             transaction.commit();
-            session.close();
             return true;
-        }catch(HibernateException e){
+        } catch (HibernateException e) {
+            transaction.rollback();
             e.printStackTrace();
             return false;
+        } finally{
+            HibernateSessionFactory.closeSession();
         }
     }
 }

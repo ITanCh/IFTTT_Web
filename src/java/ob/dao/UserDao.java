@@ -37,7 +37,10 @@ public class UserDao {
             log = "success";
             return log;
         } catch (HibernateException e) {
+            transaction.rollback();
             e.printStackTrace();
+        } finally{
+            HibernateSessionFactory.closeSession();
         }
         return log;
     }
@@ -59,7 +62,10 @@ public class UserDao {
             return list;
         } catch (HibernateException e) {
             e.printStackTrace();
+            transaction.rollback();
             return null;
+        } finally{
+            HibernateSessionFactory.closeSession();
         }
     }
     
@@ -71,9 +77,12 @@ public class UserDao {
             transaction.commit();
             session.close();
             return true;
-        }catch(HibernateException e){
+        } catch (HibernateException e) {
+            transaction.rollback();
             e.printStackTrace();
             return false;
+        } finally{
+            HibernateSessionFactory.closeSession();
         }
     }
 }

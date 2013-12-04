@@ -9,6 +9,8 @@ import PO.TaskPO;
 import PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -117,7 +119,10 @@ public class taskmanager extends HttpServlet {
     public boolean getdata(HttpServletRequest request) {
         uid = po.getUid();
         del = request.getParameter("del");
+        start = request.getParameter("start");
+        stop = request.getParameter("stop");
         tid = request.getParameter("tid");
+        //if新建任务
         taskname = request.getParameter("taskname");
         try {
             thistype = Integer.parseInt(request.getParameter("thistype"));
@@ -126,14 +131,22 @@ public class taskmanager extends HttpServlet {
             outinfo = "ThisType or ThatType Error";
             return false;
         }
-        thisstr1 = request.getParameter("thisstr1");
-        thisstr2 = request.getParameter("thisstr2");
-        thatusername = request.getParameter("thatusername");
-        thatpassword = request.getParameter("thatpassword");
-        String temp = request.getParameter("usethis");
-        usethis = temp != null && temp.equals("true");
-        thatdstemail = request.getParameter("thatdstemail");
-        thatemailtitle = request.getParameter("thatemailtitle");
+        if (thistype == 0) {
+            thisstr1 = request.getParameter("date");
+            thisstr2 = request.getParameter("time");
+        } else if (thistype == 1) {
+            thisstr1 = request.getParameter("thisaddr");
+            thisstr2 = request.getParameter("thispw");
+        } else if (thistype == 2) {
+            thisstr1 = request.getParameter("thiscount");
+            thisstr2 = request.getParameter("thispw");
+        }
+        if(thattype == 0){
+            thatusername = request.getParameter("thataddr");
+        } else if (thattype == 1){
+            thatusername = request.getParameter("thatcount");
+        }
+        thatpassword = request.getParameter("thatpw");
         thattext = request.getParameter("thattext");
         return true;
     }
@@ -151,6 +164,7 @@ public class taskmanager extends HttpServlet {
         TaskPO taskpo = new TaskPO();
         taskpo.setUid(uid);
         taskpo.setTaskname(taskname);
+        taskpo.setCtime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
         taskpo.setThistype(thistype);
         taskpo.setThattype(thattype);
         taskpo.setThisstr1(thisstr1);
@@ -161,9 +175,6 @@ public class taskmanager extends HttpServlet {
         }
         taskpo.setThatusername(thatusername);
         taskpo.setThatpassword(AESUtil.Encrytor(thatpassword));
-        taskpo.setUsethis(usethis);
-        taskpo.setThatdstemail(thatdstemail);
-        taskpo.setThatemailtitle(thatemailtitle);
         taskpo.setThattext(thattext);
         return taskpo;
     }
@@ -177,6 +188,9 @@ public class taskmanager extends HttpServlet {
     //用于处理Task的临时变量
     private String del;//如果是删除任务，则需要用到tid
     private String tid;//如果是编辑、删除任务，则需要用到tid
+    private String start;//如果是开始任务，则需要用到start
+    private String stop;//如果是结束任务，则需要用到stopp
+            
     private int uid;//代表所属的用户
     private String taskname;
     //getter和setter设置的东西太多，所以干脆用public，请原谅
@@ -189,8 +203,5 @@ public class taskmanager extends HttpServlet {
 
     private String thatusername;//type==0 weiboname//type==1 src email
     private String thatpassword;//type==0 weiboname//type==1 src email
-    private boolean usethis;//type ==0是否使用在This中配置的weibo //type ==1是否使用在This中配置的Email
-    private String thatdstemail;//以下均为Type == 1
-    private String thatemailtitle;
     private String thattext;
 }

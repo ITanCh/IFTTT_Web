@@ -6,26 +6,24 @@
 
 package ob.servlet;
 
-import PO.UserInfoPO;
+import PO.TaskPO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Iterator;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import ob.dao.UserDao;
+import ob.dao.TaskDao;
 
 /**
  *
  * @author oubeichen
  */
-public class getuserinfo extends HttpServlet {
+public class gettaskinfo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,25 +38,23 @@ public class getuserinfo extends HttpServlet {
             throws ServletException, IOException {
         String loginedUserName = (String)request.getSession().getAttribute("username");
         if(loginedUserName != null && !loginedUserName.equals("") ){
-            List list = dao.queryInfo("username", loginedUserName);
-            if(list != null){
-                Iterator it = list.iterator();
-                while(it.hasNext()){
-                    po = (UserInfoPO)it.next();
-                    if(po.getUsername().equals(loginedUserName)){
-                        FilterProvider filters = new SimpleFilterProvider().addFilter("userFilter",
-                                SimpleBeanPropertyFilter.serializeAllExcept("password"))
+            int loginedUserid = (Integer)request.getSession().getAttribute("userid");
+            String tid = request.getParameter("tid");
+            if(tid != null){
+                po = dao.getTask(tid);
+                if(po.getUid() == loginedUserid){
+                        FilterProvider filters = new SimpleFilterProvider()
                                 .addFilter("taskFilter",
-                                SimpleBeanPropertyFilter.filterOutAllExcept("tid","taskname","ctime"));//不显示password和其他
+                                SimpleBeanPropertyFilter.filterOutAllExcept(
+                                        "tid","taskname","thistype","thattype","thisstr1","thisstr2",
+                                        "thatusername","thattext"));//不显示password和其他
                         outinfo = mapper.writer(filters).writeValueAsString(po);//输出JSON
-                    }
                 }
             }
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
             out.print(outinfo);
         } finally {
             out.close();
@@ -105,6 +101,6 @@ public class getuserinfo extends HttpServlet {
     }// </editor-fold>
     private final ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
     private String outinfo = null;
-    private final UserDao dao = new UserDao();
-    private UserInfoPO po = null;
+    private TaskPO po;
+    private TaskDao dao = new TaskDao();
 }

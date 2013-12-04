@@ -24,6 +24,10 @@
         <servlet-name>addtask</servlet-name>
         <servlet-class>ob.servlet.taskmanager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>gettaskinfo</servlet-name>
+        <servlet-class>ob.servlet.gettaskinfo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getreg</servlet-name>
         <url-pattern>/getreg</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>addtask</servlet-name>
         <url-pattern>/addtask</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>gettaskinfo</servlet-name>
+        <url-pattern>/gettaskinfo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

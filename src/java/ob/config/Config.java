@@ -14,6 +14,7 @@ public class Config {
 	public static final String DBINFO = "jdbc:mysql://localhost:3306/ifttt";
 	public static final String DBUSERNAME = "ifttt";
 	public static final String DBPASSWD = "ifttt";
+        public static final String HIB_CONFIG_FILE = "/hibernate.cfg.xml";
         public static final int MAXTHISTYPE = 2;//时间、邮件、微博
         public static final int MAXTHATTYPE = 1;//邮件、微博
         //AES所用的key，通过SecretKey的getEncoded()，再进行Base64加密产生

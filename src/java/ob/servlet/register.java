@@ -35,6 +35,31 @@ public class register extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        username = request.getParameter("name");
+        password = request.getParameter("pw");
+        mail = request.getParameter("mail");
+        if (validate()) {
+            if (dao.saveinfo(userinfo()).equals("success")) {
+                outinfo = "success";
+                request.getSession().setAttribute("username", username);
+                List list;
+                Iterator it;
+                list = dao.queryInfo("username", username);
+                if (list != null) {
+                    it = list.iterator();
+                    while (it.hasNext()) {
+                        UserInfoPO po = (UserInfoPO) it.next();
+                        if ((po).getUsername().equals(username)) {
+                            request.getSession().setAttribute("userid", po.getUid());
+                        }
+                    }
+                } else {
+                    outinfo = LogText.DBERROR;
+                }
+            } else {
+                outinfo = LogText.REGERROR;
+            }
+        }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
@@ -56,17 +81,6 @@ public class register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        username = request.getParameter("name");
-        password = request.getParameter("pw");
-        mail = request.getParameter("mail");
-        if (validate()) {
-            if (dao.saveinfo(userinfo()).equals("success")) {
-                outinfo = "success";
-                request.getSession().setAttribute("username", username);
-            } else {
-                outinfo = LogText.REGERROR;
-            }
-        }
         processRequest(request, response);
     }
 

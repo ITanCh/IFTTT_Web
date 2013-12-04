@@ -36,6 +36,30 @@ public class login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        username = request.getParameter("name");
+        password = request.getParameter("pw");
+        if(validate()){
+            UserDao dao = new UserDao();
+            List list = dao.queryInfo("username", username);
+            if(list != null){//数据库查询没有出错
+                Iterator it = list.iterator();
+                while(it.hasNext()){
+                    UserInfoPO po = (UserInfoPO)it.next();
+                    if(username.equals(po.getUsername())){
+                        if(MD5Util.MD5(password).equals(po.getPassword())){
+                            outinfo = "success";
+                            request.getSession().setAttribute("username", username);
+                            request.getSession().setAttribute("userid",po.getUid());
+                        }
+                    }
+                }
+                if(outinfo == null){//没有数据库错误，也没有查到对应用户
+                    outinfo = "Wrong username or password";
+                }
+            }else{
+                outinfo = LogText.DBERROR;
+            }
+        }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
@@ -58,30 +82,6 @@ public class login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        username = request.getParameter("name");
-        password = request.getParameter("pw");
-        if(validate()){
-            UserDao dao = new UserDao();
-            List list = dao.queryInfo("username", username);
-            if(list != null){//数据库查询没有出错
-                Iterator it = list.iterator();
-                while(it.hasNext()){
-                    UserInfoPO po = (UserInfoPO)it.next();
-                    if(username.equals(po.getUsername())){
-                        if(MD5Util.MD5(password).equals(po.getPassword())){
-                            outinfo = "success";
-                            request.getSession().setAttribute("username", username);
-                            //request.getSession().setAttribute("userid",po.getUid());
-                        }
-                    }
-                }
-                if(outinfo == null){//没有数据库错误，也没有查到对应用户
-                    outinfo = "Wrong username or password";
-                }
-            }else{
-                outinfo = LogText.DBERROR;
-            }
-        }
         processRequest(request, response);
     }
 
