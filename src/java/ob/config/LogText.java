@@ -15,4 +15,5 @@ public class LogText {
     public static final String REGERROR = "Reg Error";
     public static final String LOGINERROR = "Login Error";
     public static final String ADDTASKERROR = "Add Task Error";
+    public static final String EDITTASKERROR = "Edit Task Error";
 }

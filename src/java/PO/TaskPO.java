@@ -18,7 +18,8 @@ public class TaskPO extends Thread implements Cloneable{
     private int uid;//代表所属的用户
     private String taskname;
     private String ctime;
-    private String status;
+    private String status = "停止中";
+    private boolean isrunning = false;
 
     private int thistype;
     //新浪API限制了不能访问其他用户的微博，所以只能登陆后访问自己的微博了
@@ -207,6 +208,20 @@ public class TaskPO extends Thread implements Cloneable{
      */
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    /**
+     * @return the isrunning
+     */
+    public boolean isIsrunning() {
+        return isrunning;
+    }
+
+    /**
+     * @param isrunning the isrunning to set
+     */
+    public void setIsrunning(boolean isrunning) {
+        this.isrunning = isrunning;
     }
 
 }

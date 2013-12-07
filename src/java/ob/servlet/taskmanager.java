@@ -11,8 +11,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,25 +38,36 @@ public class taskmanager extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         loginedUserName = (String) request.getSession().getAttribute("username");
-        if (loginedUserName != null && !loginedUserName.equals("")) {
-            List list = userdao.queryInfo("username", loginedUserName);
-            if (list != null) {//数据库是否出错
-                Iterator it = list.iterator();
-                while (it.hasNext()) {
-                    po = (UserInfoPO) it.next();
-                    if (po.getUsername().equals(loginedUserName)) {//找到了对应用户
-                        if (getdata(request) && validate())//获取数据并且验证输入合法
-                        {
-                            if (taskdao.savetask(task()).equals("success")) {//新建Task
-                                outinfo = "success";
-                            } else {
-                                outinfo = LogText.ADDTASKERROR;
-                            }
+        if (loginedUserName != null && !loginedUserName.equals("")) {//虽然用session即可判断是否登录，但必须查询数据库才能得到uid
+            loginedUserid = (Integer) request.getSession().getAttribute("userid");
+            po = userdao.getinfo(loginedUserid);
+            if (po.getUsername().equals(loginedUserName)) {//找到了对应用户
+                if (getdata(request) && validate())//获取数据并且验证输入合法
+                {
+                    if (tid == null) {
+                        if (taskdao.saveTask(task()).equals("success")) {//新建Task
+                            outinfo = "success";
+                        } else {
+                            outinfo = LogText.ADDTASKERROR;
+                        }
+                    } else {
+                        if(start != null){
+                            
+                        }else if(stop != null){
+                            
+                        }else if(del != null){
+                            
+                        }else{
+                        if (taskdao.updateTask(task())) {//新建Task
+                            outinfo = "success";
+                        } else {
+                            outinfo = LogText.EDITTASKERROR;
+                        }
                         }
                     }
                 }
             } else {
-                outinfo = "Database Error";
+                outinfo = "数据库出错，请稍后访问";
             }
         }
         response.setContentType("text/html;charset=UTF-8");
@@ -117,13 +126,12 @@ public class taskmanager extends HttpServlet {
      * @return
      */
     public boolean getdata(HttpServletRequest request) {
-        uid = po.getUid();
         del = request.getParameter("del");
         start = request.getParameter("start");
         stop = request.getParameter("stop");
         tid = request.getParameter("tid");
         //if新建任务
-        taskname = request.getParameter("taskname");
+        taskname = request.getParameter("name");
         try {
             thistype = Integer.parseInt(request.getParameter("thistype"));
             thattype = Integer.parseInt(request.getParameter("thattype"));
@@ -132,8 +140,8 @@ public class taskmanager extends HttpServlet {
             return false;
         }
         if (thistype == 0) {
-            thisstr1 = request.getParameter("date");
-            thisstr2 = request.getParameter("time");
+            thisstr1 = request.getParameter("thisdate");
+            thisstr2 = request.getParameter("thistime");
         } else if (thistype == 1) {
             thisstr1 = request.getParameter("thisaddr");
             thisstr2 = request.getParameter("thispw");
@@ -141,9 +149,9 @@ public class taskmanager extends HttpServlet {
             thisstr1 = request.getParameter("thiscount");
             thisstr2 = request.getParameter("thispw");
         }
-        if(thattype == 0){
+        if (thattype == 0) {
             thatusername = request.getParameter("thataddr");
-        } else if (thattype == 1){
+        } else if (thattype == 1) {
             thatusername = request.getParameter("thatcount");
         }
         thatpassword = request.getParameter("thatpw");
@@ -157,24 +165,119 @@ public class taskmanager extends HttpServlet {
      * @return
      */
     public boolean validate() {
+        if (tid != null) {//是修改任务
+            taskpo = taskdao.getTask(tid);
+            if (taskpo != null) {
+                if (taskpo.getUid() != loginedUserid) {//任务不归该用户所属
+                    outinfo = "找不到要修改的任务，请刷新页面重试";
+                    return false;
+                }
+            } else {
+                outinfo = "找不到要修改的任务，请刷新页面重试";
+                return false;//找不到任务
+            }
+            if(del != null || start != null || stop != null){//删除、新建、停止任务只需要验证tid
+                return true;
+            }
+        } else {//新建任务，必须要输入密码项
+            if (thistype == 1 || thistype == 2) {
+                if (thisstr2 == null || thisstr2.equals("")) {//有输入密码，需要验证输入合法
+                    outinfo = "请输入this中的密码";
+                    return false;
+                }
+            }
+            if (thatpassword == null || thatpassword.equals("")) {
+                outinfo = "请输入that中的密码";
+                return false;
+            }
+        }
+        if (taskname.length() > 25) {
+            outinfo = "标题太长";
+            return false;
+        }else if(taskname.length() < 2){
+            outinfo = "标题太短";
+            return false;
+        }
+        if(thistype < 0 || thistype > 3){
+            outinfo = "选择的this类型有误";
+            return false;
+        }
+        if(thattype < 0 || thattype > 2){
+            outinfo = "选择的that类型有误";
+            return false;
+        }
+        if(thistype == 0){
+            if(!thisstr1.matches("^([0-9]{4})-([0][1-9]|[1][0-2])-([0][1-9]|[1-2][0-9]|[3][0-1])$")){
+                outinfo = "this输入的日期有误";
+                return false;
+            }
+            if(!thisstr2.matches("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$")){
+                outinfo = "this输入的时间有误";
+                return false;
+            }
+        }else if(thistype == 1){
+            if(!thisstr1.matches("^[a-z0-9][a-z0-9\\._-]*@[a-z0-9][a-z0-9-]*\\.([a-z0-9][a-z0-9-]*\\.)*[a-z]+$")){
+                outinfo = "this输入的邮箱格式有误";
+                return false;
+            }
+        }
+        if (thisstr1.length() < 2) {
+            outinfo = "this输入的登录名太短";
+            return false;
+        } else if (thisstr1.length() > 25) {
+            outinfo = "this输入的登录名太长";
+            return false;
+        }
+        if (thisstr2.length() > 25) {
+            outinfo = "this输入的密码太长";
+            return false;
+        }
+        if(thattype == 0){
+            if(!thatusername.matches("^[a-z0-9][a-z0-9\\._-]*@[a-z0-9][a-z0-9-]*\\.([a-z0-9][a-z0-9-]*\\.)*[a-z]+$")){
+                outinfo = "that输入的邮箱格式有误";
+                return false;
+            }
+        }
+        if (thatusername.length() < 2) {
+            outinfo = "that输入的登录名太短";
+            return false;
+        } else if (thatusername.length() > 25) {
+            outinfo = "that输入的登录名太长";
+            return false;
+        }
+        if (thatpassword.length() > 25) {
+            outinfo = "that输入的密码太长";
+            return false;
+        }
+        if (thattext.equals("")) {
+            outinfo = "请输入that发送消息内容";
+            return false;
+        }
         return true;
     }
 
     public TaskPO task() {
-        TaskPO taskpo = new TaskPO();
-        taskpo.setUid(uid);
+        if (taskpo == null) {
+            taskpo = new TaskPO();
+            taskpo.setCtime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+        }
+        taskpo.setUid(loginedUserid);
         taskpo.setTaskname(taskname);
-        taskpo.setCtime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+
         taskpo.setThistype(thistype);
         taskpo.setThattype(thattype);
         taskpo.setThisstr1(thisstr1);
         if (thistype == 1 || thistype == 2) {
-            taskpo.setThisstr2(AESUtil.Encrytor(thisstr2));
+            if (thisstr2 != null && !thisstr2.equals("")) {//有输入密码，前面已经验证输入合法
+                taskpo.setThisstr2(AESUtil.Encrytor(thisstr2));
+            }
         } else {
             taskpo.setThisstr2(thisstr2);
         }
         taskpo.setThatusername(thatusername);
-        taskpo.setThatpassword(AESUtil.Encrytor(thatpassword));
+        if (thatpassword != null && !thatpassword.equals("")) {
+            taskpo.setThatpassword(AESUtil.Encrytor(thatpassword));
+        }
         taskpo.setThattext(thattext);
         return taskpo;
     }
@@ -183,15 +286,16 @@ public class taskmanager extends HttpServlet {
     private final UserDao userdao = new UserDao();
     private final TaskDao taskdao = new TaskDao();
     private String loginedUserName;
+    private int loginedUserid;
     private UserInfoPO po;
+    private TaskPO taskpo;
 
     //用于处理Task的临时变量
     private String del;//如果是删除任务，则需要用到tid
     private String tid;//如果是编辑、删除任务，则需要用到tid
     private String start;//如果是开始任务，则需要用到start
     private String stop;//如果是结束任务，则需要用到stopp
-            
-    private int uid;//代表所属的用户
+
     private String taskname;
     //getter和setter设置的东西太多，所以干脆用public，请原谅
     private int thistype;

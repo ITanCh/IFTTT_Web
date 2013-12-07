@@ -49,11 +49,13 @@ public class getuserinfo extends HttpServlet {
                         FilterProvider filters = new SimpleFilterProvider().addFilter("userFilter",
                                 SimpleBeanPropertyFilter.serializeAllExcept("password"))
                                 .addFilter("taskFilter",
-                                SimpleBeanPropertyFilter.filterOutAllExcept("tid","taskname","ctime"));//不显示password和其他
+                                SimpleBeanPropertyFilter.filterOutAllExcept("tid","taskname","ctime","status","isrunning"));//不显示password和其他
                         outinfo = mapper.writer(filters).writeValueAsString(po);//输出JSON
                     }
                 }
             }
+        }else{
+            outinfo = "false";//未登录
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();

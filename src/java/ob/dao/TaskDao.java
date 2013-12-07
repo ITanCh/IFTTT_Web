@@ -9,7 +9,6 @@ package ob.dao;
 import PO.TaskPO;
 import addHibernateFile.HibernateSessionFactory;
 import java.util.List;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -27,7 +26,7 @@ public class TaskDao {
 
     }
 
-    public String savetask(TaskPO task) {
+    public String saveTask(TaskPO task) {
         String log = "error";
         session = HibernateSessionFactory.getSession();
         try {
@@ -36,7 +35,7 @@ public class TaskDao {
             transaction.commit();
             log = "success";
             return log;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
         } finally{
@@ -49,10 +48,9 @@ public class TaskDao {
             session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             TaskPO task = (TaskPO)session.get(TaskPO.class, tid);
-            session.delete(task);
             transaction.commit();
             return task;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
             return null;
@@ -75,7 +73,7 @@ public class TaskDao {
             transaction = session.beginTransaction();
             transaction.commit();
             return list;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
             return null;
@@ -91,7 +89,7 @@ public class TaskDao {
             session.delete(task);
             transaction.commit();
             return true;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
             return false;
@@ -106,7 +104,7 @@ public class TaskDao {
             session.update(task);
             transaction.commit();
             return true;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
             return false;

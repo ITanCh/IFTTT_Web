@@ -8,7 +8,6 @@ package ob.dao;
 import PO.UserInfoPO;
 import addHibernateFile.HibernateSessionFactory;
 import java.util.List;
-import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -36,7 +35,7 @@ public class UserDao {
             transaction.commit();
             log = "success";
             return log;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
         } finally{
@@ -44,7 +43,25 @@ public class UserDao {
         }
         return log;
     }
-
+    
+    public UserInfoPO getinfo(int uid) {
+        String log = "error";
+        session = HibernateSessionFactory.getSession();
+        try {
+            transaction = session.beginTransaction();
+            UserInfoPO po = (UserInfoPO)session.get(UserInfoPO.class, uid);
+            transaction.commit();
+            log = "success";
+            return po;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        } finally{
+            HibernateSessionFactory.closeSession();
+        }
+    }
+    
     public List queryInfo(String type, Object value) {
         session = HibernateSessionFactory.getSession();
         try {
@@ -60,7 +77,7 @@ public class UserDao {
             transaction = session.beginTransaction();
             transaction.commit();
             return list;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             transaction.rollback();
             return null;
@@ -77,7 +94,7 @@ public class UserDao {
             transaction.commit();
             session.close();
             return true;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
             return false;
