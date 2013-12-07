@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import ob.dao.TaskDao;
 import ob.dao.UserDao;
 import ob.config.LogText;
+import ob.manager.RunningTask;
 import ob.util.AESUtil;
 
 /**
@@ -51,18 +52,34 @@ public class taskmanager extends HttpServlet {
                             outinfo = LogText.ADDTASKERROR;
                         }
                     } else {
-                        if(start != null){
-                            
-                        }else if(stop != null){
-                            
-                        }else if(del != null){
-                            
-                        }else{
-                        if (taskdao.updateTask(task())) {//新建Task
-                            outinfo = "success";
+                        if (start != null) {
+                            if (RunningTask.addTask(taskpo)) {
+                                outinfo = "success";
+                            } else {
+                                outinfo = "start task failed";
+                            }
+                        } else if (stop != null) {
+                            RunningTask.delTask(tid);
+                        } else if (del != null) {
+                            if (RunningTask.isHere(tid)) {
+                                outinfo = "请停止任务后再删除";
+                            } else {
+                                if (taskdao.deleteTask(tid)) {
+                                    outinfo = "success";
+                                } else {
+                                    outinfo = "stop task failed";
+                                }
+                            }
                         } else {
-                            outinfo = LogText.EDITTASKERROR;
-                        }
+                            if (RunningTask.isHere(tid)) {
+                                outinfo = "请停止任务后再修改";
+                            } else {
+                                if (taskdao.updateTask(task())) {//新建Task
+                                    outinfo = "success";
+                                } else {
+                                    outinfo = LogText.EDITTASKERROR;
+                                }
+                            }
                         }
                     }
                 }
@@ -132,12 +149,14 @@ public class taskmanager extends HttpServlet {
         tid = request.getParameter("tid");
         //if新建任务
         taskname = request.getParameter("name");
-        try {
-            thistype = Integer.parseInt(request.getParameter("thistype"));
-            thattype = Integer.parseInt(request.getParameter("thattype"));
-        } catch (NumberFormatException e) {
-            outinfo = "ThisType or ThatType Error";
-            return false;
+        if (request.getParameter("thistype") != null || request.getParameter("thattype") != null) {
+            try {
+                thistype = Integer.parseInt(request.getParameter("thistype"));
+                thattype = Integer.parseInt(request.getParameter("thattype"));
+            } catch (NumberFormatException e) {
+                outinfo = "ThisType or ThatType Error";
+                return false;
+            }
         }
         if (thistype == 0) {
             thisstr1 = request.getParameter("thisdate");
@@ -176,7 +195,7 @@ public class taskmanager extends HttpServlet {
                 outinfo = "找不到要修改的任务，请刷新页面重试";
                 return false;//找不到任务
             }
-            if(del != null || start != null || stop != null){//删除、新建、停止任务只需要验证tid
+            if (del != null || start != null || stop != null) {//删除、新建、停止任务只需要验证tid
                 return true;
             }
         } else {//新建任务，必须要输入密码项
@@ -194,29 +213,29 @@ public class taskmanager extends HttpServlet {
         if (taskname.length() > 25) {
             outinfo = "标题太长";
             return false;
-        }else if(taskname.length() < 2){
+        } else if (taskname.length() < 2) {
             outinfo = "标题太短";
             return false;
         }
-        if(thistype < 0 || thistype > 3){
+        if (thistype < 0 || thistype > 3) {
             outinfo = "选择的this类型有误";
             return false;
         }
-        if(thattype < 0 || thattype > 2){
+        if (thattype < 0 || thattype > 2) {
             outinfo = "选择的that类型有误";
             return false;
         }
-        if(thistype == 0){
-            if(!thisstr1.matches("^([0-9]{4})-([0][1-9]|[1][0-2])-([0][1-9]|[1-2][0-9]|[3][0-1])$")){
+        if (thistype == 0) {
+            if (!thisstr1.matches("^([0-9]{4})-([0][1-9]|[1][0-2])-([0][1-9]|[1-2][0-9]|[3][0-1])$")) {
                 outinfo = "this输入的日期有误";
                 return false;
             }
-            if(!thisstr2.matches("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$")){
+            if (!thisstr2.matches("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$")) {
                 outinfo = "this输入的时间有误";
                 return false;
             }
-        }else if(thistype == 1){
-            if(!thisstr1.matches("^[a-z0-9][a-z0-9\\._-]*@[a-z0-9][a-z0-9-]*\\.([a-z0-9][a-z0-9-]*\\.)*[a-z]+$")){
+        } else if (thistype == 1) {
+            if (!thisstr1.matches("^[a-z0-9][a-z0-9\\._-]*@[a-z0-9][a-z0-9-]*\\.([a-z0-9][a-z0-9-]*\\.)*[a-z]+$")) {
                 outinfo = "this输入的邮箱格式有误";
                 return false;
             }
@@ -232,8 +251,8 @@ public class taskmanager extends HttpServlet {
             outinfo = "this输入的密码太长";
             return false;
         }
-        if(thattype == 0){
-            if(!thatusername.matches("^[a-z0-9][a-z0-9\\._-]*@[a-z0-9][a-z0-9-]*\\.([a-z0-9][a-z0-9-]*\\.)*[a-z]+$")){
+        if (thattype == 0) {
+            if (!thatusername.matches("^[a-z0-9][a-z0-9\\._-]*@[a-z0-9][a-z0-9-]*\\.([a-z0-9][a-z0-9-]*\\.)*[a-z]+$")) {
                 outinfo = "that输入的邮箱格式有误";
                 return false;
             }

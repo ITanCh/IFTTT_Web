@@ -7,6 +7,8 @@
 package PO;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 存储任务基本数据
@@ -223,5 +225,17 @@ public class TaskPO extends Thread implements Cloneable{
     public void setIsrunning(boolean isrunning) {
         this.isrunning = isrunning;
     }
-
+    
+    @Override
+    public void run(){
+        int a = 0;
+        while(isrunning){
+            try {
+                Thread.sleep(2000);
+                System.out.println(a++);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TaskPO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }

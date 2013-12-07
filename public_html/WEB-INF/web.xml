@@ -21,7 +21,7 @@
         <servlet-class>ob.servlet.getuserinfo</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>addtask</servlet-name>
+        <servlet-name>taskmanager</servlet-name>
         <servlet-class>ob.servlet.taskmanager</servlet-class>
     </servlet>
     <servlet>
@@ -49,8 +49,8 @@
         <url-pattern>/getuserinfo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>addtask</servlet-name>
-        <url-pattern>/addtask</url-pattern>
+        <servlet-name>taskmanager</servlet-name>
+        <url-pattern>/taskmanager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>gettaskinfo</servlet-name>
