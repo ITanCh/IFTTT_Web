@@ -28,6 +28,14 @@
         <servlet-name>gettaskinfo</servlet-name>
         <servlet-class>ob.servlet.gettaskinfo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>ob.servlet.logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>edituserinfo</servlet-name>
+        <servlet-class>ob.servlet.edituserinfo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getreg</servlet-name>
         <url-pattern>/getreg</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>gettaskinfo</servlet-name>
         <url-pattern>/gettaskinfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>edituserinfo</servlet-name>
+        <url-pattern>/edituserinfo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
