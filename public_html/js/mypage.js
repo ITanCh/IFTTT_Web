@@ -116,14 +116,50 @@ function viewtask(tid){
     }  
 }
 
-function viewtaskback(){
+function viewtaskback(id){
      if(vtrequest.readyState===4){  
-        if(vtrequest.status===200){ 
+        if(vtrequest.status===200){
+            //insert main fame firstly
+            var mainframe='<hr>\n\
+                            <label for="taskname">Task Name:</label>\n\
+                            <input id="taskname"  type="text" />\n\
+                            <hr class="alt2" />\n\
+                            <div id="thismenu">\n\
+                            <fieldset>\n\
+                            <legend>IF</legend>\n\
+                            <input type="radio" name="this" id="thisradio1" onclick="editthis(this.id)" /> <label for="thisradio1" class="inline">Time Out</label><br />\n\
+                            <input type="radio" name="this" id="thisradio2" onclick="editthis(this.id)"/> <label for="thisradio2" class="inline">Receive Mail</label><br />\n\
+                             <input type="radio" name="this" id="thisradio3" obclick="editthis(this.id)"/> <label for="thisradio3" class="inline">Monitor Weibo</label>\n\
+                            </fieldset>\n\
+                             </div>\n\
+                        <div id="thiscontent">\n\
+                        <!--insert when user want to view some task-->\n\
+                        </div>\n\
+                    <div id="thatmenu">\n\
+                        <fieldset>\n\
+                        <legend>THEN</legend>\n\
+                            <input type="radio" name="that" id="thatradio1" onclick="editthat(this.id)"/> <label for="thatradio1" class="inline">Send Weibo</label><br />\n\
+                            <input type="radio" name="that" id="thatradio2" onclick="editthat(this.id)"/> <label for="thatradio2" class="inline">Send Mail</label>\n\
+                        </fieldset>\n\
+                    </div>\n\
+                    <div id="thatcontent">\n\
+                        <!--insert when user want to view some task-->\n\
+                    </div>\n\
+                    <ul class="button-bar">\n\
+                    <li><button id="edittask"class="orange" onclick="edittask()"><i class="icon-pencil"></i> Edit</button></li>\n\
+                    <li><button id="oktask"  class=""  onclick="okedit('+id+')" disabled="disabled"><i class="icon-ok-sign"></i> Ok</button></li>\n\
+                    <li><button id="deletetask" class="red" onclick="deletetask('+id+')"><i class="icon-remove-sign"></i> Delete</button></li>\n\
+                    </ul>\n\
+                    <hr class="alt2" />';
+            document.getElementById("taskview").innerHTML=mainframe;
+            
+            //fill in all text
             var flag=vtrequest.responseText;
             if(flag===fals)return;
             var obj=eval('('+flag+')');
             //fill this content
             var thisradio;
+            document.getElementById("taskname").value=obj.name;
             var thiscontent=document.getElementById("thiscontent");
             var thistext;
             if(obj.thistype===0){            //time
@@ -140,32 +176,33 @@ function viewtaskback(){
             }
             else if(obj.thistype===2){       //weibo
                 thisradio=document.getElementById("thisradio3");
-                thistext='<textarea id="this2_3"  name="this" value="'+obj.thisaccount+'"></textarea><br>\n\
+                thistext='<textarea id="this2_3"  name="this" >'+obj.thisaccount+'</textarea><br>\n\
                     <input id="this2_1" name="this"  type="text"  value="'+obj.thiscontent+'"/>\n\
                     <br><br>\n\
                     <input id="this2_2"  name="this" type="text"  placeholder="Default Password is the last one"/>';
             }
             thisradio.checked=true;
             thiscontent.innerHTML=thistext;
-            
+            thisradio.setAttribute("onclick","noteditthis("+thistext+")");
             //fill that content
             var thatradio;
             var thatcontent=document.getElementById("thatcontent");
             var thattext;
             if(obj.thattype===0){            //send weibo
                 thatradio=document.getElementById("thatradio1");
-                thattext='<textarea id="that0_1"   name="that" value="'+obj.thatcontent+'"></textarea><br>\n\
+                thattext='<textarea id="that0_1"   name="that">'+obj.thatcontent+'</textarea><br>\n\
                 <input id="that0_2" name="that" type="text" value="'+obj.thataccount+' /><br><br>\n\
                 <input id="that0_3" name="that" type="pw" placeholder="Default Password is the last one" />';
             }
             else if(obj.thattype===1){       //send mail
                 thatradio=document.getElementById("thatradio2");
-                thattext='<textarea id="that1_1" name="that" value="'+obj.thatcoutent+'"></textarea><br>\n\
+                thattext='<textarea id="that1_1" name="that">'+obj.thatcoutent+'</textarea><br>\n\
                     <input id="that1_2" name="that" type="text" value="'+obj.thataddr+'" />';
             }
             thatradio.checked=true;
             thatcontent.innerHTML=thattext;
-            //make tham all disabled
+            thatradio.setAttribute("onclick","noteditthat("+thattext+")");
+            //make them  disabled
             var thisobj=document.getElementsByName("this");
             for(var i=0;i<thisobj.length;i++){
                 thisobj[i].setAttribute('disabled','disabled');
@@ -178,9 +215,55 @@ function viewtaskback(){
         }
     }
 }
+//recover old text
+function notedittthis(text){
+    document.getElementById("thiscontent").innerHTML=text;
+}
 
+function noteditthat(text){
+    document.getElementById("thatcontent").innerHTML=text;
+}
+
+//edit this 
+function editthis(id){
+    var content=document.getElementById("thiscontent");
+    var text;
+    if(id==="thisradio1"){            //time
+        text="<input id='this0_1' type='text' placeholder='2013-11-11'/>\n\
+                <br><br>\n\
+                <input id='this0_2' type='text' placeholder='11:11'/>";
+    }
+    else if(id==="createthisradio2"){       //mail
+        text="<input id='this1_1' type='text' placeholder='name@example.com'/>\n\
+                <br><br>\n\
+                <input id='this1_2' type='text' placeholder='Password'/>";       
+    }
+    else if(id==="createthisradio3"){       //weibo
+        text="<textarea id='this2_3' placeholder='The content you look for'></textarea><br>\n\
+                    <input id='this2_1' type='text' placeholder='Weibo account '/>\n\
+                    <br><br>\n\
+                    <input id='this2_2' type='text' placeholder='Password'/>";  
+    }
+    content.innerHTML=text;
+}
+//edit that
+function editthat(id){
+    var content=document.getElementById("thatcontent");
+    var text;
+    if(id==="thatradio1"){            //send weibo
+        text='<textarea id="that0_1" placeholder="Say something"></textarea><br>\n\
+                <input id="that0_2" type="text" placeholder="Weibo account" /><br><br>\n\
+                <input id="that0_3" type="pw" placeholder="Password" />';
+    }
+    else if(id==="thatradio2"){       //send mail
+         text='<textarea id="that1_1"  placeholder="Say something"></textarea><br>\n\
+                    <input id="that1_2" type="text" placeholder="name@example.com" />';
+    }
+    content.innerHTML=text;
+}
 //edit a task
 function edittask(){
+    //make them editable
     var thisobj=document.getElementsByName("this");
     for(var i=0;i<thisobj.length;i++){
         thisobj[i].removeAttribute('disabled');
@@ -189,9 +272,70 @@ function edittask(){
     for(var i=0;i<thatobj.length;i++){
         thatobj[i].removeAttribute("disabled");
     }
+    var editbutton=document.getElementById("edittask");//black this button
+    editbutton.setAttribute("class","");
+    editbutton.setAttribute("disabled","disabled");
+    var okbutton=document.getElementById("oktask");
+    okbutton.setAttribute("class","green");
+    okbutton.removeAttribute("disabled");
 }
 
 //the task has been edited and click ok
+function okedit(id){
+    var thisobj=document.getElementsByName("this");                //choose this    
+    var taskname=document.getElementById("taskname").value;        //get name
+    var thistype=-1;
+    var thisdata="";
+    for(var i=0;i<thisobj.length;i++){                              //get this
+        if(thisobj[i].checked){
+            thistype=i;
+            if(i===0){                                              //time out
+                thisdata+="&thisdate="+document.getElementById("cthis0_1").value+"&thistime="+document.getElementById("cthis0_2").value;
+                break;
+            }
+            else if(i===1){                                              //get mail
+                thisdata+="&thisaddr="+document.getElementById("cthis1_1").value+"&thispw="+document.getElementById("cthis1_2").value;
+                break;
+            }
+            else if(i===2){                                              // look for weibo
+                thisdata+="&thiscount="+document.getElementById("cthis2_1").value+"&thispw="+document.getElementById("cthis2_2").value+"&thicontent="+document.getElementById("cthis2_3").value;
+                break;
+            }
+        }
+    }
+     
+    var thatobj=document.getElementsByName("cthat");                //choose this    
+    var thattype=-1;
+    var thatdata="";
+    for(var i=0;i<thatobj.length;i++){                              //get this
+        if(thatobj[i].checked){
+            thattype=i;
+            if(i===0){                                              //send weibo
+                thatdata+="&thataccount="+document.getElementById("cthat0_2").value+"&thatpw="+document.getElementById("cthat0_3").value+"&content="+document.getElementById("cthat0_1").value;
+                break;
+            }
+            else if(i===1){                                          //send mail
+                thatdata+="&thataddr="+document.getElementById("cthat1_2").value+"&thatcontent="+document.getElementById("cthat1_1").value;
+                break;
+            }
+         }
+    }
+    var url="taskmanager?name="+taskname+"&thistype="+thistype+thisdata+"&thattype="+thattype+thatdata;    
+    //alert(url);
+    if(window.XMLHttpRequest) {  
+        createrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
+    }else if(window.ActiveXObject) {  
+        createrequset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+    }
+    
+    if(createrequest!==null){  
+            document.getElementById("createbutton").setAttribute('class','');
+            document.getElementById("createbutton").setAttribute('disabled','disabled');
+            createrequest.open("POST",url,true);       //gettaskinfo
+            createrequest.onreadystatechange=createback;
+            createrequest.send(null);
+    }  
+}
 function disableedit(){
             var thisradio;
             var thiscontent=document.getElementById("thiscontent");
@@ -211,7 +355,7 @@ function disableedit(){
             }
             else if(thistype===2){       //weibo
                 thisradio=document.getElementById("thisradio3");
-                thistext='<textarea id="this2_3"  name="this"  value="'+'obj.thisaccount'+'"></textarea><br>\n\
+                thistext='<textarea id="this2_3"  name="this" >'+'obj.thisaccount'+'</textarea><br>\n\
                     <input id="this2_1" name="this"  type="text"  value="'+'obj.thiscontent'+'"/>\n\
                     <br><br>\n\
                     <input id="this2_2"  name="this" type="text" placeholder="Default Password is the last one"/>';
@@ -226,13 +370,13 @@ function disableedit(){
             var thattype=0;
             if(thattype===0){            //send weibo
                 thatradio=document.getElementById("thatradio1");
-                thattext='<textarea id="that0_1"   name="that" value="'+'obj.thatcontent'+'"></textarea><br>\n\
+                thattext='<textarea id="that0_1"   name="that">'+'obj.thatcontent'+'</textarea><br>\n\
                 <input id="that0_2" name="that" type="text" value="'+'obj.thataccount'+'"/><br><br>\n\
                 <input id="that0_3" name="that" type="pw" placeholder="Default Password is the last one" />';
             }
             else if(thattype===1){       //send mail
                 thatradio=document.getElementById("thatradio2");
-                thattext='<textarea id="that1_1" name="that" value="'+'obj.thatcoutent'+'"></textarea><br>\n\
+                thattext='<textarea id="that1_1" name="that">'+'obj.thatcoutent'+'</textarea><br>\n\
                     <input id="that1_2" name="that" type="text" value="'+'obj.thataddr'+'" />';
             }
             thatradio.checked=true;
@@ -251,7 +395,7 @@ function disableedit(){
  * create a task
  * 
  */
-//when click create task
+// reprint the create task view
 function getcreateview(){
     var text='<label for="ctaskname">Task Name:</label>\n\
                     <input id="ctaskname" type="text" />\n\
@@ -323,12 +467,15 @@ function choosethat(id){
         
     }
 }
+
+
 //when click create
 var createrequest;
 function createtask(){
+   
     var thisobj=document.getElementsByName("cthis");                //choose this    
     var taskname=document.getElementById("ctaskname").value;        //get name
-    var thistype;
+    var thistype=-1;
     var thisdata="";
     for(var i=0;i<thisobj.length;i++){                              //get this
         if(thisobj[i].checked){
@@ -349,7 +496,7 @@ function createtask(){
     }
      
     var thatobj=document.getElementsByName("cthat");                //choose this    
-    var thattype;
+    var thattype=-1;
     var thatdata="";
     for(var i=0;i<thatobj.length;i++){                              //get this
         if(thatobj[i].checked){
@@ -365,7 +512,7 @@ function createtask(){
          }
     }
     var url="taskmanager?name="+taskname+"&thistype="+thistype+thisdata+"&thattype="+thattype+thatdata;    
-    alert(url);
+    //alert(url);
     if(window.XMLHttpRequest) {  
         createrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     }else if(window.ActiveXObject) {  
@@ -373,6 +520,8 @@ function createtask(){
     }
     
     if(createrequest!==null){  
+            document.getElementById("createbutton").setAttribute('class','');
+            document.getElementById("createbutton").setAttribute('disabled','disabled');
             createrequest.open("POST",url,true);       //gettaskinfo
             createrequest.onreadystatechange=createback;
             createrequest.send(null);
@@ -385,14 +534,28 @@ function createback(){
             if(flag==="success"){
                 document.getElementById("createback").innerHTML='<div class="notice success">\n\
                     <i class="icon-ok icon-large"></i> Create task successfully <a href="#close" class="icon-remove"></a></div>';
-                document.getElementById("createbutton").setAttribute('disabled','disabled');
+                //timer reprint in 3s 
+                setTimeout("timereprintcreate(2)",1000);
+                setTimeout("timereprintcreate(1)",2000);
+                setTimeout("timereprintcreate(0)",3000);
             }
             else{                       //give me reason of unsuccess
                 document.getElementById("createback").innerHTML='<div class="notice warning">\n\
                 <i class="icon-warning-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
+                document.getElementById("createbutton").setAttribute('class','green');
+                document.getElementById("createbutton").removeAttribute('disabled');
             }
             
         }
+    }
+}
+
+//timer about reprint
+function timereprintcreate(t){
+     document.getElementById("createback").innerHTML='<div class="notice success">\n\
+                    <i class="icon-ok icon-large"></i>Successfully! I will reprint '+t+' s later...<a href="#close" class="icon-remove"></a></div>';
+    if(t===0){
+        getcreateview();        //reprint view
     }
 }
 

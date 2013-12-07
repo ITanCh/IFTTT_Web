@@ -35,21 +35,21 @@ link with signup.html
 #nameinfo{
     position: absolute;
     left: 450px;
-    font-size: 13px;
+    font-size: 15px;
 }
 #mailinfo{
     position: absolute;
     left: 450px;
-    font-size: 13px;
+    font-size: 15px;
 }
 #pw1info{
     position: absolute;
     left: 450px;
-    font-size: 13px;
+    font-size: 15px;
 }
 #pw2info{
     position: absolute;
     left: 450px;
-    font-size: 13px;
+    font-size: 15px;
 }
 
