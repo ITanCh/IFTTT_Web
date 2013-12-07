@@ -149,6 +149,7 @@ function viewtaskback(id){
                     <li><button id="edittask"class="orange" onclick="edittask()"><i class="icon-pencil"></i> Edit</button></li>\n\
                     <li><button id="oktask"  class=""  onclick="okedit('+id+')" disabled="disabled"><i class="icon-ok-sign"></i> Ok</button></li>\n\
                     <li><button id="deletetask" class="red" onclick="deletetask('+id+')"><i class="icon-remove-sign"></i> Delete</button></li>\n\
+                    <div id="editback"></div>\n\
                     </ul>\n\
                     <hr class="alt2" />';
             document.getElementById("taskview").innerHTML=mainframe;
@@ -203,6 +204,7 @@ function viewtaskback(id){
             thatcontent.innerHTML=thattext;
             thatradio.setAttribute("onclick","noteditthat("+thattext+")");
             //make them  disabled
+            document.getElementById("taskname").setAttribute("disabled","disabled");
             var thisobj=document.getElementsByName("this");
             for(var i=0;i<thisobj.length;i++){
                 thisobj[i].setAttribute('disabled','disabled');
@@ -264,6 +266,7 @@ function editthat(id){
 //edit a task
 function edittask(){
     //make them editable
+    document.getElementById("taskname").removeAttribute("disabled");
     var thisobj=document.getElementsByName("this");
     for(var i=0;i<thisobj.length;i++){
         thisobj[i].removeAttribute('disabled');
@@ -275,12 +278,14 @@ function edittask(){
     var editbutton=document.getElementById("edittask");//black this button
     editbutton.setAttribute("class","");
     editbutton.setAttribute("disabled","disabled");
+    //make ok clickable
     var okbutton=document.getElementById("oktask");
     okbutton.setAttribute("class","green");
     okbutton.removeAttribute("disabled");
 }
 
 //the task has been edited and click ok
+var editrequset;
 function okedit(id){
     var thisobj=document.getElementsByName("this");                //choose this    
     var taskname=document.getElementById("taskname").value;        //get name
@@ -290,106 +295,178 @@ function okedit(id){
         if(thisobj[i].checked){
             thistype=i;
             if(i===0){                                              //time out
-                thisdata+="&thisdate="+document.getElementById("cthis0_1").value+"&thistime="+document.getElementById("cthis0_2").value;
+                thisdata+="&thisdate="+document.getElementById("this0_1").value+"&thistime="+document.getElementById("this0_2").value;
                 break;
             }
             else if(i===1){                                              //get mail
-                thisdata+="&thisaddr="+document.getElementById("cthis1_1").value+"&thispw="+document.getElementById("cthis1_2").value;
+                thisdata+="&thisaddr="+document.getElementById("this1_1").value+"&thispw="+document.getElementById("this1_2").value;
                 break;
             }
             else if(i===2){                                              // look for weibo
-                thisdata+="&thiscount="+document.getElementById("cthis2_1").value+"&thispw="+document.getElementById("cthis2_2").value+"&thicontent="+document.getElementById("cthis2_3").value;
+                thisdata+="&thiscount="+document.getElementById("this2_1").value+"&thispw="+document.getElementById("this2_2").value+"&thicontent="+document.getElementById("this2_3").value;
                 break;
             }
         }
     }
      
-    var thatobj=document.getElementsByName("cthat");                //choose this    
+    var thatobj=document.getElementsByName("that");                //choose this    
     var thattype=-1;
     var thatdata="";
     for(var i=0;i<thatobj.length;i++){                              //get this
         if(thatobj[i].checked){
             thattype=i;
             if(i===0){                                              //send weibo
-                thatdata+="&thataccount="+document.getElementById("cthat0_2").value+"&thatpw="+document.getElementById("cthat0_3").value+"&content="+document.getElementById("cthat0_1").value;
+                thatdata+="&thataccount="+document.getElementById("that0_2").value+"&thatpw="+document.getElementById("that0_3").value+"&content="+document.getElementById("that0_1").value;
                 break;
             }
             else if(i===1){                                          //send mail
-                thatdata+="&thataddr="+document.getElementById("cthat1_2").value+"&thatcontent="+document.getElementById("cthat1_1").value;
+                thatdata+="&thataddr="+document.getElementById("that1_2").value+"&thatcontent="+document.getElementById("that1_1").value;
                 break;
             }
          }
     }
-    var url="taskmanager?name="+taskname+"&thistype="+thistype+thisdata+"&thattype="+thattype+thatdata;    
+    var url="taskmanager?tid="+id+"name="+taskname+"&thistype="+thistype+thisdata+"&thattype="+thattype+thatdata;    
     //alert(url);
     if(window.XMLHttpRequest) {  
-        createrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
+        editrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     }else if(window.ActiveXObject) {  
-        createrequset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+        editrequset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     
-    if(createrequest!==null){  
-            document.getElementById("createbutton").setAttribute('class','');
-            document.getElementById("createbutton").setAttribute('disabled','disabled');
-            createrequest.open("POST",url,true);       //gettaskinfo
-            createrequest.onreadystatechange=createback;
-            createrequest.send(null);
+    if(editrequest!==null){  
+            document.getElementById("deletetask").setAttribute('class','');
+            document.getElementById("deletetask").setAttribute('disabled','disabled');
+            document.getElementById("oktask").setAttribute('class','');
+            document.getElementById("oktask").setAttribute('disabled','disabled');
+            editrequest.open("POST",url,true);       //gettaskinfo
+            editrequest.onreadystatechange=editback;
+            editrequest.send(null);
     }  
 }
-function disableedit(){
-            var thisradio;
-            var thiscontent=document.getElementById("thiscontent");
-            var thistext;
-            var thistype=2;
-            if(thistype===0){            //time
-                thisradio=document.getElementById("thisradio1");
-                thistext='<input id="this0_1" name="this" type="text" value="'+'obj.thisdate'+'"/>\n\
-                <br><br>\n\
-                <input id="this0_2"  name="this" type="text"  value="'+'obj.thistime'+'"/>';
+
+function editback(){
+  if(editrequest.readyState===4){  
+        if(editrequest.status===200){ 
+            var flag=editrequest.responseText;
+            if(flag==="success"){
+                document.getElementById("taskview").innerHTML='<div class="notice success">\n\
+                    <i class="icon-ok icon-large"></i>Edit sucessfully!<a href="#close" class="icon-remove"></a></div>';
+                createtable();          //update task table
+                return;
             }
-            else if(thistype===1){       //mail
-                thisradio=document.getElementById("thisradio2");
-                thistext='<input id="this1_1"  name="this" type="text"  value="'+'obj.thisaddr'+'"/>\n\
-                <br><br>\n\
-                <input id="this1_2"  name="this" type="text" placeholder="Default Password is the last one"/>';
-            }
-            else if(thistype===2){       //weibo
-                thisradio=document.getElementById("thisradio3");
-                thistext='<textarea id="this2_3"  name="this" >'+'obj.thisaccount'+'</textarea><br>\n\
-                    <input id="this2_1" name="this"  type="text"  value="'+'obj.thiscontent'+'"/>\n\
-                    <br><br>\n\
-                    <input id="this2_2"  name="this" type="text" placeholder="Default Password is the last one"/>';
-            }
-            thisradio.checked=true;
-            thiscontent.innerHTML=thistext;
-            
-            //fill that content
-            var thatradio;
-            var thatcontent=document.getElementById("thatcontent");
-            var thattext;
-            var thattype=0;
-            if(thattype===0){            //send weibo
-                thatradio=document.getElementById("thatradio1");
-                thattext='<textarea id="that0_1"   name="that">'+'obj.thatcontent'+'</textarea><br>\n\
-                <input id="that0_2" name="that" type="text" value="'+'obj.thataccount'+'"/><br><br>\n\
-                <input id="that0_3" name="that" type="pw" placeholder="Default Password is the last one" />';
-            }
-            else if(thattype===1){       //send mail
-                thatradio=document.getElementById("thatradio2");
-                thattext='<textarea id="that1_1" name="that">'+'obj.thatcoutent'+'</textarea><br>\n\
-                    <input id="that1_2" name="that" type="text" value="'+'obj.thataddr'+'" />';
-            }
-            thatradio.checked=true;
-            thatcontent.innerHTML=thattext;
-             var thisobj=document.getElementsByName("this");
-             for(var i=0;i<thisobj.length;i++){
-            thisobj[i].setAttribute('disabled','disabled');
-            }
-            var thatobj=document.getElementsByName("that");
-            for(var i=0;i<thatobj.length;i++){
-            thatobj[i].setAttribute('disabled','disabled');
-            }
+            else{
+                document.getElementById("editback").innerHTML='<div class="notice warning">\n\
+                <i class="icon-warning-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
+            }  
+        }
+    }
+    document.getElementById("oktask").setAttribute('class','green');
+    document.getElementById("oktask").removeAttribute('disabled');
+    document.getElementById("deletetask").setAttribute('class','red');
+    document.getElementById("deletetask").removeAttribute('disabled');
 }
+
+//delete a task
+var deleterequset;
+function deletetask(id){
+    if(window.XMLHttpRequest) {  
+        deleterequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
+    }else if(window.ActiveXObject) {  
+        deleterequset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+    }
+    
+    if(deleterequest!==null){  
+            //disable button
+            document.getElementById("deletetask").setAttribute('class','');
+            document.getElementById("deletetask").setAttribute('disabled','disabled');
+            document.getElementById("oktask").setAttribute('class','');
+            document.getElementById("oktask").setAttribute('disabled','disabled');
+            deleterequest.open("POST","taskmanager?tid="+id,true);       //gettaskinfo
+            deleterequest.onreadystatechange=deleteback;
+            deleterequest.send(null);
+    } 
+    
+}
+
+function deleteback(){
+    if(editrequest.readyState===4){  
+        if(editrequest.status===200){ 
+            var flag=editrequest.responseText;
+            if(flag==="success"){
+                   document.getElementById("taskview").innerHTML='<div class="notice success">\n\
+                    <i class="icon-ok icon-large"></i>Delete sucessfully!<a href="#close" class="icon-remove"></a></div>';
+                createtable();          //update task table
+                return;
+            }
+            else{
+                document.getElementById("editback").innerHTML='<div class="notice warning">\n\
+                <i class="icon-warning-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
+            }
+        }
+    }
+    var edit=document.getElementById("edittask");
+    var editflag=edit.getAttribute("disabled");
+    if(editflag==='disabled'){
+        document.getElementById("oktask").setAttribute('class','green');
+        document.getElementById("oktask").removeAttribute('disabled');
+    }
+    document.getElementById("deletetask").setAttribute('class','red');
+    document.getElementById("deletetask").removeAttribute('disabled');
+}
+//function disableedit(){
+//            var thisradio;
+//            var thiscontent=document.getElementById("thiscontent");
+//            var thistext;
+//            var thistype=2;
+//            if(thistype===0){            //time
+//                thisradio=document.getElementById("thisradio1");
+//                thistext='<input id="this0_1" name="this" type="text" value="'+'obj.thisdate'+'"/>\n\
+//                <br><br>\n\
+//                <input id="this0_2"  name="this" type="text"  value="'+'obj.thistime'+'"/>';
+//            }
+//            else if(thistype===1){       //mail
+//                thisradio=document.getElementById("thisradio2");
+//                thistext='<input id="this1_1"  name="this" type="text"  value="'+'obj.thisaddr'+'"/>\n\
+//                <br><br>\n\
+//                <input id="this1_2"  name="this" type="text" placeholder="Default Password is the last one"/>';
+//            }
+//            else if(thistype===2){       //weibo
+//                thisradio=document.getElementById("thisradio3");
+//                thistext='<textarea id="this2_3"  name="this" >'+'obj.thisaccount'+'</textarea><br>\n\
+//                    <input id="this2_1" name="this"  type="text"  value="'+'obj.thiscontent'+'"/>\n\
+//                    <br><br>\n\
+//                    <input id="this2_2"  name="this" type="text" placeholder="Default Password is the last one"/>';
+//            }
+//            thisradio.checked=true;
+//            thiscontent.innerHTML=thistext;
+//            
+//            //fill that content
+//            var thatradio;
+//            var thatcontent=document.getElementById("thatcontent");
+//            var thattext;
+//            var thattype=0;
+//            if(thattype===0){            //send weibo
+//                thatradio=document.getElementById("thatradio1");
+//                thattext='<textarea id="that0_1"   name="that">'+'obj.thatcontent'+'</textarea><br>\n\
+//                <input id="that0_2" name="that" type="text" value="'+'obj.thataccount'+'"/><br><br>\n\
+//                <input id="that0_3" name="that" type="pw" placeholder="Default Password is the last one" />';
+//            }
+//            else if(thattype===1){       //send mail
+//                thatradio=document.getElementById("thatradio2");
+//                thattext='<textarea id="that1_1" name="that">'+'obj.thatcoutent'+'</textarea><br>\n\
+//                    <input id="that1_2" name="that" type="text" value="'+'obj.thataddr'+'" />';
+//            }
+//            thatradio.checked=true;
+//            thatcontent.innerHTML=thattext;
+//             var thisobj=document.getElementsByName("this");
+//             for(var i=0;i<thisobj.length;i++){
+//            thisobj[i].setAttribute('disabled','disabled');
+//            }
+//            var thatobj=document.getElementsByName("that");
+//            for(var i=0;i<thatobj.length;i++){
+//            thatobj[i].setAttribute('disabled','disabled');
+//            }
+//}
 
 /*
  * create a task
@@ -472,7 +549,6 @@ function choosethat(id){
 //when click create
 var createrequest;
 function createtask(){
-   
     var thisobj=document.getElementsByName("cthis");                //choose this    
     var taskname=document.getElementById("ctaskname").value;        //get name
     var thistype=-1;
@@ -538,16 +614,16 @@ function createback(){
                 setTimeout("timereprintcreate(2)",1000);
                 setTimeout("timereprintcreate(1)",2000);
                 setTimeout("timereprintcreate(0)",3000);
+                return;
             }
             else{                       //give me reason of unsuccess
                 document.getElementById("createback").innerHTML='<div class="notice warning">\n\
                 <i class="icon-warning-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
-                document.getElementById("createbutton").setAttribute('class','green');
-                document.getElementById("createbutton").removeAttribute('disabled');
-            }
-            
+            }  
         }
     }
+    document.getElementById("createbutton").setAttribute('class','green');
+    document.getElementById("createbutton").removeAttribute('disabled');
 }
 
 //timer about reprint

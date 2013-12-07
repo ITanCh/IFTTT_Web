@@ -68,7 +68,7 @@ show all information of this user
                         <th>Actions</th>
                         </tr></thead>
                     <tbody id="tablebody">
-                        <tr> 
+<!--                        <tr> 
                         <td>Item1</td>
                         <td>Item2</td>
                         <td>Item3</td>
@@ -98,12 +98,13 @@ show all information of this user
                         <td><a href=""><i class="icon-pencil tooltip" title="view and modify"></i></a>
                             <a class="stopicon" href=""><i class="icon-stop tooltip" title="stop it"></i></a>
                             <a class="starticon" href=""><i class="icon-play tooltip" title="start it"></i></a></td>
-                        </tr></tbody>
+                        </tr>-->
+                    </tbody>
                         </table> 
                 </div>
                
                 <div id="taskview">
-                    <hr>
+<!--                    <hr>
                     <label for="taskname">Task Name:</label>
                     <input id="taskname" name="this" type="text" />
                     <hr class="alt2" /> 
@@ -116,7 +117,7 @@ show all information of this user
                         </fieldset>
                     </div>
                     <div id="thiscontent">
-                       <!--insert when user want to view some task-->
+                       insert when user want to view some task
                     </div>
                     
                     <div id="thatmenu">
@@ -127,7 +128,7 @@ show all information of this user
                         </fieldset>
                     </div>
                     <div id="thatcontent">
-                        <!--insert when user want to view some task-->
+                        insert when user want to view some task
                     </div>
                     
                     <ul class="button-bar">
@@ -135,7 +136,7 @@ show all information of this user
                     <li><button class="green"  onclick="disableedit()"><i class="icon-ok-sign"></i> Ok</button></li>
                     <li><button class="red"><i class="icon-remove-sign"></i> Delete</button></li>
                     </ul>
-                    <hr class="alt2" /> 
+                    <hr class="alt2" /> -->
                 </div>
             </div>
             
@@ -170,7 +171,18 @@ show all information of this user
                     <hr class="alt2" />';
                 </div>
             </div>
-            <div id="tabr3" class="tab-content">Tab3</div>
+            <!--personal infomation-->
+            <div id="tabr3" class="tab-content">
+                <label for="usernametext">User Name:</label>
+                <input id="usernametext" type="text" disabled="disabled" />
+                <br>
+                <br>
+                <label for="mailaddr">Mail Addr:</label>
+                <input id="mailaddr" type="text" disabled="disabled" />
+                <br>
+                <br>
+                <button class="medium green"><i class="money_icon"></i> Top-up</button>
+            </div>
         </div>
         
     </body>
