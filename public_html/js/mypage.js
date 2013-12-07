@@ -355,8 +355,8 @@ function editback(){
                 return;
             }
             else{
-                document.getElementById("editback").innerHTML='<div class="notice warning">\n\
-                <i class="icon-warning-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
+                document.getElementById("editback").innerHTML='<div class="notice error">\n\
+                <i class="icon-remove-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
             }  
         }
     }
@@ -368,7 +368,20 @@ function editback(){
 
 //delete a task
 var deleterequset;
+var deleteflag=0;
+function notdelete(){
+    document.getElementById("editback").innerHTML="";
+    deleteflag=0;
+}
 function deletetask(id){
+    if(deleteflag===0){                 //double click to delete a task. safer
+        deleteflag=1;                   
+         document.getElementById("editback").innerHTML='<div class="notice warning">\n\
+                <i class="icon-warning-sign icon-large"></i>Click again , you will delete this task!<a href="#close" class="icon-remove"></a></div>';
+                setTimeout("notdelete()",2000);         //2s later,if not double click ,do not delete
+        return;
+    }
+    deleteflag=0;
     if(window.XMLHttpRequest) {  
         deleterequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     }else if(window.ActiveXObject) {  
@@ -399,8 +412,8 @@ function deleteback(){
                 return;
             }
             else{
-                document.getElementById("editback").innerHTML='<div class="notice warning">\n\
-                <i class="icon-warning-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
+                document.getElementById("editback").innerHTML='<div class="notice error">\n\
+                <i class="icon-remove-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
             }
         }
     }
@@ -617,8 +630,8 @@ function createback(){
                 return;
             }
             else{                       //give me reason of unsuccess
-                document.getElementById("createback").innerHTML='<div class="notice warning">\n\
-                <i class="icon-warning-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
+                document.getElementById("createback").innerHTML='<div class="notice error">\n\
+                <i class="icon-remove-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
             }  
         }
     }
