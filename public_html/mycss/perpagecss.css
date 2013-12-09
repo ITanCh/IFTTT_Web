@@ -10,7 +10,7 @@ link with personalpage.html
     top:0px;
     left: 0px;
     height: 45px;
-    width: 100%;
+    width: 101%;
     min-width: 1200px;
     margin-bottom: 10px;
     background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
@@ -65,6 +65,13 @@ link with personalpage.html
 
 .signout{
     margin-left: 10px;
+}
+
+#mainbody{
+    position: absolute;
+    top:70px;
+    width: 100%;
+    min-width: 1200px;
 }
 
 #left{
@@ -287,4 +294,27 @@ link with personalpage.html
 #createthatcontent textArea{
     float: right;
     height:150px;
+}
+
+#changenamediv{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#changenameinfo{
+ margin-right: 50%;
+}
+
+#changemaildiv{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#changemailinfo{
+    margin-right: 50%;
+}
+
+#topup{
+    margin-top: 20px;
+    margin-bottom: 10px;
 }

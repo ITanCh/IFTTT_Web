@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!--
+administrator page
+he can change this ,change that 
+delete user
+edit user level/money/pw
+@author tianchi
+-->
+<html>
+    <head>
+        <title>Administrator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width"> 
+        <script type="text/javascript" src="js/bxslider.js"></script>
+        <script src="js/kickstart.js"></script> <!-- KICKSTART -->
+        <link rel="stylesheet" href="css/kickstart.css" media="all" /> <!-- KICKSTART -->
+        <link rel="stylesheet" href="mycss/admincss.css"  />
+    </head>
+    <body>
+        <div id="top">
+            <a href="index.html"><i class="icon-2x icon-fire"> IFTTT</i></a>
+            <h5>Welcome administrator..</h5>
+        </div>
+        <div id="mainbody">
+            <input type="text" id="deleteuser" placeholder="Delete user">
+<!--	<input type="text" name="text22" placeholder="Password ">
+	<select id="select22" class="fancy">
+	<option value="0">-- Choose --</option>
+	<option value="1">Option 1</option>
+	<option value="2">Option 2</option>
+	<option value="3">Option 3</option>
+        </select>-->
+            <button id="deletebutton" type="button" class="red">Delete</button>
+            <span id="deleteinfo"></span>
+    <!--	<input type="checkbox" name="check23" id="check23" class="checkbox"> <label for="check23">Checkbox Label</label>-->
+            
+            <br>
+            <input type="text" id="editpw" placeholder="New password">
+            <input type="text" id="editpwname" placeholder="User name">
+            <button id="editpwbutton" type="button" class="blue">Edit Password</button>
+            <span id="editpwinfo"></span>
+            <br>
+            <input type="text" id="editlevel" placeholder="New Level">
+            <input type="text" id="editlevelname" placeholder="User name">
+            <button id="editlevelbutton" type="button" class="blue">Edit Level</button>
+            <span id="editlevelinfo"></span> 
+            <br>
+            <input type="text" id="editmoney" placeholder="New Money">
+            <input type="text" id="editmoneyname" placeholder="User name">
+            <button id="editmoneybutton" type="button" class="blue">Edit Money</button>
+            <span id="editmoneyinfo"></span> 
+            <br>
+            
+            <label>Edit This: </label>
+            <select id="editthis" >
+            <option value="0">-- Choose --</option>
+            <option value="1">Time Out</option>
+            <option value="2">Receive Mail</option>
+            <option value="3">Monitor Weibo</option>
+            </select>
+            <button id="deletethisbutton" type="button" class="red">Disable This</button>
+            <button id="addthisbutton" type="button" class="green">Enable This</button>
+            <span id="editthisinfo"></span> 
+            
+            <br>
+            <label>Edit That: </label>
+            <select id="editthat" >
+            <option value="0">-- Choose --</option>
+            <option value="1">Send Weibo</option>
+            <option value="2">Send Mail</option>
+            </select>
+            <button id="deletethatbutton" type="button" class="red">Disable That</button>
+            <button id="addthatbutton" type="button" class="green">Enable That</button>
+            <span id="editthatinfo"></span> 
+        </div>
+        <div id="buttonhr"><hr></div>
+    </body>
+</html>
+

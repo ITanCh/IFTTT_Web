@@ -28,10 +28,7 @@ function checkback(){
     if(request.readyState===4){  
         if(request.status===200){  
             var flag=request.responseText;
-            if(flag==="false"){              
-              location.href="index.html";        //this uer dosen't log in ,so he cannot get into this page
-            }
-            else{                        //log in successfully ,load user information          
+            if(flag==="suer"){                        //log in successfully ,load user information          
                 var obj=eval('('+flag+')');
                 document.getElementById("username").innerHTML=obj.username;
                 document.getElementById("bigusername").innerHTML=obj.username;
@@ -122,9 +119,9 @@ function startback(obj){
                 createtable();
                 return;
             }      
-        }
+        }   
+        obj.removeAttribute("disabled");
     }
-    obj.removeAttribute("disabled");
 }
 //stop a task
 var stoprequest;
@@ -149,9 +146,10 @@ function stopback(obj){
                 createtable();
                 return;
             }      
-        }
+        }  
+        obj.removeAttribute("disabled");
     }
-    obj.removeAttribute("disabled");
+  
 }
 
 /*
@@ -414,11 +412,12 @@ function editback(){
                 <i class="icon-remove-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
             }  
         }
+        document.getElementById("oktask").setAttribute('class','green');
+        document.getElementById("oktask").removeAttribute('disabled');
+        document.getElementById("deletetask").setAttribute('class','red');
+        document.getElementById("deletetask").removeAttribute('disabled');
     }
-    document.getElementById("oktask").setAttribute('class','green');
-    document.getElementById("oktask").removeAttribute('disabled');
-    document.getElementById("deletetask").setAttribute('class','red');
-    document.getElementById("deletetask").removeAttribute('disabled');
+    
 }
 
 //delete a task
@@ -471,15 +470,15 @@ function deleteback(){
                 <i class="icon-remove-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
             }
         }
+        var edit=document.getElementById("edittask");
+        var editflag=edit.getAttribute("disabled");
+        if(editflag==='disabled'){
+            document.getElementById("oktask").setAttribute('class','green');
+            document.getElementById("oktask").removeAttribute('disabled');
+        }
+        document.getElementById("deletetask").setAttribute('class','red');
+        document.getElementById("deletetask").removeAttribute('disabled');
     }
-    var edit=document.getElementById("edittask");
-    var editflag=edit.getAttribute("disabled");
-    if(editflag==='disabled'){
-        document.getElementById("oktask").setAttribute('class','green');
-        document.getElementById("oktask").removeAttribute('disabled');
-    }
-    document.getElementById("deletetask").setAttribute('class','red');
-    document.getElementById("deletetask").removeAttribute('disabled');
 }
 //function disableedit(){
 //            var thisradio;
@@ -688,10 +687,11 @@ function createback(){
                 document.getElementById("createback").innerHTML='<div class="notice error">\n\
                 <i class="icon-remove-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
             }  
-        }
+        }  
+        document.getElementById("createbutton").setAttribute('class','green');
+        document.getElementById("createbutton").removeAttribute('disabled');
     }
-    document.getElementById("createbutton").setAttribute('class','green');
-    document.getElementById("createbutton").removeAttribute('disabled');
+  
 }
 
 //timer about reprint
