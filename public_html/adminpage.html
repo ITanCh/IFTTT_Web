@@ -12,6 +12,7 @@ edit user level/money/pw
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width"> 
         <script type="text/javascript" src="js/bxslider.js"></script>
+        <script type="text/javascript" src="js/adminjs.js"></script>
         <script src="js/kickstart.js"></script> <!-- KICKSTART -->
         <link rel="stylesheet" href="css/kickstart.css" media="all" /> <!-- KICKSTART -->
         <link rel="stylesheet" href="mycss/admincss.css"  />
@@ -23,34 +24,23 @@ edit user level/money/pw
         </div>
         <div id="mainbody">
             <input type="text" id="deleteuser" placeholder="Delete user">
-<!--	<input type="text" name="text22" placeholder="Password ">
-	<select id="select22" class="fancy">
-	<option value="0">-- Choose --</option>
-	<option value="1">Option 1</option>
-	<option value="2">Option 2</option>
-	<option value="3">Option 3</option>
-        </select>-->
-            <button id="deletebutton" type="button" class="red">Delete</button>
+            <button id="deletebutton" type="button" class="red" onclick="deleteuser()">Delete</button>
             <span id="deleteinfo"></span>
-    <!--	<input type="checkbox" name="check23" id="check23" class="checkbox"> <label for="check23">Checkbox Label</label>-->
-            
-            <br>
-            <input type="text" id="editpw" placeholder="New password">
+            <hr>
+            <input type="password" id="editpw" placeholder="New password">
             <input type="text" id="editpwname" placeholder="User name">
-            <button id="editpwbutton" type="button" class="blue">Edit Password</button>
+            <button id="editpwbutton" type="button" class="blue" onclick="editpw()">Edit Password</button>
             <span id="editpwinfo"></span>
-            <br>
+            
             <input type="text" id="editlevel" placeholder="New Level">
             <input type="text" id="editlevelname" placeholder="User name">
-            <button id="editlevelbutton" type="button" class="blue">Edit Level</button>
+            <button id="editlevelbutton" type="button" class="blue" onclick="editlevel()">Edit Level</button>
             <span id="editlevelinfo"></span> 
-            <br>
             <input type="text" id="editmoney" placeholder="New Money">
             <input type="text" id="editmoneyname" placeholder="User name">
-            <button id="editmoneybutton" type="button" class="blue">Edit Money</button>
+            <button id="editmoneybutton" type="button" class="blue" onclick="editmoney()">Edit Money</button>
             <span id="editmoneyinfo"></span> 
-            <br>
-            
+            <hr>
             <label>Edit This: </label>
             <select id="editthis" >
             <option value="0">-- Choose --</option>
@@ -58,8 +48,8 @@ edit user level/money/pw
             <option value="2">Receive Mail</option>
             <option value="3">Monitor Weibo</option>
             </select>
-            <button id="deletethisbutton" type="button" class="red">Disable This</button>
-            <button id="addthisbutton" type="button" class="green">Enable This</button>
+            <button id="disthisbutton" type="button" class="red" onclick="editthis(0)">Disable This</button>
+            <button id="enthisbutton" type="button" class="green" onclick="editthis(1)">Enable This</button>
             <span id="editthisinfo"></span> 
             
             <br>
@@ -69,8 +59,8 @@ edit user level/money/pw
             <option value="1">Send Weibo</option>
             <option value="2">Send Mail</option>
             </select>
-            <button id="deletethatbutton" type="button" class="red">Disable That</button>
-            <button id="addthatbutton" type="button" class="green">Enable That</button>
+            <button id="disthatbutton" type="button" class="red" onclick="editthat()">Disable That</button>
+            <button id="enthatbutton" type="button" class="green" onclick="editthat()">Enable That</button>
             <span id="editthatinfo"></span> 
         </div>
         <div id="buttonhr"><hr></div>

@@ -154,7 +154,7 @@ function pw1valid(){
         var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Password cannot be empty<a href='#close' class='icon-remove'></a></div>";
         document.getElementById("pw1info").innerHTML=info;
-        pw1=false;
+        pw1true=false;
         return false;
     }
     
@@ -163,7 +163,7 @@ function pw1valid(){
          var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Password must consist of 'a-z'or'A-Z'(length>=6) <a href='#close' class='icon-remove'></a></div>";
         document.getElementById("pw1info").innerHTML=info;
-        pw1=false;
+        pw1true=false;
         return false;
     }
     
@@ -183,13 +183,13 @@ function pw2valid(){
         var info="<div class='notice success'><i class='icon-ok'></i>\n\
                   OK<a href='#close' class='icon-remove'></a></div>";  
         document.getElementById("pw2info").innerHTML=info; 
-        pw2=true;
+        pw2true=true;
         return true;
     }
     var info="<div class='notice error'><i class='icon-remove-sign '>\n\
               </i>The two passwords differ<a href='#close' class='icon-remove'></a></div>";
     document.getElementById("pw2info").innerHTML=info;
-    pw2=false;
+    pw2true=false;
     return false;
  
 }

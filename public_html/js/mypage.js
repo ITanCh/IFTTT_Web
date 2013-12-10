@@ -4,13 +4,13 @@
  * @author tianchi
  */
 
-var request;
-var taskrequest;
+
 
 /*
  *check if this user log in and get user's infomation  
  */
 //$(document).ready(checklogin);
+var request;
 function checklogin(){
     if(window.XMLHttpRequest) {  
         request = new XMLHttpRequest();  //IE7, Firefox, Opera 
@@ -28,7 +28,8 @@ function checkback(){
     if(request.readyState===4){  
         if(request.status===200){  
             var flag=request.responseText;
-            if(flag==="suer"){                        //log in successfully ,load user information          
+            if(flag==="fail"||flag==="admin");      //cannot log in
+            else{                        //log in successfully ,load user information          
                 var obj=eval('('+flag+')');
                 document.getElementById("username").innerHTML=obj.username;
                 document.getElementById("bigusername").innerHTML=obj.username;
@@ -59,6 +60,7 @@ function checkback(){
 /*
  * when click my task get all tasks of this user
  */
+var taskrequest;
 function createtable(){
     if(window.XMLHttpRequest) {  
         taskrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 

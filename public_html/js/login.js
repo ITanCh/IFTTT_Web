@@ -78,7 +78,7 @@ function loginback(){
                         location.href="personalpage.html";
                     }
                     else if(flag==="admin"){
-                         location.href="personalpage.html";
+                         location.href="adminpage.html";
                     }
                    else{
                        var info="<div class='notice error'><i class='icon-remove-sign '>\n\
