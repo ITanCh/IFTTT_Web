@@ -5,7 +5,6 @@
  */
 package ob.servlet;
 
-import ob.config.LogText;
 import PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,14 +14,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ob.config.LogText;
 import ob.dao.UserDao;
-import ob.util.MD5Util;
 
 /**
  *
  * @author oubeichen
  */
-public class register extends HttpServlet {
+public class edituserinfo extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,31 +37,36 @@ public class register extends HttpServlet {
         username = request.getParameter("name");
         password = request.getParameter("pw");
         mail = request.getParameter("mail");
-        if (validate()) {
-            if (dao.saveinfo(userinfo()).equals("success")) {
-                outinfo = "success";
-                request.getSession().setAttribute("username", username);
-                List list;
-                Iterator it;
-                list = dao.queryInfo("username", username);
-                if (list != null) {
-                    it = list.iterator();
-                    while (it.hasNext()) {
-                        UserInfoPO po = (UserInfoPO) it.next();
-                        if ((po).getUsername().equals(username)) {
-                            request.getSession().setAttribute("userid", po.getUid());
+        loginedUserName = (String) request.getSession().getAttribute("username");
+        if (loginedUserName != null && !loginedUserName.equals("")) {
+            loginedUserid = (Integer) request.getSession().getAttribute("userid");
+            po = dao.getinfo(loginedUserid);
+            if (po != null) {
+                if (po.getUsername().equals(loginedUserName)) {
+                    if (validate()) {
+                        if (!username.equals("")) {
+                            po.setUsername(username);
+                        }
+                        if (!password.equals("")) {
+                            po.setPassword(password);
+                        }
+                        if (!mail.equals("")) {
+                            po.setMail(mail);
+                        }
+                        if (dao.updateInfo(po)) {
+                            outinfo = "success";
+                            request.getSession().setAttribute("username", username);
+                        } else {
+                            outinfo = LogText.DBERROR;
                         }
                     }
-                } else {
-                    outinfo = LogText.DBERROR;
                 }
-            } else {
-                outinfo = LogText.REGERROR;
             }
         }
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            /* TODO output your page here. You may use following sample code. */
             out.print(outinfo);
         } finally {
             out.close();
@@ -108,56 +112,61 @@ public class register extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    /**
-     * 判断输入是否正确
-     *
-     * @return
-     */
     private boolean validate() {
         List list;
         Iterator it;
         if (username != null) {
-            if (username.length() > 30 || !username.matches("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$")) {
-                outinfo = "Please change the name";
-                return false;
-            }
-            //判断数据库是否有该username
-            list = dao.queryInfo("username", username);
-            if (list == null) {
-                outinfo = LogText.DBERROR;
-                return false;
-            }
-            it = list.iterator();
-            while (it.hasNext()) {
-                if (((UserInfoPO) it.next()).getUsername().equals(username)) {
-                    outinfo = "Already have a same username";
+            if (!username.equals("")) {
+                if (username.length() > 30 || !username.matches("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$")) {
+                    outinfo = "Please change the name";
                     return false;
+                }
+                //判断数据库是否有该username
+                list = dao.queryInfo("username", username);
+                if (list == null) {
+                    outinfo = LogText.DBERROR;
+                    return false;
+                }
+                it = list.iterator();
+                while (it.hasNext()) {
+                    UserInfoPO p = (UserInfoPO) it.next();
+                    if (p.getUsername().equals(username) && p.getUid() != po.getUid()) {
+                        outinfo = "Already have a same username";
+                        return false;
+                    }
                 }
             }
         } else {
             outinfo = "Please change the name";
             return false;
         }
-        if (password == null || password.length() > 30 || !password.matches("^[a-zA-Z0-9]{6,}$")) {
+        if (password != null) {
+            if (!password.equals("") && (password.length() > 30 || !password.matches("^[a-zA-Z0-9]{6,}$"))) {//不为空且格式不对
+                outinfo = "Please change the password";
+                return false;
+            }
+        } else {
             outinfo = "Please change the password";
             return false;
         }
         if (mail != null) {
-            if (mail.length() > 50 || !mail.matches("^[a-z0-9][a-z0-9\\._-]*@[a-z0-9][a-z0-9-]*\\.([a-z0-9][a-z0-9-]*\\.)*[a-z]+$")) {
-                outinfo = "Please change the email";
-                return false;
-            }
-            //判断数据库是否有该email
-            list = dao.queryInfo("mail", mail);
-            if (list == null) {
-                outinfo = LogText.DBERROR;
-                return false;
-            }
-            it = list.iterator();
-            while (it.hasNext()) {
-                if (((UserInfoPO) it.next()).getMail().equals(mail)) {
-                    outinfo = "Already has a same email";
+            if (!mail.equals("")) {
+                if (mail.length() > 50 || !mail.matches("^[a-z0-9][a-z0-9\\._-]*@[a-z0-9][a-z0-9-]*\\.([a-z0-9][a-z0-9-]*\\.)*[a-z]+$")) {
+                    outinfo = "Please change the email";
                     return false;
+                }
+                //判断数据库是否有该email
+                list = dao.queryInfo("mail", mail);
+                if (list == null) {
+                    outinfo = LogText.DBERROR;
+                    return false;
+                }
+                it = list.iterator();
+                while (it.hasNext()) {
+                    if (((UserInfoPO) it.next()).getMail().equals(mail)) {
+                        outinfo = "Already has a same email";
+                        return false;
+                    }
                 }
             }
         } else {
@@ -170,13 +179,8 @@ public class register extends HttpServlet {
     private String password;
     private String mail;
     private String outinfo;
+    private String loginedUserName;
+    private int loginedUserid;
+    private UserInfoPO po;
     private final UserDao dao = new UserDao();
-
-    public UserInfoPO userinfo() {
-        UserInfoPO info = new UserInfoPO();
-        info.setUsername(username);
-        info.setPassword(MD5Util.MD5(password));
-        info.setMail(mail);
-        return info;
-    }
 }

@@ -6,27 +6,33 @@
 
 package PO;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * 存储任务基本数据
  * @author oubeichen
  */
+@JsonFilter("taskFilter")
 public class TaskPO extends Thread implements Cloneable{
-    private String TID;//唯一的标识符，用于识别
-    private String TaskName;
-    //getter和setter设置的东西太多，所以干脆用public，请原谅
-    private int ThisType;
+    private String tid;//唯一的标识符，用于识别
+    private int uid;//代表所属的用户
+    private String taskname;
+    private String ctime;
+    private String status = "停止中";
+    private boolean isrunning = false;
+
+    private int thistype;
+    //新浪API限制了不能访问其他用户的微博，所以只能登陆后访问自己的微博了
+    private String thisstr1;//type == 0 date//type == 1 email//type == 2 weiboid
+    private String thisstr2;//type == 0 time//type == 1 emailpass//type ==2 weibopass
     
-    private String ThisStr1;//type == 0 date//type == 1 email//type == 2 weiboid
-    private String ThisStr2;//type == 0 time//type == 1 emailpass
+    private int thattype;
     
-    private int ThatType;
-    
-    private String ThatUsername;//type==0 weiboname//type==1 email
-    private String ThatPassword;//type==0 weiboname//type==1 email
-    private boolean UseThisEmail;//以下均为Type == 1是否使用在This中配置的Email
-    private String ThatDstEmail;
-    private String ThatEmailTitle;
-    private String ThatEmailText;
+    private String thatusername;//type==0 weiboname//type==1 src email
+    private String thatpassword;//type==0 weiboname//type==1 src email
+    private String thattext;
     
     public TaskPO(){
         
@@ -35,174 +41,201 @@ public class TaskPO extends Thread implements Cloneable{
     public Object clone() throws CloneNotSupportedException {
         Object obj = super.clone();
         //((TaskPO)obj).email = email.clone();//若扩充Email类，则需要加上这几句话
-        return super.clone();//因为都是string或者基本数据类型，只需要super.clone就足够。
+        return obj;//因为都是string或者基本数据类型，只需要super.clone就足够。
     }
 
     /**
-     * @return the TID
+     * @return the tid
      */
-    public String getTID() {
-        return TID;
+    public String getTid() {
+        return tid;
     }
 
     /**
-     * @param TID the TID to set
+     * @param tid the tid to set
      */
-    public void setTID(String TID) {
-        this.TID = TID;
+    public void setTid(String tid) {
+        this.tid = tid;
     }
 
     /**
-     * @return the TaskName
+     * @return the uid
      */
-    public String getTaskName() {
-        return TaskName;
+    public int getUid() {
+        return uid;
     }
 
     /**
-     * @param TaskName the TaskName to set
+     * @param uid the uid to set
      */
-    public void setTaskName(String TaskName) {
-        this.TaskName = TaskName;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     /**
-     * @return the ThisType
+     * @return the taskname
      */
-    public int getThisType() {
-        return ThisType;
+    public String getTaskname() {
+        return taskname;
     }
 
     /**
-     * @param ThisType the ThisType to set
+     * @param taskname the taskname to set
      */
-    public void setThisType(int ThisType) {
-        this.ThisType = ThisType;
+    public void setTaskname(String taskname) {
+        this.taskname = taskname;
     }
 
     /**
-     * @return the ThisStr1
+     * @return the thistype
      */
-    public String getThisStr1() {
-        return ThisStr1;
+    public int getThistype() {
+        return thistype;
     }
 
     /**
-     * @param ThisStr1 the ThisStr1 to set
+     * @param thistype the thistype to set
      */
-    public void setThisStr1(String ThisStr1) {
-        this.ThisStr1 = ThisStr1;
+    public void setThistype(int thistype) {
+        this.thistype = thistype;
     }
 
     /**
-     * @return the ThisStr2
+     * @return the thisstr1
      */
-    public String getThisStr2() {
-        return ThisStr2;
+    public String getThisstr1() {
+        return thisstr1;
     }
 
     /**
-     * @param ThisStr2 the ThisStr2 to set
+     * @param thisstr1 the thisstr1 to set
      */
-    public void setThisStr2(String ThisStr2) {
-        this.ThisStr2 = ThisStr2;
+    public void setThisstr1(String thisstr1) {
+        this.thisstr1 = thisstr1;
     }
 
     /**
-     * @return the ThatType
+     * @return the thisstr2
      */
-    public int getThatType() {
-        return ThatType;
+    public String getThisstr2() {
+        return thisstr2;
     }
 
     /**
-     * @param ThatType the ThatType to set
+     * @param thisstr2 the thisstr2 to set
      */
-    public void setThatType(int ThatType) {
-        this.ThatType = ThatType;
+    public void setThisstr2(String thisstr2) {
+        this.thisstr2 = thisstr2;
     }
 
     /**
-     * @return the ThatUsername
+     * @return the thattype
      */
-    public String getThatUsername() {
-        return ThatUsername;
+    public int getThattype() {
+        return thattype;
     }
 
     /**
-     * @param ThatUsername the ThatUsername to set
+     * @param thattype the thattype to set
      */
-    public void setThatUsername(String ThatUsername) {
-        this.ThatUsername = ThatUsername;
+    public void setThattype(int thattype) {
+        this.thattype = thattype;
     }
 
     /**
-     * @return the ThatPassword
+     * @return the thatusername
      */
-    public String getThatPassword() {
-        return ThatPassword;
+    public String getThatusername() {
+        return thatusername;
     }
 
     /**
-     * @param ThatPassword the ThatPassword to set
+     * @param thatusername the thatusername to set
      */
-    public void setThatPassword(String ThatPassword) {
-        this.ThatPassword = ThatPassword;
+    public void setThatusername(String thatusername) {
+        this.thatusername = thatusername;
     }
 
     /**
-     * @return the UseThisEmail
+     * @return the thatpassword
      */
-    public boolean isUseThisEmail() {
-        return UseThisEmail;
+    public String getThatpassword() {
+        return thatpassword;
     }
 
     /**
-     * @param UseThisEmail the UseThisEmail to set
+     * @param thatpassword the thatpassword to set
      */
-    public void setUseThisEmail(boolean UseThisEmail) {
-        this.UseThisEmail = UseThisEmail;
+    public void setThatpassword(String thatpassword) {
+        this.thatpassword = thatpassword;
     }
 
     /**
-     * @return the ThatDstEmail
+     * @return the thattext
      */
-    public String getThatDstEmail() {
-        return ThatDstEmail;
+    public String getThattext() {
+        return thattext;
     }
 
     /**
-     * @param ThatDstEmail the ThatDstEmail to set
+     * @param thattext the thattext to set
      */
-    public void setThatDstEmail(String ThatDstEmail) {
-        this.ThatDstEmail = ThatDstEmail;
+    public void setThattext(String thattext) {
+        this.thattext = thattext;
     }
 
     /**
-     * @return the ThatEmailTitle
+     * @return the ctime
      */
-    public String getThatEmailTitle() {
-        return ThatEmailTitle;
+    public String getCtime() {
+        return ctime;
     }
 
     /**
-     * @param ThatEmailTitle the ThatEmailTitle to set
+     * @param ctime the ctime to set
      */
-    public void setThatEmailTitle(String ThatEmailTitle) {
-        this.ThatEmailTitle = ThatEmailTitle;
+    public void setCtime(String ctime) {
+        this.ctime = ctime;
     }
 
     /**
-     * @return the ThatEmailText
+     * @return the status
      */
-    public String getThatEmailText() {
-        return ThatEmailText;
+    public String getStatus() {
+        return status;
     }
 
     /**
-     * @param ThatEmailText the ThatEmailText to set
+     * @param status the status to set
      */
-    public void setThatEmailText(String ThatEmailText) {
-        this.ThatEmailText = ThatEmailText;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the isrunning
+     */
+    public boolean isIsrunning() {
+        return isrunning;
+    }
+
+    /**
+     * @param isrunning the isrunning to set
+     */
+    public void setIsrunning(boolean isrunning) {
+        this.isrunning = isrunning;
+    }
+    
+    @Override
+    public void run(){
+        int a = 0;
+        while(isrunning){
+            try {
+                Thread.sleep(2000);
+                System.out.println(a++);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(TaskPO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

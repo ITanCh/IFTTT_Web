@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package addHibernateFile;
 
+import ob.config.Config;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,22 +16,38 @@ import org.hibernate.cfg.Configuration;
  * @author oubeichen
  */
 public class HibernateSessionFactory {
-    private SessionFactory sessionFactory;
-    public HibernateSessionFactory(){
-        
+
+    private static SessionFactory sessionFactory;
+    private static final Configuration cfg = new Configuration();
+    private static final ThreadLocal threadLocal = new ThreadLocal();
+
+    public HibernateSessionFactory() {
+
     }
-    public SessionFactory config(){
-        try{
-            Configuration configuration = new Configuration();
-            Configuration configure = configuration.configure("hibernate.cfg.xml");
-            return configure.buildSessionFactory();
-        }catch(HibernateException e){
-            e.getMessage();
-            return null;
+
+    static {
+        try {
+            cfg.configure(Config.HIB_CONFIG_FILE);
+            sessionFactory = cfg.buildSessionFactory();
+        } catch (HibernateException e) {
+            e.printStackTrace();
         }
     }
-    public Session getSession(){
-        sessionFactory=config();
-        return sessionFactory.openSession();
+
+    public static Session getSession() {
+        Session session = (Session) threadLocal.get();
+        if (session == null || !session.isOpen()) {
+            session = sessionFactory.openSession();
+            threadLocal.set(session);
+        }
+        return session;
+    }
+
+    public static void closeSession() {
+        Session session = (Session) threadLocal.get();
+        threadLocal.set(null);
+        if (session != null) {
+            session.close();
+        }
     }
 }

@@ -21,5 +21,10 @@
       <property name="admin" type="boolean">
           <column name="admin" length="1" not-null="false" />
       </property>
+      <!--一对多映射user到task，单的一方配置-->
+      <set name="task" table="task" cascade="all" lazy="false">
+          <key column="uid"/>
+          <one-to-many class="PO.TaskPO"/>
+      </set>
   </class>
 </hibernate-mapping>
