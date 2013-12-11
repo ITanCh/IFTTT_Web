@@ -23,16 +23,16 @@ user use this to create a new account
         <div id="mainbody">
             <label>Create Account</label>
             <br>
-            <input  name="usermail" type="text" placeholder="name@example.com" onblur="mailvalid()" />
+            <input  id="usermail" name="usermail" type="text" placeholder="name@example.com" onblur="mailvalid()" />
             <span id="mailinfo"></span>  
             <br>
-            <input  name="username" type="text" placeholder="John Smith" onblur="namevalid()" />
+            <input id="username" name="username" type="text" placeholder="John Smith" onblur="namevalid()" />
             <span id="nameinfo"></span>
             <br>
-            <input  name="pw1" type="password" placeholder="Password" onblur="pw1valid()"/>
+            <input  id="pw1" name="pw1" type="password" placeholder="Password" onblur="pw1valid()"/>
             <span id="pw1info"></span>
             <br>
-            <input  name="pw2" type="password" placeholder="Password" onblur="pw2valid()" />
+            <input  id="pw2" name="pw2" type="password" placeholder="Password" onblur="pw2valid()" />
             <span id="pw2info"></span>
             <br>
             <button class="orange" id="create" onclick="create()"><i class="icon-plus-sign"></i> Create</button>

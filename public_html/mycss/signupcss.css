@@ -8,25 +8,24 @@ link with signup.html
 
 
 #top{
-    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
     width: 700px;
-    left: 25%;
-    top:20px;
+    margin-top:20px;
     border-bottom: 1.5px solid #ccc;
     font-family: Microsoft YaHei UI;
 }
 
 #mainbody{
-    position: absolute;
     width: 700px;
-    left: 25%;
-    top:150px;
-    padding-left: 200px;
+    margin-top:40px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 100px;
     padding-top: 50px;
     line-height: 300%;
     border: 2px solid #ccc;
     border-radius: 20px;
-    height: 500px;
     font-size:20px;
     font-family:Microsoft YaHei UI;
     font-weight: bold;
@@ -34,30 +33,52 @@ link with signup.html
     border-bottom: 1.5px solid #ccc;
     -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) ;
 }
-
+#username{
+    float:left;
+}
 #nameinfo{
-    position: absolute;
-    left: 450px;
+     margin-top:-10px;
+    float:left;
+    margin-left: 20px;
     font-size: 15px;
+    width:300px;
+}
+#usermail{
+    float:left;
 }
 #mailinfo{
-    position: absolute;
-    left: 450px;
+    margin-top:-10px;
+    float:left;
+    margin-left: 20px;
     font-size: 15px;
+    width:300px;
+}
+#pw1{
+    float:left;
 }
 #pw1info{
-    position: absolute;
-    left: 450px;
+margin-top:-10px;
+    margin-top:-10px;
+    float:left;
+    margin-left: 20px;
     font-size: 15px;
+    width:300px;
+}
+#pw2{
+    float:left;
 }
 #pw2info{
-    position: absolute;
-    left: 450px;
+margin-top:-10px;
+    margin-top:-10px;
+    float:left;
+    margin-left: 20px;
     font-size: 15px;
+    width:300px;
 }
 
 #buttonhr{
-    margin-top:650px;
-    margin-left: 25%;
+    margin-top:20px;
+    margin-left: auto;
+    margin-right: auto;
      width: 700px;
 }

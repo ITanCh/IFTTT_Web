@@ -6,9 +6,8 @@ link with personalpage.html
     Author     : TianChi
 */
 #top{
-    position: absolute;
-    top:0px;
-    left: 0px;
+    margin-top:-10px;
+    margin-left: 0px;
     height: 45px;
     width: 101%;
     min-width: 1200px;
@@ -19,9 +18,8 @@ link with personalpage.html
 }
 
 #logo{
-    position: absolute;
-    top:0px; 
-    left: 15%;
+    float:left;
+    margin-left: 15%;
     height: 100%;
     width:150px;
     padding-top: 7px;
@@ -29,9 +27,10 @@ link with personalpage.html
 }
 
 #title{ 
-        position: absolute;
-        left: 30%;
-        top: 12px;
+        float:left;
+        margin-top: 10px;
+        margin-left: 3%;
+        width:400px;
 }
 #title ul{
 	list-style: none;
@@ -54,9 +53,9 @@ link with personalpage.html
 }
 
 #top_right{
-    position: absolute;
-    left:75%;
-    top:13px;  
+    float:right;
+    margin-right:10%;
+    margin-top:14px;
 }
 
 .setting{
@@ -68,18 +67,15 @@ link with personalpage.html
 }
 
 #mainbody{
-    position: absolute;
-    top:70px;
+    margin-top:50px;
     width: 100%;
     min-width: 1200px;
 }
 
 #left{
-    position: absolute;
-    top:70px;
-    left: 15%;
+    float:left;
+    margin-left: 15%;
     width:250px;
-    height: 430px;
     font-family: Microsoft YaHei UI;
     border-bottom: 1px solid   #ccc;
 }
@@ -93,49 +89,35 @@ link with personalpage.html
 }
 
 .level_icon{
-    position: absolute;
-    top:324px;
     color: #FC730A;
 }
 .level{
-    position: absolute;
-    top:323px;
-    left: 30px;
-    margin-left: 5px;
+    margin-left: 20px;
 }
 .money_icon{
-    position: absolute;
-    top:355px;
     color: #080;
 }
 
 .money{
-    position: absolute;
-    top:354px; 
-    left: 30px;
+      margin-left: 20px;
 }
 
 .mail_icon{
-    position: absolute;
-    top:386px;
     color: #EF0251;
 }
 
 .mail{
-    position: absolute;
-    top:385px; 
-    left: 30px; 
+      margin-left: 20px; 
+      margin-bottom:10px;
 }
 
 
 #right{
-    position: absolute;
-    top:70px; 
-    left: 38%; 
-    height: fit-content;
+    float:left;
+    margin-left:4%;
     width: 700px;
     font-family:  Microsoft YaHei UI;
-}
+    }
 
 /*about view task*/
 #tabr1{
