@@ -158,6 +158,7 @@ function stopback(){
  * if user want to view a task in detail
  */
 var vtrequest;
+var viewid;
 function viewtask(tid){
     if(window.XMLHttpRequest) {  
         vtrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
@@ -166,12 +167,13 @@ function viewtask(tid){
     }
     if(vtrequest!==null){  
             vtrequest.open("GET","gettaskinfo?tid="+tid,true);       //gettaskinfo
+            viewid = tid;
             vtrequest.onreadystatechange=viewtaskback;
             vtrequest.send(null);
     }  
 }
 
-function viewtaskback(id){
+function viewtaskback(){
      if(vtrequest.readyState===4){  
         if(vtrequest.status===200){
             //insert main fame firstly
@@ -202,8 +204,8 @@ function viewtaskback(id){
                     </div>\n\
                     <ul class="button-bar">\n\
                     <li><button id="edittask"class="orange" onclick="edittask()"><i class="icon-pencil"></i> Edit</button></li>\n\
-                    <li><button id="oktask"  class=""  onclick="okedit('+id+')" disabled="disabled"><i class="icon-ok-sign"></i> Ok</button></li>\n\
-                    <li><button id="deletetask" class="red" onclick="deletetask('+id+')"><i class="icon-remove-sign"></i> Delete</button></li>\n\
+                    <li><button id="oktask"  class=""  onclick="okedit(\'' + viewid + '\')" disabled="disabled"><i class="icon-ok-sign"></i> Ok</button></li>\n\
+                    <li><button id="deletetask" class="red" onclick="deletetask(\''+viewid+'\')"><i class="icon-remove-sign"></i> Delete</button></li>\n\
                     <div id="editback"></div>\n\
                     </ul>\n\
                     <hr class="alt2" />';
@@ -211,7 +213,7 @@ function viewtaskback(id){
             
             //fill in all text
             var flag=vtrequest.responseText;
-            if(flag===fals)return;
+            if(flag===false)return;
             var obj=eval('('+flag+')');
             //fill this content
             var thisradio;
@@ -247,7 +249,7 @@ function viewtaskback(id){
             if(obj.thattype===0){            //send weibo
                 thatradio=document.getElementById("thatradio1");
                 thattext='<textarea id="that0_1"   name="that">'+obj.thattext+'</textarea><br>\n\
-                <input id="that0_2" name="that" type="text" value="'+obj.thatusername+' /><br><br>\n\
+                <input id="that0_2" name="that" type="text" value="'+obj.thatusername+'" /><br><br>\n\
                 <input id="that0_3" name="that" type="pw" placeholder="Default Password is the last one" />';
             }
             else if(obj.thattype===1){       //send mail
@@ -380,7 +382,7 @@ function okedit(id){
             }
          }
     }
-    var url="taskmanager?tid="+id+"name="+taskname+"&thistype="+thistype+thisdata+"&thattype="+thattype+thatdata;    
+    var url="taskmanager?tid="+id+"&name="+taskname+"&thistype="+thistype+thisdata+"&thattype="+thattype+thatdata;    
     //alert(url);
     if(window.XMLHttpRequest) {  
         editrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
