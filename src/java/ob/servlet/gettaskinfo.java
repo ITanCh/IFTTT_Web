@@ -42,7 +42,7 @@ public class gettaskinfo extends HttpServlet {
             String tid = request.getParameter("tid");
             if(tid != null){
                 po = dao.getTask(tid);
-                if(po.getUid() == loginedUserid){
+                if(po != null && po.getUid() == loginedUserid){
                         FilterProvider filters = new SimpleFilterProvider()
                                 .addFilter("taskFilter",
                                 SimpleBeanPropertyFilter.filterOutAllExcept(

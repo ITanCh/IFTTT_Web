@@ -27,6 +27,9 @@
         <property name="thisstr2" type="string">
             <column name="thisstr2" length="30" not-null="true"/>
         </property>
+        <property name="thistext" type="text">
+            <column name="thistext" not-null="false"/>
+        </property>
         <property name="thatusername" type="string">
             <column name="thatusername" length="50" not-null="true"/>
         </property>

@@ -9,7 +9,7 @@
 /*
  *check if this user log in and get user's infomation  
  */
-//$(document).ready(checklogin);
+$(document).ready(checklogin);
 var request;
 function checklogin(){
     if(window.XMLHttpRequest) {  
@@ -28,7 +28,7 @@ function checkback(){
     if(request.readyState===4){  
         if(request.status===200){  
             var flag=request.responseText;
-            if(flag==="fail"||flag==="admin");      //cannot log in
+            if(flag==="false"||flag==="admin");      //cannot log in
             else{                        //log in successfully ,load user information          
                 var obj=eval('('+flag+')');
                 document.getElementById("username").innerHTML=obj.username;
@@ -39,14 +39,14 @@ function checkback(){
                 for(var i=0,l=obj.task.length;i<l;i++){             //get all tasks infomation
                     //task:name ,create time, status
                     if(obj.task[i].isrunning===false){
-                        alltasks+="<tr><td>"+obj.task[i].name+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
-                           <td><a onclick='viewtask("+obj.task[i].tid+")'><i class='icon-eye-open tooltip' title='view'></i></a>\n\
-                            <a class='starticon' href=''><i class='icon-play tooltip' title='start it'></i></a></td></tr>";
+                    alltasks+="<tr><td>"+obj.task[i].taskname+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
+                           <td><button onclick='viewtask("+obj.task[i].tid+")'><i class='icon-eye-open tooltip' title='view'></i></button>\n\
+                            <button class='starticon' onclick='starttask("+obj.task[i].tid+")'><i class='icon-play tooltip' title='start it'></i></button></td></tr>";
                     }
                     else{
-                        alltasks+="<tr><td>"+obj.task[i].name+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
+                    alltasks+="<tr><td>"+obj.task[i].taskname+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
                            <td><a onclick='viewtask("+obj.task[i].tid+")'><i class='icon-eye-open tooltip' title='view'></i></a>\n\
-                            <a class='stopicon' href=''><i class='icon-stop tooltip' title='stop it'></i></a></td></tr>";
+                            <button class='stopicon' onclick='stoptask("+obj.task[i].tid+")'><i class='icon-stop tooltip' title='stop it'></i></button></td></tr>";
                     }
                 }
                 document.getElementById("tablebody").innerHTML=alltasks;
@@ -83,14 +83,14 @@ function tasksback(){
             for(var i=0,l=obj.task.length;i<l;i++){             //get all tasks infomation
                 //task:name ,create time, status
                 if(obj.task[i].isrunning===false){
-                    alltasks+="<tr><td>"+obj.task[i].name+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
-                           <td><a onclick='viewtask("+obj.task[i].id+")'><i class='icon-eye-open tooltip' title='view'></i></a>\n\
-                            <a class='starticon' href='' onclick='starttask("+obj.task[i].id+")'><i class='icon-play tooltip' title='start it'></i></a></td></tr>";
+                    alltasks+="<tr><td>"+obj.task[i].taskname+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
+                           <td><a onclick='viewtask("+obj.task[i].tid+")'><i class='icon-eye-open tooltip' title='view'></i></button>\n\
+                            <button class='starticon' href='' onclick='starttask("+obj.task[i].tid+")'><i class='icon-play tooltip' title='start it'></i></a></td></tr>";
                 }
                 else{
-                    alltasks+="<tr><td>"+obj.task[i].name+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
-                           <td><a onclick='viewtask("+obj.task[i].id+")'><i class='icon-eye-open tooltip' title='view'></i></a>\n\
-                            <a class='stopicon' href='' onclick='stoptask("+obj.task[i].id+")'><i class='icon-stop tooltip' title='stop it'></i></a></td></tr>";
+                    alltasks+="<tr><td>"+obj.task[i].taskname+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
+                           <td><a onclick='viewtask("+obj.task[i].tid+")'><i class='icon-eye-open tooltip' title='view'></i></a>\n\
+                            <button class='stopicon' href='' onclick='stoptask("+obj.task[i].tid+")'><i class='icon-stop tooltip' title='stop it'></i></button></td></tr>";
                 }
             }
             document.getElementById("tablebody").innerHTML=alltasks;
@@ -215,25 +215,25 @@ function viewtaskback(id){
             var obj=eval('('+flag+')');
             //fill this content
             var thisradio;
-            document.getElementById("taskname").value=obj.name;
+            document.getElementById("taskname").value=obj.taskname;
             var thiscontent=document.getElementById("thiscontent");
             var thistext;
             if(obj.thistype===0){            //time
                 thisradio=document.getElementById("thisradio1");
-                thistext='<input id="this0_1" name="this" type="text" disabled="disabled" value="'+obj.thisdate+'"/>\n\
+                thistext='<input id="this0_1" name="this" type="text" disabled="disabled" value="'+obj.thisstr1+'"/>\n\
                 <br><br>\n\
-                <input id="this0_2"  name="this" type="text" disabled="disabled" value="'+obj.thistime+'"/>';
+                <input id="this0_2"  name="this" type="text" disabled="disabled" value="'+obj.thisstr2+'"/>';
             }
             else if(obj.thistype===1){       //mail
                 thisradio=document.getElementById("thisradio2");
-                thistext='<input id="this1_1"  name="this" type="text" disabled="disabled" value="'+obj.thisaddr+'"/>\n\
+                thistext='<input id="this1_1"  name="this" type="text" disabled="disabled" value="'+obj.thisstr1+'"/>\n\
                 <br><br>\n\
                 <input id="this1_2"  name="this" type="text" disabled="disabled" placeholder="Default Password is the last one"/>';
             }
             else if(obj.thistype===2){       //weibo
                 thisradio=document.getElementById("thisradio3");
-                thistext='<textarea id="this2_3"  name="this" >'+obj.thisaccount+'</textarea><br>\n\
-                    <input id="this2_1" name="this"  type="text"  value="'+obj.thiscontent+'"/>\n\
+                thistext='<textarea id="this2_3"  name="this" >'+obj.thisstr1+'</textarea><br>\n\
+                    <input id="this2_1" name="this"  type="text"  value="'+obj.thistext+'"/>\n\
                     <br><br>\n\
                     <input id="this2_2"  name="this" type="text"  placeholder="Default Password is the last one"/>';
             }
@@ -246,14 +246,14 @@ function viewtaskback(id){
             var thattext;
             if(obj.thattype===0){            //send weibo
                 thatradio=document.getElementById("thatradio1");
-                thattext='<textarea id="that0_1"   name="that">'+obj.thatcontent+'</textarea><br>\n\
-                <input id="that0_2" name="that" type="text" value="'+obj.thataccount+' /><br><br>\n\
+                thattext='<textarea id="that0_1"   name="that">'+obj.thattext+'</textarea><br>\n\
+                <input id="that0_2" name="that" type="text" value="'+obj.thatusername+' /><br><br>\n\
                 <input id="that0_3" name="that" type="pw" placeholder="Default Password is the last one" />';
             }
             else if(obj.thattype===1){       //send mail
                 thatradio=document.getElementById("thatradio2");
-                thattext='<textarea id="that1_1" name="that">'+obj.thatcoutent+'</textarea><br>\n\
-                    <input id="that1_2" name="that" type="text" value="'+obj.thataddr+'" />';
+                thattext='<textarea id="that1_1" name="that">'+obj.thattext+'</textarea><br>\n\
+                    <input id="that1_2" name="that" type="text" value="'+obj.thatusername+'" />';
             }
             thatradio.checked=true;
             thatcontent.innerHTML=thattext;
@@ -358,7 +358,7 @@ function okedit(id){
                 break;
             }
             else if(i===2){                                              // look for weibo
-                thisdata+="&thiscount="+document.getElementById("this2_1").value+"&thispw="+document.getElementById("this2_2").value+"&thicontent="+document.getElementById("this2_3").value;
+                thisdata+="&thisaccount="+document.getElementById("this2_1").value+"&thispw="+document.getElementById("this2_2").value+"&thistext="+document.getElementById("this2_3").value;
                 break;
             }
         }
@@ -371,11 +371,11 @@ function okedit(id){
         if(thatobj[i].checked){
             thattype=i;
             if(i===0){                                              //send weibo
-                thatdata+="&thataccount="+document.getElementById("that0_2").value+"&thatpw="+document.getElementById("that0_3").value+"&content="+document.getElementById("that0_1").value;
+                thatdata+="&thataccount="+document.getElementById("that0_2").value+"&thatpw="+document.getElementById("that0_3").value+"&thattext="+document.getElementById("that0_1").value;
                 break;
             }
             else if(i===1){                                          //send mail
-                thatdata+="&thataddr="+document.getElementById("that1_2").value+"&thatcontent="+document.getElementById("that1_1").value;
+                thatdata+="&thataddr="+document.getElementById("that1_2").value+"&thattext="+document.getElementById("that1_1").value;
                 break;
             }
          }
@@ -634,7 +634,7 @@ function createtask(){
                 break;
             }
             else if(i===2){                                              // look for weibo
-                thisdata+="&thiscount="+document.getElementById("cthis2_1").value+"&thispw="+document.getElementById("cthis2_2").value+"&thicontent="+document.getElementById("cthis2_3").value;
+                thisdata+="&thisaccount="+document.getElementById("cthis2_1").value+"&thispw="+document.getElementById("cthis2_2").value+"&thiscontent="+document.getElementById("cthis2_3").value;
                 break;
             }
         }
@@ -647,11 +647,11 @@ function createtask(){
         if(thatobj[i].checked){
             thattype=i;
             if(i===0){                                              //send weibo
-                thatdata+="&thataccount="+document.getElementById("cthat0_2").value+"&thatpw="+document.getElementById("cthat0_3").value+"&content="+document.getElementById("cthat0_1").value;
+                thatdata+="&thataccount="+document.getElementById("cthat0_2").value+"&thatpw="+document.getElementById("cthat0_3").value+"&thattext="+document.getElementById("cthat0_1").value;
                 break;
             }
             else if(i===1){                                          //send mail
-                thatdata+="&thataddr="+document.getElementById("cthat1_2").value+"&thatcontent="+document.getElementById("cthat1_1").value;
+                thatdata+="&thataddr="+document.getElementById("cthat1_2").value+"&thattext="+document.getElementById("cthat1_1").value;
                 break;
             }
          }

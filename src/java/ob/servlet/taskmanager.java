@@ -165,15 +165,16 @@ public class taskmanager extends HttpServlet {
             thisstr1 = request.getParameter("thisaddr");
             thisstr2 = request.getParameter("thispw");
         } else if (thistype == 2) {
-            thisstr1 = request.getParameter("thiscount");
+            thisstr1 = request.getParameter("thisaccount");
             thisstr2 = request.getParameter("thispw");
+            thistext = request.getParameter("thistext");
         }
-        if (thattype == 0) {
+        if (thattype == 0) {//weibo
+            thatusername = request.getParameter("thataccount");
+            thatpassword = request.getParameter("thatpw");
+        } else if (thattype == 1) {//mail
             thatusername = request.getParameter("thataddr");
-        } else if (thattype == 1) {
-            thatusername = request.getParameter("thatcount");
         }
-        thatpassword = request.getParameter("thatpw");
         thattext = request.getParameter("thattext");
         return true;
     }
@@ -251,7 +252,7 @@ public class taskmanager extends HttpServlet {
             outinfo = "this输入的密码太长";
             return false;
         }
-        if (thattype == 0) {
+        if (thattype == 1) {
             if (!thatusername.matches("^[a-z0-9][a-z0-9\\._-]*@[a-z0-9][a-z0-9-]*\\.([a-z0-9][a-z0-9-]*\\.)*[a-z]+$")) {
                 outinfo = "that输入的邮箱格式有误";
                 return false;
@@ -293,6 +294,7 @@ public class taskmanager extends HttpServlet {
         } else {
             taskpo.setThisstr2(thisstr2);
         }
+        taskpo.setThistext(thistext);
         taskpo.setThatusername(thatusername);
         if (thatpassword != null && !thatpassword.equals("")) {
             taskpo.setThatpassword(AESUtil.Encrytor(thatpassword));
@@ -321,7 +323,8 @@ public class taskmanager extends HttpServlet {
     //新浪API限制了不能访问其他用户的微博，所以只能登陆后访问自己的微博了
     private String thisstr1;//type == 0 date//type == 1 email//type == 2 weiboid
     private String thisstr2;//type == 0 time//type == 1 emailpass//type ==2 weibopass
-
+    private String thistext;
+    
     private int thattype;
 
     private String thatusername;//type==0 weiboname//type==1 src email

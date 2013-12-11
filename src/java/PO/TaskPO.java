@@ -27,7 +27,8 @@ public class TaskPO extends Thread implements Cloneable{
     //新浪API限制了不能访问其他用户的微博，所以只能登陆后访问自己的微博了
     private String thisstr1;//type == 0 date//type == 1 email//type == 2 weiboid
     private String thisstr2;//type == 0 time//type == 1 emailpass//type ==2 weibopass
-    
+    private String thistext;//微博所监听的内容
+            
     private int thattype;
     
     private String thatusername;//type==0 weiboname//type==1 src email
@@ -126,6 +127,20 @@ public class TaskPO extends Thread implements Cloneable{
      */
     public void setThisstr2(String thisstr2) {
         this.thisstr2 = thisstr2;
+    }
+
+    /**
+     * @return the thistext
+     */
+    public String getThistext() {
+        return thistext;
+    }
+
+    /**
+     * @param thistext the thistext to set
+     */
+    public void setThistext(String thistext) {
+        this.thistext = thistext;
     }
 
     /**
@@ -232,7 +247,7 @@ public class TaskPO extends Thread implements Cloneable{
         while(isrunning){
             try {
                 Thread.sleep(2000);
-                System.out.println(a++);
+                status = a++ + "";
             } catch (InterruptedException ex) {
                 Logger.getLogger(TaskPO.class.getName()).log(Level.SEVERE, null, ex);
             }
