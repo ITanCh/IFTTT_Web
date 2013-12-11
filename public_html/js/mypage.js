@@ -40,13 +40,13 @@ function checkback(){
                     //task:name ,create time, status
                     if(obj.task[i].isrunning===false){
                     alltasks+="<tr><td>"+obj.task[i].taskname+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
-                           <td><button onclick='viewtask("+obj.task[i].tid+")'><i class='icon-eye-open tooltip' title='view'></i></button>\n\
-                            <button class='starticon' onclick='starttask("+obj.task[i].tid+")'><i class='icon-play tooltip' title='start it'></i></button></td></tr>";
+                           <td><a onclick='viewtask(\""+obj.task[i].tid+"\")'><i class='icon-eye-open tooltip' title='view'></i></a>\n\
+                            <a class='starticon' onclick='starttask(\""+obj.task[i].tid+"\")'><i class='icon-play tooltip' title='start it'></i></a></td></tr>";
                     }
                     else{
                     alltasks+="<tr><td>"+obj.task[i].taskname+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
-                           <td><a onclick='viewtask("+obj.task[i].tid+")'><i class='icon-eye-open tooltip' title='view'></i></a>\n\
-                            <button class='stopicon' onclick='stoptask("+obj.task[i].tid+")'><i class='icon-stop tooltip' title='stop it'></i></button></td></tr>";
+                           <td><a onclick='viewtask(\""+obj.task[i].tid+"\")'><i class='icon-eye-open tooltip' title='view'></i></a>\n\
+                            <a class='stopicon' onclick='stoptask(\""+obj.task[i].tid+"\")'><i class='icon-stop tooltip' title='stop it'></i></a></td></tr>";
                     }
                 }
                 document.getElementById("tablebody").innerHTML=alltasks;
@@ -84,13 +84,13 @@ function tasksback(){
                 //task:name ,create time, status
                 if(obj.task[i].isrunning===false){
                     alltasks+="<tr><td>"+obj.task[i].taskname+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
-                           <td><a onclick='viewtask("+obj.task[i].tid+")'><i class='icon-eye-open tooltip' title='view'></i></button>\n\
-                            <button class='starticon' href='' onclick='starttask("+obj.task[i].tid+")'><i class='icon-play tooltip' title='start it'></i></a></td></tr>";
+                           <td><a onclick='viewtask(\""+obj.task[i].tid+"\")'><i class='icon-eye-open tooltip' title='view'></i></button>\n\
+                            <a class='starticon' onclick='starttask(\""+obj.task[i].tid+"\")'><i class='icon-play tooltip' title='start it'></i></a></td></tr>";
                 }
                 else{
                     alltasks+="<tr><td>"+obj.task[i].taskname+"</td><td>"+obj.task[i].ctime+"</td><td>"+obj.task[i].status+"</td>\n\
-                           <td><a onclick='viewtask("+obj.task[i].tid+")'><i class='icon-eye-open tooltip' title='view'></i></a>\n\
-                            <button class='stopicon' href='' onclick='stoptask("+obj.task[i].tid+")'><i class='icon-stop tooltip' title='stop it'></i></button></td></tr>";
+                           <td><a onclick='viewtask(\""+obj.task[i].tid+"\")'><i class='icon-eye-open tooltip' title='view'></i></a>\n\
+                            <a class='stopicon' onclick='stoptask(\""+obj.task[i].tid+"\")'><i class='icon-stop tooltip' title='stop it'></i></a></td></tr>";
                 }
             }
             document.getElementById("tablebody").innerHTML=alltasks;
@@ -104,16 +104,16 @@ function starttask(id){
      if(window.XMLHttpRequest) {  
         startrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     }else if(window.ActiveXObject) {  
-        startprequset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+        startrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if(startrequest!==null){  
-            this.setAttribute("disabled","disabled");
-            startrequest.open("GET","taskmanager?tid="+id+"start=true",true);
-            startrequest.onreadystatechange=startback(this);
+            //this.setAttribute("disabled","disabled");
+            startrequest.open("GET","taskmanager?tid="+id+"&start=true",true);
+            startrequest.onreadystatechange=startback;
             startrequest.send(null);
     }  
 }
-function startback(obj){
+function startback(){
     if(startrequest.readyState===4){  
         if(startrequest.status===200){  
             var flag=startrequest.responseText;
@@ -122,7 +122,7 @@ function startback(obj){
                 return;
             }      
         }   
-        obj.removeAttribute("disabled");
+        //obj.removeAttribute("disabled");
     }
 }
 //stop a task
@@ -131,16 +131,16 @@ function stoptask(id){
      if(window.XMLHttpRequest) {  
         stoprequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     }else if(window.ActiveXObject) {  
-        stoprequset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+        storequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if(taskrequest!==null){  
-            this.setAttribute("disabled","disabled");
-            stoprequest.open("GET","taskmanager?tid="+id+"stop=true",true);
-            stoprequest.onreadystatechange=stopback(this);
+            //this.setAttribute("disabled","disabled");
+            stoprequest.open("GET","taskmanager?tid="+id+"&stop=true",true);
+            stoprequest.onreadystatechange=stopback;
             stoprequest.send(null);
     }  
 }
-function stopback(obj){
+function stopback(){
     if(stoprequest.readyState===4){  
         if(stoprequest.status===200){  
             var flag=stoprequest.responseText;
@@ -149,7 +149,7 @@ function stopback(obj){
                 return;
             }      
         }  
-        obj.removeAttribute("disabled");
+        //obj.removeAttribute("disabled");
     }
   
 }
@@ -450,7 +450,7 @@ function deletetask(id){
             document.getElementById("deletetask").setAttribute('disabled','disabled');
             document.getElementById("oktask").setAttribute('class','');
             document.getElementById("oktask").setAttribute('disabled','disabled');
-            deleterequest.open("POST","taskmanager?tid="+id+"del=true",true);       //gettaskinfo
+            deleterequest.open("POST","taskmanager?tid="+id+"&del=true",true);       //gettaskinfo
             deleterequest.onreadystatechange=deleteback;
             deleterequest.send(null);
     } 

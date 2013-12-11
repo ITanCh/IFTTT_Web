@@ -246,8 +246,9 @@ public class TaskPO extends Thread implements Cloneable{
         int a = 0;
         while(isrunning){
             try {
-                Thread.sleep(2000);
                 status = a++ + "";
+                System.out.println(status);
+                Thread.sleep(2000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(TaskPO.class.getName()).log(Level.SEVERE, null, ex);
             }
