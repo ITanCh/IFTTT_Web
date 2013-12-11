@@ -36,7 +36,7 @@ function namevalid(){
     if(window.XMLHttpRequest) {  
         request = new XMLHttpRequest();  //IE7, Firefox, Opera 
     }else if(window.ActiveXObject) {  
-        requset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+        request = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if(request!==null){  
         var url = "getreg?name="+name;        //OB servlet name
@@ -104,7 +104,7 @@ function mailvalid(){
     if(window.XMLHttpRequest) {  
         request = new XMLHttpRequest();  //IE7, Firefox, Opera 
     }else if(window.ActiveXObject) {  
-        requset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+        request = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if(request!==null){  
         var url = "getreg?mail="+mail;        //OB servlet name
@@ -170,7 +170,7 @@ function pw1valid(){
    var info="<div class='notice success'><i class='icon-ok'></i>\n\
                                 OK<a href='#close' class='icon-remove'></a></div>";  
    document.getElementById("pw1info").innerHTML=info;  
-   pw1=false;
+   pw1true=true;
    return true;
 }
 
@@ -206,7 +206,7 @@ function create(){
         if(window.XMLHttpRequest) {  
             request = new XMLHttpRequest();  //IE7, Firefox, Opera 
         }else if(window.ActiveXObject) {  
-            requset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+            request = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
         }
         if(request!==null){  
             request.open("GET",url,true);
