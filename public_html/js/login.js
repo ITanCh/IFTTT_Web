@@ -77,6 +77,9 @@ function loginback(){
                         //go to personal page
                         location.href="personalpage.html";
                     }
+                    else if(flag==="admin"){
+                         location.href="adminpage.html";
+                    }
                    else{
                        var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                         </i>Incorrect username or password<a href='#close' class='icon-remove'></a></div>";
@@ -84,15 +87,10 @@ function loginback(){
                    }
                 }else{
                          var info="<div class='notice error'><i class='icon-remove-sign '>\n\
-                            </i>The Internet has some problem<a href='#close' class='icon-remove'></a></div>";
+                            </i>Network error<a href='#close' class='icon-remove'></a></div>";
                         document.getElementById("logininfo").innerHTML=info;  
                 }
-        }else{
-            var info="<div class='notice error'><i class='icon-remove-sign '>\n\
-                        </i>The Internet has some problem<a href='#close' class='icon-remove'></a></div>";
-            document.getElementById("logininfo").innerHTML=info;  
         }
-            
 }
 
 

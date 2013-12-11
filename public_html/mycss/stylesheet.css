@@ -1,30 +1,30 @@
 /*link with homepage */
 #top{
-    position: absolute;
-    top:0px;
-    left: 0px;
-    height: 50px;
-    width: 1366px;
+    margin-top:-10px;
+    margin-left: -10px;
+    height: 45px;
+    width: 102%;
+    min-width: 1200px;
     margin-bottom: 10px;
     background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
     border-bottom: 1.5px solid #ccc;
     -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) ;
 }
 
-#logo{
-    position: absolute;
-    top:0px; 
-    left: 100px;
+#logo{ 
+    float:left;
+    margin-left: 15%;
     height: 100%;
-    width:250px;
-    padding-top: 10px;
+    width:150px;
+    padding-top: 5px;
     border-right: 1.5px solid #ccc;
 }
 
 #title{ 
-        position: absolute;
-        left: 400px;
-        top: 13px;
+    float:left;
+    margin-top: 10px;
+    margin-left: 3%;
+    width:400px;
 }
 #title ul{
 	list-style: none;
@@ -37,7 +37,7 @@
 
 #title a{
 	font-size:16px;	
-        color:#555555;
+        color:#777;
         text-decoration: none;  
         font-family: Verdana;
 }
@@ -47,16 +47,17 @@
 }
 
 #signup{
-        position: absolute;
-	right: 20px;
-	top: 15px;
+        float:right;
+	margin-right:3%;
+	margin-top: 9px;
         font-size:10px;
+        width:350px;
 }
 
 #signup a{
 	height:25px;
 	width:93px;
-	padding-top:4px;
+	padding-top:2px;
 }
 
 #signup label{
@@ -65,15 +66,15 @@
 }
 
 #header {
-        position: absolute;
-        top:80px;
-        left:0px;
-        right: 0px; 
-        width: 1366px;
+        margin-top:10px;
+        margin-left:-10px;
+        width: 102%;
+        min-width: 1200px;
 	height:400px;
 	background-image: url(../img/back2.jpg);
 	margin-bottom: 10px;
         margin-top: 10px;
+        //text-align: center;
 }
 
 
@@ -81,18 +82,19 @@
 #signin{
         float:right;
         line-height: 250%;
-	margin-right: 130px;
+	margin-right: 10%;
 	margin-top: 100px;
 	font-size: 25px;
 }
 
 #logininfo{
-    font-size: 5px;
+    font-size: 15px;
+    font-family: Microsoft YaHei UI;
 }
 
 #mybiglabel{
         margin-top: 50px;
-        margin-left: 300px;
+        margin-left: 20%;
         float:left;
         color:#ffffff;
         font-family: Microsoft YaHei UI;
@@ -103,40 +105,39 @@
 }
 
 #mylist1{
-    position: absolute;
     border-radius: 5px;
-    top:510px;
+    margin-top:10px;
+    margin-left: auto;
+    margin-right: auto;
     width:400px;
     -webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2) ;
-    left: 470px;
     padding-left: 150px;
     font-size: 25px;
     font-family: Microsoft YaHei UI;
 }
 
 #googlelogo{
-    position: absolute;
-    width:20%;
-    left: 550px;
-    top:720px;
+    width:300px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:10px;
     font-size: 20px;
     font-family: Microsoft YaHei UI;
 }
 
 #footer {
-        position: absolute;
-        left: 0px;
-	top:880px;
+        margin-left: 0px;
+	margin-top:20px;
 	height: 80px;
-        width:1360px;
+        width:100%;
+        min-width: 1200px;
 	font-family: Verdana, sans-serif;
 	font-size: 14px;
 	text-align: center;
 }
 
 #footer p {
-        position: relative;
-        top: -20px;
+        margin-top: -20px;
         color:#555555;
 }
 

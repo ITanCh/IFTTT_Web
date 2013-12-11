@@ -6,11 +6,11 @@ link with personalpage.html
     Author     : TianChi
 */
 #top{
-    position: absolute;
-    top:0px;
-    left: 0px;
+    margin-top:-10px;
+    margin-left: 0px;
     height: 45px;
-    width: 1366px;
+    width: 101%;
+    min-width: 1200px;
     margin-bottom: 10px;
     background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
     border-bottom: 1.5px solid #ccc;
@@ -18,9 +18,8 @@ link with personalpage.html
 }
 
 #logo{
-    position: absolute;
-    top:0px; 
-    left: 200px;
+    float:left;
+    margin-left: 15%;
     height: 100%;
     width:150px;
     padding-top: 7px;
@@ -28,9 +27,10 @@ link with personalpage.html
 }
 
 #title{ 
-        position: absolute;
-        left: 400px;
-        top: 12px;
+        float:left;
+        margin-top: 10px;
+        margin-left: 3%;
+        width:400px;
 }
 #title ul{
 	list-style: none;
@@ -53,9 +53,9 @@ link with personalpage.html
 }
 
 #top_right{
-    position: absolute;
-    left:1000px;
-    top:13px;  
+    float:right;
+    margin-right:10%;
+    margin-top:14px;
 }
 
 .setting{
@@ -66,12 +66,16 @@ link with personalpage.html
     margin-left: 10px;
 }
 
+#mainbody{
+    margin-top:50px;
+    width: 100%;
+    min-width: 1200px;
+}
+
 #left{
-    position: absolute;
-    top:70px;
-    left: 200px;
+    float:left;
+    margin-left: 15%;
     width:250px;
-    height: 430px;
     font-family: Microsoft YaHei UI;
     border-bottom: 1px solid   #ccc;
 }
@@ -85,49 +89,35 @@ link with personalpage.html
 }
 
 .level_icon{
-    position: absolute;
-    top:324px;
     color: #FC730A;
 }
 .level{
-    position: absolute;
-    top:323px;
-    left: 30px;
-    margin-left: 5px;
+    margin-left: 20px;
 }
 .money_icon{
-    position: absolute;
-    top:355px;
     color: #080;
 }
 
 .money{
-    position: absolute;
-    top:354px; 
-    left: 30px;
+      margin-left: 20px;
 }
 
 .mail_icon{
-    position: absolute;
-    top:386px;
     color: #EF0251;
 }
 
 .mail{
-    position: absolute;
-    top:385px; 
-    left: 30px; 
+      margin-left: 20px; 
+      margin-bottom:10px;
 }
 
 
 #right{
-    position: absolute;
-    top:70px; 
-    left: 500px; 
-    height: fit-content;
+    float:left;
+    margin-left:4%;
     width: 700px;
     font-family:  Microsoft YaHei UI;
-}
+    }
 
 /*about view task*/
 #tabr1{
@@ -158,7 +148,7 @@ link with personalpage.html
 
 #thismenu{
     height:100px;
-    width:155px;
+    width:170px;
 }
 
 #thismenu fieldset{
@@ -170,7 +160,20 @@ link with personalpage.html
     height: 200px;
     border:1px solid #ccc;
     border-radius: 5px;
+    padding-top:50px;
+    padding-left: 30px;
+    padding-right: 200px;
 }
+#thiscontent input{
+    float: left;
+}
+
+#thiscontent textArea{
+    float: right;
+    height:100px;
+}
+
+
 
 #thatmenu{
     height:80px;
@@ -189,11 +192,25 @@ link with personalpage.html
     height: 200px;
     border:1px solid #ccc;
     border-radius: 5px;
+    padding-top:20px;
+    padding-left: 30px;
+    padding-right: 200px;
+}
+
+#thatcontent input{
+    float: left;
+}
+
+#thatcontent textArea{
+    float: right;
+    height:150px;
 }
 
 #taskview button{
     border: #fff;
 }
+
+
 
 /*about create task*/
 #tabr2{
@@ -205,7 +222,7 @@ link with personalpage.html
 
 #createthismenu{
     height:100px;
-    width:155px;
+    width:170px;
 }
 
 #createthismenu fieldset{
@@ -217,6 +234,17 @@ link with personalpage.html
     height: 200px;
     border:1px solid #ccc;
     border-radius: 5px;
+    padding-top:50px;
+    padding-left: 30px;
+    padding-right: 200px;
+}
+#createthiscontent input{
+    float: left;
+}
+
+#createthiscontent textArea{
+    float: right;
+    height:100px;
 }
 
 #createthatmenu{
@@ -236,8 +264,39 @@ link with personalpage.html
     height: 200px;
     border:1px solid #ccc;
     border-radius: 5px;
+    padding-top:20px;
+    padding-left: 30px;
+    padding-right: 200px;
 }
 
-#createtaskview button{
-    border: #fff;
+#createthatcontent input{
+    float: left;
+}
+
+#createthatcontent textArea{
+    float: right;
+    height:150px;
+}
+
+#changenamediv{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#changenameinfo{
+ margin-right: 50%;
+}
+
+#changemaildiv{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#changemailinfo{
+    margin-right: 50%;
+}
+
+#topup{
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
