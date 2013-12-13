@@ -34,7 +34,7 @@
             <column name="thatusername" length="50" not-null="true"/>
         </property>
         <property name="thatpassword" type="string">
-            <column name="thatpassword" length="30" not-null="true"/>
+            <column name="thatpassword" length="30" not-null="false"/>
         </property>
         <property name="thattext" type="text">
             <column name="thattext" not-null="false"/>

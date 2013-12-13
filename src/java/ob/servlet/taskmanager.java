@@ -191,6 +191,19 @@ public class taskmanager extends HttpServlet {
                 if (taskpo.getUid() != loginedUserid) {//任务不归该用户所属
                     outinfo = "找不到要修改的任务，请刷新页面重试";
                     return false;
+                }else{
+                    if (taskpo.getThistype() != thistype && (thistype == 1 || thistype == 2)) {//更换了thistype，必须输入密码
+                        if (thisstr2 == null || thisstr2.equals("")) {//有输入密码，需要验证输入合法
+                            outinfo = "请输入this中的密码";
+                            return false;
+                        }
+                    }
+                    if(taskpo.getThattype() != thattype && (thattype == 0)){
+                        if (thatpassword == null || thatpassword.equals("")) {
+                            outinfo = "请输入that中的密码";
+                            return false;
+                        }
+                    }
                 }
             } else {
                 outinfo = "找不到要修改的任务，请刷新页面重试";
@@ -200,15 +213,18 @@ public class taskmanager extends HttpServlet {
                 return true;
             }
         } else {//新建任务，必须要输入密码项
+            taskpo = null;
             if (thistype == 1 || thistype == 2) {
                 if (thisstr2 == null || thisstr2.equals("")) {//有输入密码，需要验证输入合法
                     outinfo = "请输入this中的密码";
                     return false;
                 }
             }
-            if (thatpassword == null || thatpassword.equals("")) {
-                outinfo = "请输入that中的密码";
-                return false;
+            if (thattype == 0) {//发微博要密码
+                if (thatpassword == null || thatpassword.equals("")) {
+                    outinfo = "请输入that中的密码";
+                    return false;
+                }
             }
         }
         if (taskname.length() > 25) {
@@ -265,7 +281,7 @@ public class taskmanager extends HttpServlet {
             outinfo = "that输入的登录名太长";
             return false;
         }
-        if (thatpassword.length() > 25) {
+        if (thatpassword != null && thatpassword.length() > 25) {
             outinfo = "that输入的密码太长";
             return false;
         }
