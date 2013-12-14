@@ -186,7 +186,7 @@ function viewtaskback(){
                             <legend>IF</legend>\n\
                             <input type="radio" name="this" id="thisradio1" onclick="editthis(this.id)" /> <label for="thisradio1" class="inline">Time Out</label><br />\n\
                             <input type="radio" name="this" id="thisradio2" onclick="editthis(this.id)"/> <label for="thisradio2" class="inline">Receive Mail</label><br />\n\
-                             <input type="radio" name="this" id="thisradio3" obclick="editthis(this.id)"/> <label for="thisradio3" class="inline">Monitor Weibo</label>\n\
+                             <input type="radio" name="this" id="thisradio3" onclick="editthis(this.id)"/> <label for="thisradio3" class="inline">Monitor Weibo</label>\n\
                             </fieldset>\n\
                              </div>\n\
                         <div id="thiscontent">\n\
@@ -206,8 +206,8 @@ function viewtaskback(){
                     <li><button id="edittask"class="orange" onclick="edittask()"><i class="icon-pencil"></i> Edit</button></li>\n\
                     <li><button id="oktask"  class=""  onclick="okedit(\'' + viewid + '\')" disabled="disabled"><i class="icon-ok-sign"></i> Ok</button></li>\n\
                     <li><button id="deletetask" class="red" onclick="deletetask(\''+viewid+'\')"><i class="icon-remove-sign"></i> Delete</button></li>\n\
-                    <div id="editback"></div>\n\
                     </ul>\n\
+                    <div id="editback"></div>\n\
                     <hr class="alt2" />';
             document.getElementById("taskview").innerHTML=mainframe;
             
@@ -241,7 +241,8 @@ function viewtaskback(){
             }
             thisradio.checked=true;
             thiscontent.innerHTML=thistext;
-            thisradio.setAttribute("onclick","noteditthis("+thistext+")");
+            noteditthistext = thistext;
+            thisradio.setAttribute("onclick","noteditthis("+ obj.thistype +")");
             //fill that content
             var thatradio;
             var thatcontent=document.getElementById("thatcontent");
@@ -259,7 +260,8 @@ function viewtaskback(){
             }
             thatradio.checked=true;
             thatcontent.innerHTML=thattext;
-            thatradio.setAttribute("onclick","noteditthat("+thattext+")");
+            noteditthattext = thattext;
+            thatradio.setAttribute("onclick","noteditthat("+ obj.thattype +")");
             //make them  disabled
             document.getElementById("taskname").setAttribute("disabled","disabled");
             var thisobj=document.getElementsByName("this");
@@ -275,12 +277,32 @@ function viewtaskback(){
     }
 }
 //recover old text
-function notedittthis(text){
-    document.getElementById("thiscontent").innerHTML=text;
+var noteditthistext;
+function noteditthis(thistype){
+    document.getElementById("thiscontent").innerHTML=noteditthistext;
+    if(thistype === 0){
+        document.getElementById("this0_1").removeAttribute("disabled");
+        document.getElementById("this0_2").removeAttribute("disabled");
+    }else if(thistype === 1){
+        document.getElementById("this1_1").removeAttribute("disabled");
+        document.getElementById("this1_2").removeAttribute("disabled");
+    }else if(thistype === 2){
+        document.getElementById("this2_1").removeAttribute("disabled");
+        document.getElementById("this2_2").removeAttribute("disabled");
+        document.getElementById("this2_3").removeAttribute("disabled");
+    }
 }
-
-function noteditthat(text){
-    document.getElementById("thatcontent").innerHTML=text;
+var noteditthattext;
+function noteditthat(thattype){
+    document.getElementById("thatcontent").innerHTML=noteditthattext;
+    if(thattype === 0){
+        document.getElementById("that0_1").removeAttribute("disabled");
+        document.getElementById("that0_2").removeAttribute("disabled");
+        document.getElementById("that0_3").removeAttribute("disabled");
+    }else if(thattype === 1){
+        document.getElementById("this1_1").removeAttribute("disabled");
+        document.getElementById("this1_2").removeAttribute("disabled");
+    }
 }
 
 //edit this 
@@ -292,12 +314,12 @@ function editthis(id){
                 <br><br>\n\
                 <input id='this0_2' type='text' placeholder='11:11'/>";
     }
-    else if(id==="createthisradio2"){       //mail
+    else if(id==="thisradio2"){       //mail
         text="<input id='this1_1' type='text' placeholder='name@example.com'/>\n\
                 <br><br>\n\
                 <input id='this1_2' type='text' placeholder='Password'/>";       
     }
-    else if(id==="createthisradio3"){       //weibo
+    else if(id==="thisradio3"){       //weibo
         text="<textarea id='this2_3' placeholder='The content you look for'></textarea><br>\n\
                     <input id='this2_1' type='text' placeholder='Weibo account '/>\n\
                     <br><br>\n\
@@ -460,9 +482,9 @@ function deletetask(id){
 }
 
 function deleteback(){
-    if(editrequest.readyState===4){  
-        if(editrequest.status===200){ 
-            var flag=editrequest.responseText;
+    if(deleterequest.readyState===4){  
+        if(deleterequest.status===200){ 
+            var flag=deleterequest.responseText;
             if(flag==="success"){
                    document.getElementById("taskview").innerHTML='<div class="notice success">\n\
                     <i class="icon-ok icon-large"></i>Delete sucessfully!<a href="#close" class="icon-remove"></a></div>';
