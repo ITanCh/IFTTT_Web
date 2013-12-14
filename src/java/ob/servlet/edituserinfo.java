@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ob.config.LogText;
 import ob.dao.UserDao;
+import ob.util.MD5Util;
 
 /**
  *
@@ -39,25 +40,28 @@ public class edituserinfo extends HttpServlet {
         mail = request.getParameter("mail");
         loginedUserName = (String) request.getSession().getAttribute("username");
         if (loginedUserName != null && !loginedUserName.equals("")) {
-            loginedUserid = (Integer) request.getSession().getAttribute("userid");
-            po = dao.getinfo(loginedUserid);
-            if (po != null) {
-                if (po.getUsername().equals(loginedUserName)) {
-                    if (validate()) {
-                        if (!username.equals("")) {
-                            po.setUsername(username);
-                        }
-                        if (!password.equals("")) {
-                            po.setPassword(password);
-                        }
-                        if (!mail.equals("")) {
-                            po.setMail(mail);
-                        }
-                        if (dao.updateInfo(po)) {
-                            outinfo = "success";
-                            request.getSession().setAttribute("username", username);
-                        } else {
-                            outinfo = LogText.DBERROR;
+            if (request.getSession().getAttribute("userid") != null) {
+                loginedUserid = (Integer) request.getSession().getAttribute("userid");
+                dao = new UserDao();
+                po = dao.getinfo(loginedUserid);
+                if (po != null) {
+                    if (po.getUsername().equals(loginedUserName)) {
+                        if (validate()) {
+                            if (username != null) {
+                                po.setUsername(username);
+                            }
+                            if (password != null) {
+                                po.setPassword(MD5Util.MD5(password));
+                            }
+                            if (mail != null) {
+                                po.setMail(mail);
+                            }
+                            if (dao.updateInfo(po)) {
+                                outinfo = "success";
+                                request.getSession().setAttribute("username", username);
+                            } else {
+                                outinfo = LogText.DBERROR;
+                            }
                         }
                     }
                 }
@@ -117,7 +121,7 @@ public class edituserinfo extends HttpServlet {
         Iterator it;
         if (username != null) {
             if (!username.equals("")) {
-                if (username.length() > 30 || !username.matches("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$")) {
+                if (username.length() > 30 || username.length() < 5 || !username.matches("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$")) {
                     outinfo = "Please change the name";
                     return false;
                 }
@@ -135,19 +139,19 @@ public class edituserinfo extends HttpServlet {
                         return false;
                     }
                 }
-            }
-        } else {
+            } else {
             outinfo = "Please change the name";
             return false;
+            }
         }
         if (password != null) {
             if (!password.equals("") && (password.length() > 30 || !password.matches("^[a-zA-Z0-9]{6,}$"))) {//不为空且格式不对
                 outinfo = "Please change the password";
                 return false;
-            }
-        } else {
+            } else {
             outinfo = "Please change the password";
             return false;
+            }
         }
         if (mail != null) {
             if (!mail.equals("")) {
@@ -168,10 +172,10 @@ public class edituserinfo extends HttpServlet {
                         return false;
                     }
                 }
-            }
-        } else {
+            } else {
             outinfo = "Please change the email";
             return false;
+            }
         }
         return true;
     }
@@ -182,5 +186,5 @@ public class edituserinfo extends HttpServlet {
     private String loginedUserName;
     private int loginedUserid;
     private UserInfoPO po;
-    private final UserDao dao = new UserDao();
+    private UserDao dao;
 }

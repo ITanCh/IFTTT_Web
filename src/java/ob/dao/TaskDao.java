@@ -27,21 +27,19 @@ public class TaskDao {
     }
 
     public String saveTask(TaskPO task) {
-        String log = "error";
         session = HibernateSessionFactory.getSession();
         try {
             transaction = session.beginTransaction();
             session.save(task);
             transaction.commit();
-            log = "success";
-            return log;
+            return task.getTid();
         } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
         } finally{
             HibernateSessionFactory.closeSession();
         }
-        return log;
+        return "error";
     }
     public TaskPO getTask(String tid){
         try{

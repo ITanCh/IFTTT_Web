@@ -22,7 +22,9 @@ public class UserInfoPO {
     private String mail;
     private boolean admin = false;//默认值
     private long coins = 1000;//默认值
+    private int level = 0;//默认值
     private Set task = new HashSet();
+    private Set log = new HashSet();
     /**
      * @return the uid
      */
@@ -94,6 +96,20 @@ public class UserInfoPO {
     }
 
     /**
+     * @return the level
+     */
+    public int getLevel() {
+        return level;
+    }
+
+    /**
+     * @param level the level to set
+     */
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    /**
      * @return the admin
      */
     public boolean isAdmin() {
@@ -119,6 +135,20 @@ public class UserInfoPO {
      */
     public void setTask(Set task) {
         this.task = task;
+    }
+
+    /**
+     * @return the log
+     */
+    public Set getLog() {
+        return log;
+    }
+
+    /**
+     * @param log the log to set
+     */
+    public void setLog(Set log) {
+        this.log = log;
     }
     
 }

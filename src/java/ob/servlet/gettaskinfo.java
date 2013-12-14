@@ -102,5 +102,5 @@ public class gettaskinfo extends HttpServlet {
     private final ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
     private String outinfo = null;
     private TaskPO po;
-    private TaskDao dao = new TaskDao();
+    private final TaskDao dao = new TaskDao();
 }

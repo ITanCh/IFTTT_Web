@@ -26,22 +26,20 @@ public class UserDao {
 
     }
 
-    public String saveinfo(UserInfoPO info) {
-        String log = "error";
+    public int saveinfo(UserInfoPO info) {
         session = HibernateSessionFactory.getSession();
         try {
             transaction = session.beginTransaction();
             session.save(info);
             transaction.commit();
-            log = "success";
-            return log;
+            return info.getUid();
         } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
         } finally{
             HibernateSessionFactory.closeSession();
         }
-        return log;
+        return -1;
     }
     
     public UserInfoPO getinfo(int uid) {
@@ -92,7 +90,6 @@ public class UserDao {
             transaction = session.beginTransaction();
             session.update(info);
             transaction.commit();
-            session.close();
             return true;
         } catch (Exception e) {
             transaction.rollback();

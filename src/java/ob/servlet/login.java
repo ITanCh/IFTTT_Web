@@ -98,6 +98,16 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>    
     private boolean validate() {
         if (username == null || !username.matches("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$")) {
             outinfo = "Please change the name";
@@ -109,15 +119,6 @@ public class login extends HttpServlet {
         }
         return true;
     }
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
     private String outinfo = null;
     private String username;
     private String password;

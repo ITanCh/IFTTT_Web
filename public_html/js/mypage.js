@@ -728,7 +728,3 @@ function timereprintcreate(t){
         getcreateview();        //reprint view
     }
 }
-
-
-
-

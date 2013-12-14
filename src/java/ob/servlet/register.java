@@ -39,23 +39,11 @@ public class register extends HttpServlet {
         password = request.getParameter("pw");
         mail = request.getParameter("mail");
         if (validate()) {
-            if (dao.saveinfo(userinfo()).equals("success")) {
+            int uid;
+            if ((uid = dao.saveinfo(userinfo()) ) != -1) {
                 outinfo = "success";
                 request.getSession().setAttribute("username", username);
-                List list;
-                Iterator it;
-                list = dao.queryInfo("username", username);
-                if (list != null) {
-                    it = list.iterator();
-                    while (it.hasNext()) {
-                        UserInfoPO po = (UserInfoPO) it.next();
-                        if ((po).getUsername().equals(username)) {
-                            request.getSession().setAttribute("userid", po.getUid());
-                        }
-                    }
-                } else {
-                    outinfo = LogText.DBERROR;
-                }
+                request.getSession().setAttribute("userid", uid);
             } else {
                 outinfo = LogText.REGERROR;
             }
@@ -117,7 +105,7 @@ public class register extends HttpServlet {
         List list;
         Iterator it;
         if (username != null) {
-            if (username.length() > 30 || !username.matches("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$")) {
+            if (username.length() > 30 || username.length() < 5 || !username.matches("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$")) {
                 outinfo = "Please change the name";
                 return false;
             }

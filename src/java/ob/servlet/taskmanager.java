@@ -15,10 +15,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ob.config.Config;
 import ob.dao.TaskDao;
 import ob.dao.UserDao;
 import ob.config.LogText;
 import ob.manager.RunningTask;
+import ob.manager.TaskLog;
 import ob.util.AESUtil;
 
 /**
@@ -46,26 +48,40 @@ public class taskmanager extends HttpServlet {
                 if (getdata(request) && validate())//获取数据并且验证输入合法
                 {
                     if (tid == null) {
-                        if (taskdao.saveTask(task()).equals("success")) {//新建Task
+                        if (!(tid = taskdao.saveTask(task())).equals("error")) {//新建Task，返回值不为"error"
+                            TaskLog.AddLog(loginedUserid,loginedUserName,taskpo.getTaskname() , 1);//新建任务的log
                             outinfo = "success";
                         } else {
                             outinfo = LogText.ADDTASKERROR;
                         }
                     } else {
                         if (start != null) {
-                            if (RunningTask.addTask(taskpo)) {
-                                outinfo = "success";
-                            } else {
-                                outinfo = "start task failed";
+                            if(Config.DisableThis[taskpo.getThistype()]){
+                                outinfo = "Sorry,This this_type is disabled.";
+                            }else if(Config.DisableThat[taskpo.getThattype()]){
+                                outinfo = "Sorry,This that_type is disabled.";
+                            }else{//没有被禁用，可以开始
+                                if (RunningTask.addTask(taskpo)) {
+                                    outinfo = "success";
+                                    TaskLog.AddLog(loginedUserid,loginedUserName, taskpo.getTaskname(), 4);//开始任务的log
+                                } else {
+                                    outinfo = "start task failed";
+                                }
                             }
                         } else if (stop != null) {
-                            RunningTask.delTask(tid);
+                            if(RunningTask.delTask(tid)){
+                                outinfo = "success";
+                                TaskLog.AddLog(loginedUserid,loginedUserName,taskpo.getTaskname(), 5);//停止任务的log
+                            }else{
+                                outinfo = "stop task failed";
+                            }
                         } else if (del != null) {
                             if (RunningTask.isHere(tid)) {
                                 outinfo = "请停止任务后再删除";
                             } else {
                                 if (taskdao.deleteTask(tid)) {
                                     outinfo = "success";
+                                    TaskLog.AddLog(loginedUserid,loginedUserName,taskpo.getTaskname(), 3);//删除任务的log
                                 } else {
                                     outinfo = "stop task failed";
                                 }
@@ -74,8 +90,9 @@ public class taskmanager extends HttpServlet {
                             if (RunningTask.isHere(tid)) {
                                 outinfo = "请停止任务后再修改";
                             } else {
-                                if (taskdao.updateTask(task())) {//新建Task
+                                if (taskdao.updateTask(task())) {//修改Task
                                     outinfo = "success";
+                                    TaskLog.AddLog(loginedUserid,loginedUserName,taskpo.getTaskname(), 2);//修改任务的log
                                 } else {
                                     outinfo = LogText.EDITTASKERROR;
                                 }

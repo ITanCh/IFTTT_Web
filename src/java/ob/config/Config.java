@@ -21,4 +21,9 @@ public class Config {
         public static final String KEY_IN_AES = "OOg3orHXUR8sAmM1g9ZT5A==";//不同网站实例用不同key
         public static final char md5String[] = {'O' ,'Y' ,'2', 'K', 'H' ,'1', '6', 'E', '8', 'F',
 				'B', 'S', '7', 'D', 'I', 'P' };//不同网站用不同乱序改字版MD5，提高破解难度
+        public static boolean DisableThis[] = new boolean[MAXTHISTYPE + 1];//禁用This
+        public static boolean DisableThat[] = new boolean[MAXTHATTYPE + 1];//禁用That
+        public Config(){
+            //TODO 从XML读取配置
+        }
 }

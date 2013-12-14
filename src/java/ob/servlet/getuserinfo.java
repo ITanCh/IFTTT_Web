@@ -53,7 +53,7 @@ public class getuserinfo extends HttpServlet {
                         }
                     }
                     FilterProvider filters = new SimpleFilterProvider().addFilter("userFilter",
-                            SimpleBeanPropertyFilter.serializeAllExcept("password"))
+                            SimpleBeanPropertyFilter.serializeAllExcept("password","log"))
                             .addFilter("taskFilter",
                                     SimpleBeanPropertyFilter.filterOutAllExcept("tid", "taskname", "ctime", "status", "isrunning"));//不显示password和其他
                     outinfo = mapper.writer(filters).writeValueAsString(po);//输出JSON
