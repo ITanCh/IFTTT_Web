@@ -4,7 +4,7 @@
  */
 
 
-//$(document).ready(checklogin);
+$(document).ready(checklogin);
 var request;
 function checklogin(){
     if(window.XMLHttpRequest) {  
@@ -23,7 +23,8 @@ function checkback(){
     if(request.readyState===4){  
         if(request.status===200){  
             var flag=request.responseText;
-            if(flag==="admin"){                            
+            var obj=eval('('+flag+')');
+            if(obj.admin===true){                            
                 return;
             }    
         }
