@@ -58,7 +58,7 @@ public class edituserinfo extends HttpServlet {
                             }
                             if (dao.updateInfo(po)) {
                                 outinfo = "success";
-                                request.getSession().setAttribute("username", username);
+                                request.getSession().setAttribute("username", po.getUsername());
                             } else {
                                 outinfo = LogText.DBERROR;
                             }

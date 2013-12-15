@@ -8,8 +8,8 @@
  * show personal information
  */
 function showinfo(){
-    var name=document.getElementById("bigusername").innerText;
-    var mailaddr=document.getElementById("mail").innerText;
+    var name=document.getElementById("bigusername").innerHTML;
+    var mailaddr=document.getElementById("mail").innerHTML;
     document.getElementById("changeusername").value=name;
     document.getElementById("changemailaddr").value=mailaddr;
 }
@@ -18,6 +18,7 @@ function showinfo(){
 
 function changename(){
     document.getElementById("changeusername").removeAttribute("disabled");
+    document.getElementById("changeusername").setAttribute("class","enabled");
     var button=document.getElementById("changenamebutton");
     button.setAttribute("class","pill orange small");
     button.setAttribute("onclick","okchangename()");
@@ -50,18 +51,20 @@ function okchangename(){
     if(changenamerequest!==null){ 
             document.getElementById("changenamebutton").setAttribute("disabled","disabled");
             changenamerequest.open("POST","edituserinfo?name="+name,true);
-            changenamerequest.onreadystatechange=changenameback(name);
+            changedname = name;
+            changenamerequest.onreadystatechange=changenameback;
             changenamerequest.send(null);
     }  
 }
-
-function changenameback(name){
+var changedname;
+function changenameback(){
     if(changenamerequest.readyState===4){  
         if(changenamerequest.status===200){  
             var flag=changenamerequest.responseText;
             if(flag==="success"){
-                document.getElementById("bigusername").innerHTML=name;
-                document.getElementById("username").innerHTML=name;
+                document.getElementById("bigusername").innerHTML=changedname;
+                document.getElementById("username").innerHTML=changedname;
+                document.getElementById("changeusername").setAttribute("class","disabled");
                 document.getElementById("changeusername").setAttribute("disabled","disabled");
                 var button=document.getElementById("changenamebutton");
                 button.setAttribute("class","pill green small");
@@ -82,6 +85,7 @@ function changenameback(name){
 
 function changemail(){
     document.getElementById("changemailaddr").removeAttribute("disabled");
+    document.getElementById("changemailaddr").setAttribute("class","enabled");
     var button=document.getElementById("changemailbutton");
     button.setAttribute("class","pill orange small");
     button.setAttribute("onclick","okchangemail()");
@@ -114,17 +118,20 @@ function okchangemail(){
     if(changemailrequest!==null){ 
             document.getElementById("changemailbutton").setAttribute("disabled","disabled");
             changemailrequest.open("POST","edituserinfo?mail="+mail,true);
-            changemailrequest.onreadystatechange=changemailback(mail);
+            changedmail = mail;
+            changemailrequest.onreadystatechange=changemailback;
             changemailrequest.send(null);
     }  
 }
 
-function changemailback(mail){
+var changedmail;
+function changemailback(){
     if(changemailrequest.readyState===4){ 
         if(changemailrequest.status===200){  
             var flag=changemailrequest.responseText;
             if(flag==="success"){
-                document.getElementById("mail").innerHTML=mail;
+                document.getElementById("mail").innerHTML=changedmail;
+                document.getElementById("changemailaddr").setAttribute("class","disabled");
                 document.getElementById("changemailaddr").setAttribute("disabled","disabled");
                 var button=document.getElementById("changemailbutton");
                 button.setAttribute("class","pill green small");
