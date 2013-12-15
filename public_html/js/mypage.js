@@ -28,7 +28,7 @@ function checkback(){
     if(request.readyState===4){  
         if(request.status===200){  
             var flag=request.responseText;
-            if(flag==="false"||flag==="admin");      //cannot log in
+            if(flag==="false");      //cannot log in
             else{                        //log in successfully ,load user information          
                 var obj=eval('('+flag+')');
                 document.getElementById("username").innerHTML=obj.username;

@@ -17,6 +17,8 @@ public class Config {
         public static final String HIB_CONFIG_FILE = "/hibernate.cfg.xml";
         public static final int MAXTHISTYPE = 2;//时间、邮件、微博
         public static final int MAXTHATTYPE = 1;//邮件、微博
+        public static final int MAXLEVEL = 8;//用户最高等级
+        public static final int LEVELCOST[] = {10,9,8,7,6,5,4,3,2,1};//各等级操作所需消费
         //AES所用的key，通过SecretKey的getEncoded()，再进行Base64加密产生
         public static final String KEY_IN_AES = "OOg3orHXUR8sAmM1g9ZT5A==";//不同网站实例用不同key
         public static final char md5String[] = {'O' ,'Y' ,'2', 'K', 'H' ,'1', '6', 'E', '8', 'F',

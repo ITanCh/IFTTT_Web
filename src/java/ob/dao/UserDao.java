@@ -99,4 +99,19 @@ public class UserDao {
             HibernateSessionFactory.closeSession();
         }
     }
+    public boolean deleteInfo(UserInfoPO info){
+        try{
+            session = HibernateSessionFactory.getSession();
+            transaction = session.beginTransaction();
+            session.delete(info);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        } finally{
+            HibernateSessionFactory.closeSession();
+        }
+    }
 }

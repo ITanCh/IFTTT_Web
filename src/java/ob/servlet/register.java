@@ -126,7 +126,7 @@ public class register extends HttpServlet {
             outinfo = "Please change the name";
             return false;
         }
-        if (password == null || password.length() > 30 || !password.matches("^[a-zA-Z0-9]{6,}$")) {
+        if (password == null || password.length() > 30 || !password.matches("^[a-zA-Z0-9]{6,30}$")) {
             outinfo = "Please change the password";
             return false;
         }

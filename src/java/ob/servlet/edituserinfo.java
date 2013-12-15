@@ -145,12 +145,9 @@ public class edituserinfo extends HttpServlet {
             }
         }
         if (password != null) {
-            if (!password.equals("") && (password.length() > 30 || !password.matches("^[a-zA-Z0-9]{6,}$"))) {//不为空且格式不对
-                outinfo = "Please change the password";
+            if (!password.equals("") && !password.matches("^[a-zA-Z0-9]{6,30}$")) {//不为空且格式不对
+                outinfo = "密码只能为6~30位的字母和数字";
                 return false;
-            } else {
-            outinfo = "Please change the password";
-            return false;
             }
         }
         if (mail != null) {
