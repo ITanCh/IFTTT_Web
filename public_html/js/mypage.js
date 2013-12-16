@@ -33,6 +33,7 @@ function checkback(){
                 var obj=eval('('+flag+')');
                 document.getElementById("username").innerHTML=obj.username;
                 document.getElementById("bigusername").innerHTML=obj.username;
+                document.getElementById("level").innerHTML=obj.level;
                 document.getElementById("money").innerHTML=obj.coins;
                 document.getElementById("mail").innerHTML=obj.mail;
                 var alltasks="";
@@ -506,65 +507,7 @@ function deleteback(){
         document.getElementById("deletetask").removeAttribute('disabled');
     }
 }
-//function disableedit(){
-//            var thisradio;
-//            var thiscontent=document.getElementById("thiscontent");
-//            var thistext;
-//            var thistype=2;
-//            if(thistype===0){            //time
-//                thisradio=document.getElementById("thisradio1");
-//                thistext='<input id="this0_1" name="this" type="text" value="'+'obj.thisdate'+'"/>\n\
-//                <br><br>\n\
-//                <input id="this0_2"  name="this" type="text"  value="'+'obj.thistime'+'"/>';
-//            }
-//            else if(thistype===1){       //mail
-//                thisradio=document.getElementById("thisradio2");
-//                thistext='<input id="this1_1"  name="this" type="text"  value="'+'obj.thisaddr'+'"/>\n\
-//                <br><br>\n\
-//                <input id="this1_2"  name="this" type="text" placeholder="Default Password is the last one"/>';
-//            }
-//            else if(thistype===2){       //weibo
-//                thisradio=document.getElementById("thisradio3");
-//                thistext='<textarea id="this2_3"  name="this" >'+'obj.thisaccount'+'</textarea><br>\n\
-//                    <input id="this2_1" name="this"  type="text"  value="'+'obj.thiscontent'+'"/>\n\
-//                    <br><br>\n\
-//                    <input id="this2_2"  name="this" type="text" placeholder="Default Password is the last one"/>';
-//            }
-//            thisradio.checked=true;
-//            thiscontent.innerHTML=thistext;
-//            
-//            //fill that content
-//            var thatradio;
-//            var thatcontent=document.getElementById("thatcontent");
-//            var thattext;
-//            var thattype=0;
-//            if(thattype===0){            //send weibo
-//                thatradio=document.getElementById("thatradio1");
-//                thattext='<textarea id="that0_1"   name="that">'+'obj.thatcontent'+'</textarea><br>\n\
-//                <input id="that0_2" name="that" type="text" value="'+'obj.thataccount'+'"/><br><br>\n\
-//                <input id="that0_3" name="that" type="pw" placeholder="Default Password is the last one" />';
-//            }
-//            else if(thattype===1){       //send mail
-//                thatradio=document.getElementById("thatradio2");
-//                thattext='<textarea id="that1_1" name="that">'+'obj.thatcoutent'+'</textarea><br>\n\
-//                    <input id="that1_2" name="that" type="text" value="'+'obj.thataddr'+'" />';
-//            }
-//            thatradio.checked=true;
-//            thatcontent.innerHTML=thattext;
-//             var thisobj=document.getElementsByName("this");
-//             for(var i=0;i<thisobj.length;i++){
-//            thisobj[i].setAttribute('disabled','disabled');
-//            }
-//            var thatobj=document.getElementsByName("that");
-//            for(var i=0;i<thatobj.length;i++){
-//            thatobj[i].setAttribute('disabled','disabled');
-//            }
-//}
 
-/*
- * create a task
- * 
- */
 // reprint the create task view
 function getcreateview(){
     var text='<label for="ctaskname">Task Name:</label>\n\

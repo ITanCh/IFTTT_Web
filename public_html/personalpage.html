@@ -42,7 +42,7 @@ show all information of this user
             <img class="head" src="img/slider3.jpg" alt="your head" width="245" height="245"/>
             <h5 class="user_name" id="bigusername">UserName</h5> 
             <i class="icon-star tooltip level_icon" title="Your level"></i>
-            <label class="level">35</label>  
+            <label id="level" class="level">35</label>  
             <br>
             <br>
             <i class="icon-money tooltip money_icon" title="Balance of account"></i>
@@ -73,75 +73,13 @@ show all information of this user
                         <th>Actions</th>
                         </tr></thead>
                     <tbody id="tablebody">
-<!--                        <tr> 
-                        <td>Item1</td>
-                        <td>Item2</td>
-                        <td>Item3</td>
-                        <td><a href=""><i class="icon-pencil tooltip" title="view and modify"></i></a>
-                            <a class="stopicon" ><i class="icon-stop tooltip" title="stop it"></i></a>
-                            <a class="starticon" href=""><i class="icon-play tooltip" title="start it"></i></a></td>
-                        </tr>
-                        
-                        <tr>
-                        <td>Item1</td>
-                        <td>Item2</td>
-                        <td>Item3</td>
-                         <td><a href=""><i class="icon-pencil tooltip" title="view and modify"></i></a>
-                            <a class="stopicon" href=""><i class="icon-stop tooltip" title="stop it"></i></a>
-                            <a class="starticon" href=""><i class="icon-play tooltip" title="start it"></i></a></td>
-                    </tr><tr>
-                        <td>Item1</td>
-                        <td>Item2</td>
-                        <td>Item3</td>
-                        <td><a href=""><i class="icon-pencil tooltip" title="view and modify"></i></a>
-                            <a class="stopicon" href=""><i class="icon-stop tooltip" title="stop it"></i></a>
-                            <a class="starticon" href=""><i class="icon-play tooltip" title="start it"></i></a></td>
-                    </tr><tr>
-                        <td>Item1</td>
-                        <td>Item2</td>
-                        <td>Item3</td>
-                        <td><a href=""><i class="icon-pencil tooltip" title="view and modify"></i></a>
-                            <a class="stopicon" href=""><i class="icon-stop tooltip" title="stop it"></i></a>
-                            <a class="starticon" href=""><i class="icon-play tooltip" title="start it"></i></a></td>
-                        </tr>-->
+                        <!--insert when click my task-->
                     </tbody>
                         </table> 
                 </div>
                
                 <div id="taskview">
-<!--                    <hr>
-                    <label for="taskname">Task Name:</label>
-                    <input id="taskname" name="this" type="text" />
-                    <hr class="alt2" /> 
-                    <div id="thismenu">
-                        <fieldset>
-                        <legend>IF</legend>
-                        <input type="radio" name="this" id="thisradio1" /> <label for="thisradio1" class="inline">Time Out</label><br />
-                        <input type="radio" name="this" id="thisradio2" /> <label for="thisradio2" class="inline">Receive Mail</label><br />
-                        <input type="radio" name="this" id="thisradio3" /> <label for="thisradio3" class="inline">Monitor Weibo</label>
-                        </fieldset>
-                    </div>
-                    <div id="thiscontent">
-                       insert when user want to view some task
-                    </div>
-                    
-                    <div id="thatmenu">
-                        <fieldset>
-                        <legend>THEN</legend>
-                            <input type="radio" name="that" id="thatradio1" /> <label for="thatradio1" class="inline">Send Weibo</label><br />
-                            <input type="radio" name="that" id="thatradio2" /> <label for="thatradio2" class="inline">Send Mail</label>
-                        </fieldset>
-                    </div>
-                    <div id="thatcontent">
-                        insert when user want to view some task
-                    </div>
-                    
-                    <ul class="button-bar">
-                    <li><button class="orange" onclick="edittask()"><i class="icon-pencil"></i> Edit</button></li>
-                    <li><button class="green"  onclick="disableedit()"><i class="icon-ok-sign"></i> Ok</button></li>
-                    <li><button class="red"><i class="icon-remove-sign"></i> Delete</button></li>
-                    </ul>
-                    <hr class="alt2" /> -->
+                    <!--insert when click view a task-->
                 </div>
             </div>
             
@@ -181,12 +119,18 @@ show all information of this user
                 <label for="headimg">Head portrait:</label>
                 <input id="headimg" type="file" class="file">
                 <button class="pill green small">Uploading</button>
-                <div id="changenamediv">
-                <label for="changeusername">User Name:</label>
-                <input id="changeusername" type="text" disabled="disabled" />
-                <button id="changenamebutton" class="pill green small" onclick="changename()"><i class="icon-pencil"></i> Edit</button>
+                <div id="changepwdiv">
+                <label for="changepw1">Original password:</label>
+                <input id="changepw1" type="password" disabled="disabled" />
+                <br>
+                <label for="changepw2">New password:</label>
+                <input id="changepw2" type="password" disabled="disabled" />
+                <br>
+                <label for="changepw3">New password:</label>
+                <input id="changepw3" type="password" disabled="disabled" />
+                <button id="changepwbutton" class="pill green small" onclick="changepw()"><i class="icon-pencil"></i> Edit</button>
                 </div> 
-                <div id="changenameinfo"></div>
+                <div id="changepwinfo"></div>
                 <div id="changemaildiv">
                 <label for="changemailaddr">Mail Addr:</label>
                 <input id="changemailaddr" type="text" disabled="disabled" />

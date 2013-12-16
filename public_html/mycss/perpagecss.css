@@ -278,12 +278,13 @@ link with personalpage.html
     height:150px;
 }
 
-#changenamediv{
+#changepwdiv{
     margin-top: 20px;
     margin-bottom: 10px;
+    line-height: 40px;
 }
 
-#changenameinfo{
+#changepwinfo{
  margin-right: 50%;
 }
 
