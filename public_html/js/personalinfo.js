@@ -8,76 +8,83 @@
  * show personal information
  */
 function showinfo(){
-    var name=document.getElementById("bigusername").innerHTML;
     var mailaddr=document.getElementById("mail").innerHTML;
-    document.getElementById("changeusername").value=name;
     document.getElementById("changemailaddr").value=mailaddr;
 }
 
 //when user want to change name
 
-function changename(){
-    document.getElementById("changeusername").removeAttribute("disabled");
-    document.getElementById("changeusername").setAttribute("class","enabled");
-    var button=document.getElementById("changenamebutton");
+function changepw(){
+    document.getElementById("changepw1").removeAttribute("disabled");
+    document.getElementById("changepw2").removeAttribute("disabled");
+    document.getElementById("changepw3").removeAttribute("disabled");
+    var button=document.getElementById("changepwbutton");
     button.setAttribute("class","pill orange small");
-    button.setAttribute("onclick","okchangename()");
+    button.setAttribute("onclick","okchangepw()");
     button.innerHTML='<i class="icon-ok-sign"></i> OK';
 }
 
 //name has been changed
-var changenamerequest;
-function okchangename(){
-    var name=document.getElementById("changeusername").value;
-    if(name===""){                                      //if name is empty
+var changepwrequest;
+function okchangepw(){
+    var pw1=document.getElementById("changepw1").value;
+    var pw2=document.getElementById("changepw2").value;
+    var pw3=document.getElementById("changepw3").value;
+     if(pw2===""){                                      //if name is empty
         var info="<div class='notice error'><i class='icon-remove-sign '>\n\
-                 </i>Name cannot be empty<a href='#close' class='icon-remove'></a></div>";
-        document.getElementById("changenameinfo").innerHTML=info;
+                 </i>Password cannot be empty<a href='#close' class='icon-remove'></a></div>";
+        document.getElementById("changepwinfo").innerHTML=info;
         return false;
-        }
-    var reg=/^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$/;                //name consists of a-z A-Z _
-    if(!reg.test(name)){
+    }
+    
+    var reg=/^[a-zA-Z0-9]{6,}$/;     //pw1          
+    if(!reg.test(pw2)){
+         var info="<div class='notice error'><i class='icon-remove-sign '>\n\
+                 </i>Password must consist of 'a-z'or'A-Z'(length>=6) <a href='#close' class='icon-remove'></a></div>";
+        document.getElementById("changepwinfo").innerHTML=info;
+        return false;
+    }
+    
+     if(pw2!==pw3){                                      //if pw are different
         var info="<div class='notice error'><i class='icon-remove-sign '>\n\
-                 </i>Name must consist of 'a-z'or'A-Z'or' _'<a href='#close' class='icon-remove'></a></div>";
-        document.getElementById("changenameinfo").innerHTML=info;
+              </i>The two passwords differ<a href='#close' class='icon-remove'></a></div>";
+        document.getElementById("changepwinfo").innerHTML=info; 
         return false;
     }
     
     if(window.XMLHttpRequest) {  
-        changenamerequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
+        changepwrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     }else if(window.ActiveXObject) {  
-        changenamerequset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+        changepwrequset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
-    if(changenamerequest!==null){ 
-            document.getElementById("changenamebutton").setAttribute("disabled","disabled");
-            changenamerequest.open("POST","edituserinfo?name="+name,true);
-            changedname = name;
-            changenamerequest.onreadystatechange=changenameback;
-            changenamerequest.send(null);
+    if(changepwrequest!==null){ 
+            document.getElementById("changepwbutton").setAttribute("disabled","disabled");
+            changepwrequest.open("POST","edituserinfo?oldpw="+pw1+"&newpw="+pw2,true);
+            changepwrequest.onreadystatechange=changepwback;
+            changepwrequest.send(null);
     }  
 }
-var changedname;
-function changenameback(){
-    if(changenamerequest.readyState===4){  
-        if(changenamerequest.status===200){  
-            var flag=changenamerequest.responseText;
+
+function changepwback(){
+    if(changepwrequest.readyState===4){  
+        if(changepwrequest.status===200){  
+            var flag=changepwrequest.responseText;
             if(flag==="success"){
-                document.getElementById("bigusername").innerHTML=changedname;
-                document.getElementById("username").innerHTML=changedname;
-                document.getElementById("changeusername").setAttribute("class","disabled");
-                document.getElementById("changeusername").setAttribute("disabled","disabled");
-                var button=document.getElementById("changenamebutton");
+                document.getElementById("changepw1").setAttribute("disabled","disabled");
+                document.getElementById("changepw2").setAttribute("disabled","disabled");
+                document.getElementById("changepw3").setAttribute("disabled","disabled");
+                var button=document.getElementById("changepwbutton");
                 button.setAttribute("class","pill green small");
-                button.setAttribute("onclick","changename()");
+                button.setAttribute("onclick","changepw()");
                 button.innerHTML='<i class="icon-pencil"></i> Edit';
             }
             else{
                     var info="<div class='notice error'><i class='icon-remove-sign '>\n\
                     </i>"+flag+"<a href='#close' class='icon-remove'></a></div>";
-                    document.getElementById("changenameinfo").innerHTML=info;
+                    document.getElementById("changepwinfo").innerHTML=info;
             } 
         }
-     document.getElementById("changenamebutton").removeAttribute("disabled");
+     document.getElementById("changepwbutton").removeAttribute("disabled");
     }
 }
 
