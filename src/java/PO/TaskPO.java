@@ -20,7 +20,7 @@ public class TaskPO extends Thread implements Cloneable{
     private int uid;//代表所属的用户
     private String taskname;
     private String ctime;
-    private String status = "停止中";
+    private String status = "Stopped";
     private boolean isrunning = false;
 
     private int thistype;

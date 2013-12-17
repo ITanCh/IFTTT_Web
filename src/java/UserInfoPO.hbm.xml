@@ -25,17 +25,17 @@
           <column name="admin" length="1" not-null="false" />
       </property>
       <!--一对多映射user到task，单的一方配置-->
-      <set name="task" table="task" cascade="all" lazy="false" order-by="ctime desc">
+      <set name="task" table="task" cascade="all-delete-orphan" lazy="false" order-by="ctime desc">
           <key column="uid"/>
           <one-to-many class="PO.TaskPO"/>
       </set>
       <!--一对多映射user到log，单的一方配置-->
-      <set name="log" table="log" cascade="all" lazy="false" order-by="lid desc">
+      <set name="log" table="log" lazy="false" order-by="lid desc">
           <key column="uid"/>
           <one-to-many class="PO.LogPO"/>
       </set>
       <!--一对多映射user到sms，单的一方配置-->
-      <set name="sms" table="sms" cascade="all" lazy="false" order-by="sid desc">
+      <set name="sms" table="sms" cascade="all-delete-orphan" lazy="false" order-by="sid desc">
           <key column="uid"/>
           <one-to-many class="PO.SMSPO"/>
       </set>
