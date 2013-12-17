@@ -106,7 +106,7 @@ public class register extends HttpServlet {
         List list;
         Iterator it;
         if (username != null) {
-            if (username.length() > 30 || username.length() < 5 || !username.matches("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$")) {
+            if (username.length() > 30 || !username.matches("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$")) {
                 outinfo = "Please change the name";
                 return false;
             }
