@@ -35,12 +35,11 @@ public class getlog extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        outinfo = new StringBuilder("error");
+        outinfo = new StringBuilder("fail");
         try{
-            index = Integer.parseInt((String)request.getSession().getAttribute("logindex"));
+            index = Integer.parseInt((String)request.getParameter("logindex"));
         }catch(NumberFormatException e){
             index = -1;
-            outinfo.append(" logindex");
         }
         if (index >= 0) {//index没错
             loginedUserName = (String) request.getSession().getAttribute("username");
@@ -56,6 +55,7 @@ public class getlog extends HttpServlet {
                             while(it.hasNext()){
                                 logpo = (LogPO)it.next();
                                 outinfo.append("LogID:").append(logpo.getLid());
+                                outinfo.append("\t时间:").append(logpo.getTime());
                                 outinfo.append("\t用户:").append(logpo.getUname());
                                 outinfo.append("\t任务：").append(logpo.getTname());
                                 outinfo.append("\t操作类型：");

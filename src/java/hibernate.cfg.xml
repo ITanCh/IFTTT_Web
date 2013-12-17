@@ -10,5 +10,6 @@
     <mapping resource="UserInfoPO.hbm.xml"/>
     <mapping resource="TaskPO.hbm.xml"/>
     <mapping resource="LogPO.hbm.xml"/>
+    <mapping class="" file="" jar="" package="" resource="SMSPO.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ob.dao;
 
-import PO.LogPO;
+import PO.SMSPO;
 import addHibernateFile.HibernateSessionFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,20 +19,20 @@ import org.hibernate.Transaction;
  *
  * @author oubeichen
  */
-public class LogDao {
-
+public class SMSDao {
+    
     private Session session;
     private Transaction transaction;
     private Query query;
 
-    public int saveLog(LogPO Log) {
+    public int saveSMS(SMSPO sms) {
         session = HibernateSessionFactory.getSession();
         try {
-            Log.setTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+            sms.setTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
             transaction = session.beginTransaction();
-            session.save(Log);
+            session.save(sms);
             transaction.commit();
-            return Log.getLid();
+            return sms.getSid();
         } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
@@ -41,18 +42,17 @@ public class LogDao {
         return -1;
     }
     /**
-     * 根据索引给出不同位置的日志
-     * @param index 索引
-     * @return index乘以十到index+1乘以十的日志
+     * 根据用户id给出短消息
+     * @param uid 用户id
+     * @return 用户id 的短消息
      */
-    public List getLog(int index) {
+    public List getSMS(int uid) {
         try {
             session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
-            String stmt = "from LogPO order by Lid desc";
+            String stmt = "from SMSPO as s where s.uid = ? order by sid desc";
             query = session.createQuery(stmt);
-            query.setMaxResults(10);
-            query.setFirstResult(index * 10);
+            query.setParameter(0, uid);
             List list = query.list();
             transaction.commit();
             return list;
@@ -64,21 +64,22 @@ public class LogDao {
             HibernateSessionFactory.closeSession();
         }
     }
-    public List getAllLog() {
+    /*
+    @Deprecated
+    public boolean sendAdminSMS(String content) {
+        session = HibernateSessionFactory.getSession();
         try {
-            session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
-            String stmt = "from LogPO order by Lid desc";
-            query = session.createQuery(stmt);
-            List list = query.list();
+            session.save(sms);
             transaction.commit();
-            return list;
+            return sms.getSid();
         } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
-            return null;
         } finally {
             HibernateSessionFactory.closeSession();
         }
+        return -1;
     }
+    */
 }

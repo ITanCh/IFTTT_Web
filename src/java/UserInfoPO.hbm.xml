@@ -34,5 +34,10 @@
           <key column="uid"/>
           <one-to-many class="PO.LogPO"/>
       </set>
+      <!--一对多映射user到sms，单的一方配置-->
+      <set name="sms" table="sms" cascade="all" lazy="false" order-by="sid desc">
+          <key column="uid"/>
+          <one-to-many class="PO.SMSPO"/>
+      </set>
   </class>
 </hibernate-mapping>

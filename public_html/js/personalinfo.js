@@ -190,8 +190,8 @@ function messageback(){
                 for(var i=0,l=obj.length;i<l;i++){  
                    msg+='<a target="_blank">\n\
                             <div>\n\
-                            <h5>'+obj[i].title+'</h5>\n\
-                            <h6>'+obj[i].date+'</h6>'+obj[i].content+'\n\
+                            <h5>'+obj[i].fromuname+'</h5>\n\
+                            <h6>'+obj[i].time+'</h6>'+obj[i].content+'\n\
                         </div></a>'; 
                 }
                 document.getElementById("jp-container").innerHTML=msg;

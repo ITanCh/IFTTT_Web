@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50524
 File Encoding         : 65001
 
-Date: 2013-12-16 19:49:39
+Date: 2013-12-17 18:51:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,20 +24,38 @@ CREATE TABLE `log` (
   `uname` char(50) NOT NULL,
   `tname` char(50) NOT NULL,
   `type` int(11) NOT NULL COMMENT '1是新建 2是修改 3是删除 4是运行 5是停止',
+  `time` char(30) DEFAULT NULL,
   PRIMARY KEY (`lid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of log
 -- ----------------------------
-INSERT INTO `log` VALUES ('1', '0', 'johnsmith4', 'hhaha', '4');
-INSERT INTO `log` VALUES ('2', '0', 'johnsmith4', 'hhaha', '5');
-INSERT INTO `log` VALUES ('3', '0', 'johnsmith4', 'sasa', '4');
-INSERT INTO `log` VALUES ('4', '0', 'johnsmith4', 'sasa', '5');
-INSERT INTO `log` VALUES ('5', '0', 'johnsmith4', 'tcc', '4');
-INSERT INTO `log` VALUES ('6', '0', 'johnsmith4', 'tcc', '5');
-INSERT INTO `log` VALUES ('7', '0', 'johnsmith4', 'sasa', '4');
-INSERT INTO `log` VALUES ('8', '0', 'johnsmith4', 'sasa', '5');
+INSERT INTO `log` VALUES ('1', '0', 'johnsmith4', 'hhaha', '4', null);
+INSERT INTO `log` VALUES ('2', '0', 'johnsmith4', 'hhaha', '5', null);
+INSERT INTO `log` VALUES ('3', '0', 'johnsmith4', 'sasa', '4', null);
+INSERT INTO `log` VALUES ('4', '0', 'johnsmith4', 'sasa', '5', null);
+INSERT INTO `log` VALUES ('5', '0', 'johnsmith4', 'tcc', '4', null);
+INSERT INTO `log` VALUES ('6', '0', 'johnsmith4', 'tcc', '5', null);
+INSERT INTO `log` VALUES ('7', '0', 'johnsmith4', 'sasa', '4', null);
+INSERT INTO `log` VALUES ('8', '0', 'johnsmith4', 'sasa', '5', null);
+
+-- ----------------------------
+-- Table structure for `sms`
+-- ----------------------------
+DROP TABLE IF EXISTS `sms`;
+CREATE TABLE `sms` (
+  `sid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `fromuname` char(50) NOT NULL,
+  `content` text NOT NULL,
+  `time` char(30) DEFAULT NULL,
+  PRIMARY KEY (`sid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sms
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `task`
@@ -98,5 +116,5 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'oubeichen', 'K6I1F7HBSD6K86DO77DKK8H6628Y768P', 'admin@oubeichen.com', '1000', '0', '0');
-INSERT INTO `user` VALUES ('2', 'johnsmith4', 'YOYB6I7FPFK8881DPOBHHP2OH18D2ISH', 'oubeichen@gmail.com', '1000', '1', '0');
+INSERT INTO `user` VALUES ('1', 'oubeichen', 'K6I1F7HBSD6K86DO77DKK8H6628Y768P', 'admin@oubeichen.com', '1000', '1', '0');
+INSERT INTO `user` VALUES ('2', 'johnsmith4', 'YOYB6I7FPFK8881DPOBHHP2OH18D2ISH', 'oubeichen@gmail.com', '1000', '0', '0');

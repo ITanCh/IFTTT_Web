@@ -19,7 +19,8 @@ public class LogPO {
     private String uname;
     private String tname;
     private int type;//0新建，1修改，2删除，3开始，4停止
-
+    private String time;
+            
     /**
      * @return the lid
      */
@@ -88,6 +89,20 @@ public class LogPO {
      */
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    /**
+     * @return the time
+     */
+    public String getTime() {
+        return time;
+    }
+
+    /**
+     * @param time the time to set
+     */
+    public void setTime(String time) {
+        this.time = time;
     }
     
 }

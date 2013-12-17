@@ -36,18 +36,18 @@ public class UserDao {
         } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
-        } finally{
+        } finally {
             HibernateSessionFactory.closeSession();
         }
         return -1;
     }
-    
+
     public UserInfoPO getinfo(int uid) {
         String log = "error";
         session = HibernateSessionFactory.getSession();
         try {
             transaction = session.beginTransaction();
-            UserInfoPO po = (UserInfoPO)session.get(UserInfoPO.class, uid);
+            UserInfoPO po = (UserInfoPO) session.get(UserInfoPO.class, uid);
             transaction.commit();
             log = "success";
             return po;
@@ -55,11 +55,11 @@ public class UserDao {
             transaction.rollback();
             e.printStackTrace();
             return null;
-        } finally{
+        } finally {
             HibernateSessionFactory.closeSession();
         }
     }
-    
+
     public List queryInfo(String type, Object value) {
         session = HibernateSessionFactory.getSession();
         try {
@@ -79,13 +79,31 @@ public class UserDao {
             e.printStackTrace();
             transaction.rollback();
             return null;
-        } finally{
+        } finally {
             HibernateSessionFactory.closeSession();
         }
     }
-    
-    public boolean updateInfo(UserInfoPO info){
-        try{
+
+    public List getAllUser() {
+        session = HibernateSessionFactory.getSession();
+        try {
+            String stmt = "from UserInfoPO";
+            query = session.createQuery(stmt);
+            List list = query.list();
+            transaction = session.beginTransaction();
+            transaction.commit();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            transaction.rollback();
+            return null;
+        } finally {
+            HibernateSessionFactory.closeSession();
+        }
+    }
+
+    public boolean updateInfo(UserInfoPO info) {
+        try {
             session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             session.update(info);
@@ -95,12 +113,13 @@ public class UserDao {
             transaction.rollback();
             e.printStackTrace();
             return false;
-        } finally{
+        } finally {
             HibernateSessionFactory.closeSession();
         }
     }
-    public boolean deleteInfo(UserInfoPO info){
-        try{
+
+    public boolean deleteInfo(UserInfoPO info) {
+        try {
             session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             session.delete(info);
@@ -110,7 +129,7 @@ public class UserDao {
             transaction.rollback();
             e.printStackTrace();
             return false;
-        } finally{
+        } finally {
             HibernateSessionFactory.closeSession();
         }
     }

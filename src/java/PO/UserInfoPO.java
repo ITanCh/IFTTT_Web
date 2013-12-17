@@ -25,6 +25,7 @@ public class UserInfoPO {
     private int level = 0;//默认值
     private Set task = new HashSet();
     private Set log = new HashSet();
+    private Set sms = new HashSet();
     /**
      * @return the uid
      */
@@ -149,6 +150,20 @@ public class UserInfoPO {
      */
     public void setLog(Set log) {
         this.log = log;
+    }
+
+    /**
+     * @return the sms
+     */
+    public Set getSms() {
+        return sms;
+    }
+
+    /**
+     * @param sms the sms to set
+     */
+    public void setSms(Set sms) {
+        this.sms = sms;
     }
     
 }

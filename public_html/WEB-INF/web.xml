@@ -44,6 +44,10 @@
         <servlet-name>getlog</servlet-name>
         <servlet-class>ob.servlet.getlog</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getmessage</servlet-name>
+        <servlet-class>ob.servlet.getmessage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getreg</servlet-name>
         <url-pattern>/getreg</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>getlog</servlet-name>
         <url-pattern>/getlog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getmessage</servlet-name>
+        <url-pattern>/getmessage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
