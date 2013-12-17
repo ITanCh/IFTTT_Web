@@ -184,9 +184,21 @@ function messageback(){
             var flag=messagerequest.responseText;
             if(flag!=="fail"){
                 var obj=eval('('+flag+')');
-                
-                
+                document.getElementById("message").innerHTML='<div id="jp-container" class="jp-container"></div>\n\
+                            <button class="small red" onclick="closemsg()"><i class="icon-plus-sign"></i> close</button>';
+                var msg='';
+                for(var i=0,l=obj.length;i<l;i++){  
+                   msg+='<a target="_blank">\n\
+                            <div>\n\
+                            <h5>'+obj[i].title+'</h5>\n\
+                            <h6>'+obj[i].date+'</h6>'+obj[i].content+'\n\
+                        </div></a>'; 
+                }
+                document.getElementById("jp-container").innerHTML=msg;
             }
         }
     }
+}
+function closemsg(){
+     document.getElementById("message").innerHTML='';
 }

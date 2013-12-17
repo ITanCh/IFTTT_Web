@@ -14,6 +14,16 @@ show all information of this user
         <script type="text/javascript" src="js/mypage.js"></script>
         <script type="text/javascript" src="js/personalinfo.js"></script>
         <link rel="stylesheet" href="css/kickstart.css" media="all" /> <!-- KICKSTART -->
+       
+        <script type="text/javascript" src="js/msgjs.js"></script>
+        <link rel="stylesheet" type="text/css" href="mycss/jscrollpane2.css" />
+        <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+        <!-- the mousewheel plugin -->
+        <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+        <!-- the jScrollPane script -->
+        <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
+        <script type="text/javascript" src="js/scroll-startstop.events.jquery.js"></script>
+
     </head>
     <body>
         
@@ -55,6 +65,11 @@ show all information of this user
         
         <div id="right">
             <!-- Tabs Left -->
+            <div id="message">
+            <!-- insert message when user want to know it-->
+            </div>
+            <hr>
+            
             <ul class="tabs left">
                 <li><a href="#tabr1" onclick="createtable()"><i class="icon-tasks"></i> My Tasks</a></li>
                 <li><a href="#tabr2"><i class="icon-plus-sign"></i>Create Task</a></li>
