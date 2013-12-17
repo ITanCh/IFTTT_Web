@@ -209,7 +209,7 @@ public class taskmanager extends HttpServlet {
         }
         thattext = request.getParameter("thattext");
         if (thattext != null) {
-            taskname = URLDecoder.decode(thattext, "UTF-8");
+            thattext = URLDecoder.decode(thattext, "UTF-8");
         }
         return true;
     }
