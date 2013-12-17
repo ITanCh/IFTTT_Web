@@ -37,12 +37,35 @@ public class LogDao {
         }
         return -1;
     }
-
+    /**
+     * 根据索引给出不同位置的日志
+     * @param index 索引
+     * @return index乘以十到index+1乘以十的日志
+     */
+    public List getLog(int index) {
+        try {
+            session = HibernateSessionFactory.getSession();
+            transaction = session.beginTransaction();
+            String stmt = "from LogPO order by Lid desc";
+            query = session.createQuery(stmt);
+            query.setMaxResults(10);
+            query.setFirstResult(index * 10);
+            List list = query.list();
+            transaction.commit();
+            return list;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        } finally {
+            HibernateSessionFactory.closeSession();
+        }
+    }
     public List getAllLog() {
         try {
             session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
-            String stmt = "from LogPO";
+            String stmt = "from LogPO order by Lid desc";
             query = session.createQuery(stmt);
             List list = query.list();
             transaction.commit();

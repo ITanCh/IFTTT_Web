@@ -358,7 +358,7 @@ function loguser() {
     }
     if (logrequest !== null) {
         document.getElementById("logbutton").setAttribute("disabled", "disabled");
-        logrequest.open("GET", "admin?name=" + name + "&logindex="+logindex, true);
+        logrequest.open("GET", "getlog?name=" + name + "&logindex="+logindex, true);
         logrequest.onreadystatechange = logback;
         logrequest.send(null);
     }
@@ -385,7 +385,7 @@ function nextpage(){
     }
     if (logrequest !== null) {   
         var index=logindex+1;
-        logrequest.open("GET", "admin?name=" + name + "&logindex="+index, true);
+        logrequest.open("GET", "getlog?name=" + name + "&logindex="+index, true);
         logrequest.onreadystatechange = nextback;
         logrequest.send(null);
     }
@@ -413,7 +413,7 @@ function forwardpage(){
     }
     if (logrequest !== null) {   
         var index=logindex-1;
-        logrequest.open("GET", "admin?name=" + name + "&logindex="+index, true);
+        logrequest.open("GET", "getlog?name=" + name + "&logindex="+index, true);
         logrequest.onreadystatechange = forwardback;
         logrequest.send(null);
     }
