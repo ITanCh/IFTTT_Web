@@ -265,7 +265,7 @@ public class taskmanager extends HttpServlet {
                 outinfo = "this输入的日期有误";
                 return false;
             }
-            if (!thisstr2.matches("^([0-1][0-9]|[2][0-3]):([0-5][0-9])$")) {
+            if (!thisstr2.matches("^([0-1][0-9]|[2][0-3]):([0-5][0-9]):([0-5][0-9])$")) {
                 outinfo = "this输入的时间有误";
                 return false;
             }

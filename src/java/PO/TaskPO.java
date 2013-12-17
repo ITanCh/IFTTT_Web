@@ -7,13 +7,11 @@
 package PO;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
-import java.io.FileInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import ob.util.AESUtil;
 import ob.util.Sina;
 import ob.util.UpdateStatus;
 import org.apache.commons.mail.SimpleEmail;
@@ -253,9 +251,10 @@ public class TaskPO extends Thread implements Cloneable{
     
     @Override
     public void run(){
+            setTaskLog("开始任务");
             if (thistype == 0) {//等时间
                 Date tasktime;
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH:mm");  //将时间拼到一起变成这种格式
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");  //将时间拼到一起变成这种格式
                 try {
                     tasktime = sdf.parse(thisstr1 + thisstr2);
                     //if(cl.)
@@ -287,7 +286,7 @@ public class TaskPO extends Thread implements Cloneable{
                     return;
                 }
                 setTaskLog("时间已到，正准备继续");
-            } else {//等邮件
+            } else if(thistype == 1) {//等邮件
                 int lastmessage_num = -1;
                 POP3SClient pop3 = new POP3SClient(true);
                 POP3MessageInfo[] messages;
@@ -295,7 +294,7 @@ public class TaskPO extends Thread implements Cloneable{
                 while (true) {
                     try {
                         pop3.connect("pop." + thisstr1.split("@")[1]);//pop. + domain
-                        if (!pop3.login(thisstr1, thisstr2)) {
+                        if (!pop3.login(thisstr1, AESUtil.Decryptor(thisstr2))) {
                             pop3.disconnect();
                             setTaskLog("邮箱密码错误.");
                             return;
@@ -307,7 +306,7 @@ public class TaskPO extends Thread implements Cloneable{
                         } else if (lastmessage_num < messages.length) {//收到新的邮件
                             break;
                         }
-                        //setTaskLog("等待收到邮件。当前未读邮件数：" + messages.length);
+                        setTaskLog("等待收到邮件。当前未读邮件数：" + messages.length);
                         Thread.sleep(10000);
                     } catch (Exception ex) {
                         setTaskLog("收邮件过程中出错");
@@ -315,8 +314,10 @@ public class TaskPO extends Thread implements Cloneable{
                     }
                 }
                 setTaskLog("收到邮件，正准备继续");
+            }else if(thistype == 2){//监控微博
+                
             }
-            if (thattype == 0) {//发邮件
+            if (thattype == 1) {//发邮件
                 setTaskLog("准备发送邮件");
                 SimpleEmail email = new SimpleEmail();
                     Properties props = new Properties();
@@ -342,11 +343,11 @@ public class TaskPO extends Thread implements Cloneable{
                         return;
                     }
                 setTaskLog("邮件发送成功！");
-            } else {//发微博
+            } else if(thistype == 0){//发微博
                 setTaskLog("准备发送微博");
                 try {
                     String Access_token;
-                    if ((Access_token = Sina.getToken(thatusername, thatpassword).getAccessToken()) == null) {
+                    if ((Access_token = Sina.getToken(thatusername, AESUtil.Decryptor(thatpassword)).getAccessToken()) == null) {
                         setTaskLog("微博授权失败！");
                         return;
                     }

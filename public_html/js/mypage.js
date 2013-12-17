@@ -315,9 +315,9 @@ function editthis(id){
     var content=document.getElementById("thiscontent");
     var text;
     if(id==="thisradio1"){            //time
-        text="<input id='this0_1' type='text' placeholder='2013-11-11' onclick='SelectDate(this,\"yyyy-MM-dd\"/>\n\
+        text="<input id='this0_1' type='text' placeholder='2013-11-11' onclick='SelectDate(this,\"yyyy-MM-dd\")'/>\n\
                 <br><br>\n\
-                <input id='this0_2' type='text' placeholder='11:11' onclick='SelectDate(this,\"hh:mm:ss\"/>";
+                <input id='this0_2' type='text' placeholder='11:11:11' onclick='SelectDate(this,\"hh:mm:ss\")'/>";
     }
     else if(id==="thisradio2"){       //mail
         text="<input id='this1_1' type='text' placeholder='name@example.com'/>\n\
@@ -422,6 +422,7 @@ function okedit(id){
             document.getElementById("deletetask").setAttribute('disabled','disabled');
             document.getElementById("oktask").setAttribute('class','');
             document.getElementById("oktask").setAttribute('disabled','disabled');
+            url = encodeURI(url);
             editrequest.open("POST",url,true);       //gettaskinfo
             editrequest.onreadystatechange=editback;
             editrequest.send(null);
@@ -547,7 +548,7 @@ function choosethis(id){
     if(id==="createthisradio1"){            //time
         var text="<input id='cthis0_1' type='text' placeholder='2013-11-11' onclick='SelectDate(this,\"yyyy-MM-dd\")'/>\n\
                 <br><br>\n\
-                <input id='cthis0_2' type='text' placeholder='11:11' onclick='SelectDate(this,\"hh:mm:ss\")' />";
+                <input id='cthis0_2' type='text' placeholder='11:11:11' onclick='SelectDate(this,\"hh:mm:ss\")' />";
         content.innerHTML=text;
     }
     else if(id==="createthisradio2"){       //mail
