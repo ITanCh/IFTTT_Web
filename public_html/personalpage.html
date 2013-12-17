@@ -22,7 +22,8 @@ show all information of this user
         <!-- the jScrollPane script -->
         <script type="text/javascript" src="js/jquery.jscrollpane.min.js"></script>
         <script type="text/javascript" src="js/scroll-startstop.events.jquery.js"></script>
-
+        
+        <script type="text/javascript" src="js/adddate.js"></script>
     </head>
     <body>
         
@@ -66,6 +67,24 @@ show all information of this user
             <!-- Tabs Left -->
             <div id="message">
             <!-- insert message when user want to know it-->
+            <div id="jp-container" class="jp-container">
+                <a target="_blank">
+                            <div>
+                            <h5>'+obj[i].fromuname+'</h5>
+                            <h6>'+obj[i].time+'</h6>'+obj[i].content+'
+                        </div></a>
+                 <a target="_blank">
+                            <div>
+                            <h5>'+obj[i].fromuname+'</h5>
+                            <h6>'+obj[i].time+'</h6>'+obj[i].content+'
+                        </div></a>
+                 <a target="_blank">
+                            <div>
+                            <h5>'+obj[i].fromuname+'</h5>
+                            <h6>'+obj[i].time+'</h6>'+obj[i].content+'
+                        </div></a>
+            </div>
+                            <button class="small red" onclick="closemsg()"><i class="icon-plus-sign"></i> close</button>
             </div>
             <hr>
             

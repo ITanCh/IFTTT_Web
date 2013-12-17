@@ -315,9 +315,9 @@ function editthis(id){
     var content=document.getElementById("thiscontent");
     var text;
     if(id==="thisradio1"){            //time
-        text="<input id='this0_1' type='text' placeholder='2013-11-11'/>\n\
+        text="<input id='this0_1' type='text' placeholder='2013-11-11' onclick='SelectDate(this,\"yyyy-MM-dd\"/>\n\
                 <br><br>\n\
-                <input id='this0_2' type='text' placeholder='11:11'/>";
+                <input id='this0_2' type='text' placeholder='11:11' onclick='SelectDate(this,\"hh:mm:ss\"/>";
     }
     else if(id==="thisradio2"){       //mail
         text="<input id='this1_1' type='text' placeholder='name@example.com'/>\n\
@@ -545,9 +545,9 @@ function getcreateview(){
 function choosethis(id){
     var content=document.getElementById("createthiscontent");
     if(id==="createthisradio1"){            //time
-        var text="<input id='cthis0_1' type='text' placeholder='2013-11-11'/>\n\
+        var text="<input id='cthis0_1' type='text' placeholder='2013-11-11' onclick='SelectDate(this,\"yyyy-MM-dd\")'/>\n\
                 <br><br>\n\
-                <input id='cthis0_2' type='text' placeholder='11:11'/>";
+                <input id='cthis0_2' type='text' placeholder='11:11' onclick='SelectDate(this,\"hh:mm:ss\")' />";
         content.innerHTML=text;
     }
     else if(id==="createthisradio2"){       //mail
