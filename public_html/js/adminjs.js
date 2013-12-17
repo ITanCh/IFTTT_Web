@@ -348,9 +348,9 @@ function editthatback() {
 
 //get user log
 var logrequest;
-var logindex=0;
+var logindex = 0;
 function loguser() {
-    logindex=0;
+    logindex = 0;
     if (window.XMLHttpRequest) {
         logrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     } else if (window.ActiveXObject) {
@@ -358,7 +358,7 @@ function loguser() {
     }
     if (logrequest !== null) {
         document.getElementById("logbutton").setAttribute("disabled", "disabled");
-        logrequest.open("GET", "getlog?name=" + name + "&logindex="+logindex, true);
+        logrequest.open("GET", "getlog?logindex=" + logindex, true);
         logrequest.onreadystatechange = logback;
         logrequest.send(null);
     }
@@ -369,23 +369,23 @@ function logback() {
         if (logrequest.status === 200) {
             var flag = logrequest.responseText;
             if (flag !== "fail") {
-                document.getElementById("logtext").innerHTML=flag;
+                document.getElementById("logtext").innerHTML = flag;
             }
         }
         document.getElementById("logbutton").removeAttribute("disabled");
     }
 }
 
-function nextpage(){
- 
+function nextpage() {
+
     if (window.XMLHttpRequest) {
         logrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     } else if (window.ActiveXObject) {
         logrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
-    if (logrequest !== null) {   
-        var index=logindex+1;
-        logrequest.open("GET", "getlog?name=" + name + "&logindex="+index, true);
+    if (logrequest !== null) {
+        var index = logindex + 1;
+        logrequest.open("GET", "getlog?logindex=" + index, true);
         logrequest.onreadystatechange = nextback;
         logrequest.send(null);
     }
@@ -395,25 +395,25 @@ function nextback() {
     if (logrequest.readyState === 4) {
         if (logrequest.status === 200) {
             var flag = logrequest.responseText;
-            if (flag!== "fail") {
+            if (flag !== "fail") {
                 logindex++;
-                document.getElementById("logtext").innerHTML=flag;
+                document.getElementById("logtext").innerHTML = flag;
             }
         }
         document.getElementById("logbutton").removeAttribute("disabled");
     }
 }
 
-function forwardpage(){
- 
+function forwardpage() {
+
     if (window.XMLHttpRequest) {
         logrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     } else if (window.ActiveXObject) {
         logrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
-    if (logrequest !== null) {   
-        var index=logindex-1;
-        logrequest.open("GET", "getlog?name=" + name + "&logindex="+index, true);
+    if (logrequest !== null) {
+        var index = logindex - 1;
+        logrequest.open("GET", "getlog?logindex=" + index, true);
         logrequest.onreadystatechange = forwardback;
         logrequest.send(null);
     }
@@ -423,11 +423,50 @@ function forwardback() {
     if (logrequest.readyState === 4) {
         if (logrequest.status === 200) {
             var flag = logrequest.responseText;
-            if (flag!== "fail") {
+            if (flag !== "fail") {
                 logindex--;
-                document.getElementById("logtext").innerHTML=flag;
+                document.getElementById("logtext").innerHTML = flag;
             }
         }
         document.getElementById("logbutton").removeAttribute("disabled");
     }
+}
+
+//send message
+var msgrequest;
+function sendmsg() {
+    var name = document.getElementById("touser").value;
+    var content = document.getElementById("msgtext").innerHTML;
+
+    if (window.XMLHttpRequest) {
+        msgrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
+    } else if (window.ActiveXObject) {
+        msgrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+    }
+    if (msgrequest !== null) {
+        document.getElementById("sendmsgbutton").setAttribute("disabled", "disabled");
+        msgrequest.open("GET", "sendmsg?name=" + name + "&msg=" + content, true);
+        msgrequest.onreadystatechange = msgback;
+        msgrequest.send(null);
+    }
+}
+
+function msgback() {
+    if (msgrequest.readyState === 4) {
+        if (msgrequest.status === 200) {
+            var flag = msgrequest.responseText;
+            if (flag === 'success') {
+                var info = "<div class='notice success'><i class='icon-ok'></i>\n\
+                                Send successfully !<a href='#close' class='icon-remove'></a></div>";
+                document.getElementById("msginfo").innerHTML = info;
+            }
+            else {
+                var info = "<div class='notice error'><i class='icon-remove-sign '>\n\
+                            </i>"+flag+"<a href='#close' class='icon-remove'></a></div>";
+                document.getElementById("msginfo").innerHTML = info;
+            }
+        }
+        document.getElementById("sendmsgbutton").removeAttribute("disabled");
+    }
+
 }
