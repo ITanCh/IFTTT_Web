@@ -18,6 +18,9 @@ function changepw(){
     document.getElementById("changepw1").removeAttribute("disabled");
     document.getElementById("changepw2").removeAttribute("disabled");
     document.getElementById("changepw3").removeAttribute("disabled");
+    document.getElementById("changepw1").setAttribute("class","enable");
+    document.getElementById("changepw2").setAttribute("class","enable");
+    document.getElementById("changepw3").setAttribute("class","enable");
     var button=document.getElementById("changepwbutton");
     button.setAttribute("class","pill orange small");
     button.setAttribute("onclick","okchangepw()");
@@ -73,10 +76,14 @@ function changepwback(){
                 document.getElementById("changepw1").setAttribute("disabled","disabled");
                 document.getElementById("changepw2").setAttribute("disabled","disabled");
                 document.getElementById("changepw3").setAttribute("disabled","disabled");
+                document.getElementById("changepw1").value="";
+                document.getElementById("changepw2").value="";
+                document.getElementById("changepw3").value="";
                 var button=document.getElementById("changepwbutton");
                 button.setAttribute("class","pill green small");
                 button.setAttribute("onclick","changepw()");
                 button.innerHTML='<i class="icon-pencil"></i> Edit';
+                document.getElementById("changepwinfo").innerHTML="";
             }
             else{
                     var info="<div class='notice error'><i class='icon-remove-sign '>\n\

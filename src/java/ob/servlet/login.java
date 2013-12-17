@@ -36,6 +36,7 @@ public class login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        outinfo = null;
         username = request.getParameter("name");
         password = request.getParameter("pw");
         if(validate()){
@@ -119,7 +120,7 @@ public class login extends HttpServlet {
         }
         return true;
     }
-    private String outinfo = null;
+    private String outinfo;
     private String username;
     private String password;
 }

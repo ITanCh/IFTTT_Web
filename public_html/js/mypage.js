@@ -31,6 +31,10 @@ function checkback(){
             if(flag==="false");      //cannot log in
             else{                        //log in successfully ,load user information          
                 var obj=eval('('+flag+')');
+                if(obj.admin === true){
+                    location.href="adminpage.html";
+                    return;
+                }
                 document.getElementById("username").innerHTML=obj.username;
                 document.getElementById("bigusername").innerHTML=obj.username;
                 document.getElementById("level").innerHTML=obj.level;

@@ -55,7 +55,7 @@ public class admin extends HttpServlet {
                        }
                     }
                     else if (name != null) {//修改用户
-                        List list = dao.queryInfo("name", name);
+                        List list = dao.queryInfo("username", name);
                         if (list != null) {
                             Iterator it = list.iterator();
                             while (it.hasNext()) {

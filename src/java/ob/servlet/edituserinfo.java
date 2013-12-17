@@ -36,7 +36,8 @@ public class edituserinfo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         username = request.getParameter("name");
-        password = request.getParameter("pw");
+        password1 = request.getParameter("newpw");
+        password2 =request.getParameter("oldpw");
         mail = request.getParameter("mail");
         loginedUserName = (String) request.getSession().getAttribute("username");
         if (loginedUserName != null && !loginedUserName.equals("")) {
@@ -50,8 +51,8 @@ public class edituserinfo extends HttpServlet {
                             if (username != null) {
                                 po.setUsername(username);
                             }
-                            if (password != null) {
-                                po.setPassword(MD5Util.MD5(password));
+                            if (password1 != null) {
+                                po.setPassword(MD5Util.MD5(password1));
                             }
                             if (mail != null) {
                                 po.setMail(mail);
@@ -144,8 +145,12 @@ public class edituserinfo extends HttpServlet {
             return false;
             }
         }
-        if (password != null) {
-            if (!password.equals("") && !password.matches("^[a-zA-Z0-9]{6,30}$")) {//不为空且格式不对
+        if (password1 != null) {
+            if(password2 == null || !MD5Util.MD5(password2).equals(po.getPassword())){
+                outinfo = "密码验证不通过";
+                return false;
+            }
+            if (!password1.equals("") && !password1.matches("^[a-zA-Z0-9]{6,30}$")) {//不为空且格式不对
                 outinfo = "密码只能为6~30位的字母和数字";
                 return false;
             }
@@ -177,7 +182,8 @@ public class edituserinfo extends HttpServlet {
         return true;
     }
     private String username;
-    private String password;
+    private String password1;
+    private String password2;
     private String mail;
     private String outinfo;
     private String loginedUserName;
