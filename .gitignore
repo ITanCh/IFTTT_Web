@@ -55,3 +55,4 @@ build.xml
 #docs
 lib/
 lib_docs/
+weibo.log*
