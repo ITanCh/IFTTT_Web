@@ -9,6 +9,8 @@ import PO.TaskPO;
 import PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.servlet.ServletException;
@@ -50,30 +52,30 @@ public class taskmanager extends HttpServlet {
                 {
                     if (tid == null) {
                         if (!(tid = taskdao.saveTask(task())).equals("error")) {//新建Task，返回值不为"error"
-                            TaskLog.AddLog(loginedUserid,loginedUserName,taskpo.getTaskname() , 1);//新建任务的log
+                            TaskLog.AddLog(loginedUserid, loginedUserName, taskpo.getTaskname(), 1);//新建任务的log
                             outinfo = "success";
                         } else {
                             outinfo = LogText.ADDTASKERROR;
                         }
                     } else {
                         if (start != null) {
-                            if(Config.DisableThis[taskpo.getThistype()]){
+                            if (Config.DisableThis[taskpo.getThistype()]) {
                                 outinfo = "Sorry,This this_type is disabled.";
-                            }else if(Config.DisableThat[taskpo.getThattype()]){
+                            } else if (Config.DisableThat[taskpo.getThattype()]) {
                                 outinfo = "Sorry,This that_type is disabled.";
-                            }else{//没有被禁用，可以开始
+                            } else {//没有被禁用，可以开始
                                 if (RunningTask.addTask(taskpo)) {
                                     outinfo = "success";
-                                    TaskLog.AddLog(loginedUserid,loginedUserName, taskpo.getTaskname(), 4);//开始任务的log
+                                    TaskLog.AddLog(loginedUserid, loginedUserName, taskpo.getTaskname(), 4);//开始任务的log
                                 } else {
                                     outinfo = "start task failed";
                                 }
                             }
                         } else if (stop != null) {
-                            if(RunningTask.delTask(tid)){
+                            if (RunningTask.delTask(tid)) {
                                 outinfo = "success";
-                                TaskLog.AddLog(loginedUserid,loginedUserName,taskpo.getTaskname(), 5);//停止任务的log
-                            }else{
+                                TaskLog.AddLog(loginedUserid, loginedUserName, taskpo.getTaskname(), 5);//停止任务的log
+                            } else {
                                 outinfo = "stop task failed";
                             }
                         } else if (del != null) {
@@ -82,7 +84,7 @@ public class taskmanager extends HttpServlet {
                             } else {
                                 if (taskdao.deleteTask(tid)) {
                                     outinfo = "success";
-                                    TaskLog.AddLog(loginedUserid,loginedUserName,taskpo.getTaskname(), 3);//删除任务的log
+                                    TaskLog.AddLog(loginedUserid, loginedUserName, taskpo.getTaskname(), 3);//删除任务的log
                                 } else {
                                     outinfo = "stop task failed";
                                 }
@@ -93,7 +95,7 @@ public class taskmanager extends HttpServlet {
                             } else {
                                 if (taskdao.updateTask(task())) {//修改Task
                                     outinfo = "success";
-                                    TaskLog.AddLog(loginedUserid,loginedUserName,taskpo.getTaskname(), 2);//修改任务的log
+                                    TaskLog.AddLog(loginedUserid, loginedUserName, taskpo.getTaskname(), 2);//修改任务的log
                                 } else {
                                     outinfo = LogText.EDITTASKERROR;
                                 }
@@ -160,13 +162,16 @@ public class taskmanager extends HttpServlet {
      * @param request
      * @return
      */
-    public boolean getdata(HttpServletRequest request) {
+    public boolean getdata(HttpServletRequest request) throws UnsupportedEncodingException {
         del = request.getParameter("del");
         start = request.getParameter("start");
         stop = request.getParameter("stop");
         tid = request.getParameter("tid");
         //if新建任务
         taskname = request.getParameter("name");
+        if (taskname != null) {
+            taskname = URLDecoder.decode(taskname, "UTF-8");
+        }
         if (request.getParameter("thistype") != null || request.getParameter("thattype") != null) {
             try {
                 thistype = Integer.parseInt(request.getParameter("thistype"));
@@ -184,16 +189,28 @@ public class taskmanager extends HttpServlet {
             thisstr2 = request.getParameter("thispw");
         } else if (thistype == 2) {
             thisstr1 = request.getParameter("thisaccount");
+            if (thisstr1 != null) {
+                thisstr1 = URLDecoder.decode(thisstr1, "UTF-8");
+            }
             thisstr2 = request.getParameter("thispw");
             thistext = request.getParameter("thistext");
+            if (thistext != null) {
+                thistext = URLDecoder.decode(thistext, "UTF-8");
+            }
         }
         if (thattype == 0) {//weibo
             thatusername = request.getParameter("thataccount");
+            if (thatusername != null) {
+                thatusername = URLDecoder.decode(thatusername, "UTF-8");
+            }
             thatpassword = request.getParameter("thatpw");
         } else if (thattype == 1) {//mail
             thatusername = request.getParameter("thataddr");
         }
         thattext = request.getParameter("thattext");
+        if (thattext != null) {
+            taskname = URLDecoder.decode(thattext, "UTF-8");
+        }
         return true;
     }
 
@@ -209,14 +226,14 @@ public class taskmanager extends HttpServlet {
                 if (taskpo.getUid() != loginedUserid) {//任务不归该用户所属
                     outinfo = "找不到要修改的任务，请刷新页面重试";
                     return false;
-                }else{
+                } else {
                     if (taskpo.getThistype() != thistype && (thistype == 1 || thistype == 2)) {//更换了thistype，必须输入密码
                         if (thisstr2 == null || thisstr2.equals("")) {//有输入密码，需要验证输入合法
                             outinfo = "请输入this中的密码";
                             return false;
                         }
                     }
-                    if(taskpo.getThattype() != thattype && (thattype == 0)){
+                    if (taskpo.getThattype() != thattype && (thattype == 0)) {
                         if (thatpassword == null || thatpassword.equals("")) {
                             outinfo = "请输入that中的密码";
                             return false;
@@ -358,7 +375,7 @@ public class taskmanager extends HttpServlet {
     private String thisstr1;//type == 0 date//type == 1 email//type == 2 weiboid
     private String thisstr2;//type == 0 time//type == 1 emailpass//type ==2 weibopass
     private String thistext;
-    
+
     private int thattype;
 
     private String thatusername;//type==0 weiboname//type==1 src email
