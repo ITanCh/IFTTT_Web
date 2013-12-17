@@ -239,8 +239,8 @@ function viewtaskback(){
             }
             else if(obj.thistype===2){       //weibo
                 thisradio=document.getElementById("thisradio3");
-                thistext='<textarea id="this2_3"  name="this" >'+obj.thisstr1+'</textarea><br>\n\
-                    <input id="this2_1" name="this"  type="text"  value="'+obj.thistext+'"/>\n\
+                thistext='<textarea id="this2_3"  name="this" >'+obj.thistext+'</textarea><br>\n\
+                    <input id="this2_1" name="this"  type="text"  value="'+obj.thisstr1+'"/>\n\
                     <br><br>\n\
                     <input id="this2_2"  name="this" type="text"  placeholder="Default Password is the last one"/>';
             }

@@ -47,7 +47,7 @@ public class gettaskinfo extends HttpServlet {
                         FilterProvider filters = new SimpleFilterProvider()
                                 .addFilter("taskFilter",
                                 SimpleBeanPropertyFilter.filterOutAllExcept(
-                                        "tid","taskname","thistype","thattype","thisstr1","thisstr2",
+                                        "tid","taskname","thistype","thattype","thisstr1","thistext","thisstr2",
                                         "thatusername","thattext"));//不显示password和其他
                         outinfo = mapper.writer(filters).writeValueAsString(po);//输出JSON
                 }
