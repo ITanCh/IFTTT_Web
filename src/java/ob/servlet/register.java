@@ -35,6 +35,7 @@ public class register extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        outinfo = "error";
         username = request.getParameter("name");
         password = request.getParameter("pw");
         mail = request.getParameter("mail");

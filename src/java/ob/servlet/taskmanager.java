@@ -40,6 +40,7 @@ public class taskmanager extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        outinfo = "error";
         loginedUserName = (String) request.getSession().getAttribute("username");
         if (loginedUserName != null && !loginedUserName.equals("")) {//虽然用session即可判断是否登录，但必须查询数据库才能得到uid
             loginedUserid = (Integer) request.getSession().getAttribute("userid");

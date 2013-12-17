@@ -36,6 +36,7 @@ public class gettaskinfo extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        outinfo = null;
         String loginedUserName = (String)request.getSession().getAttribute("username");
         if(loginedUserName != null && !loginedUserName.equals("") ){
             int loginedUserid = (Integer)request.getSession().getAttribute("userid");
@@ -100,7 +101,7 @@ public class gettaskinfo extends HttpServlet {
         return "Short description";
     }// </editor-fold>
     private final ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-    private String outinfo = null;
+    private String outinfo;
     private TaskPO po;
     private final TaskDao dao = new TaskDao();
 }
