@@ -49,7 +49,7 @@ public class getlog extends HttpServlet {
                     UserInfoPO po = dao.getinfo(loginedUserid);
                     if (po != null && po.getUsername().equals(loginedUserName) && po.isAdmin()) {//判断是否管理员
                         List list = logdao.getLog(index);
-                        if(list != null){
+                        if(list != null && list.size() > 0){
                             outinfo = new StringBuilder();
                             Iterator it = list.iterator();
                             while(it.hasNext()){

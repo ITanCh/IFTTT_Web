@@ -436,7 +436,7 @@ function forwardback() {
 var msgrequest;
 function sendmsg() {
     var name = document.getElementById("touser").value;
-    var content = document.getElementById("msgtext").innerHTML;
+    var content = document.getElementById("msgtext").value;
 
     if (window.XMLHttpRequest) {
         msgrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 

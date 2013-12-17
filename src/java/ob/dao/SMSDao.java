@@ -25,21 +25,21 @@ public class SMSDao {
     private Transaction transaction;
     private Query query;
 
-    public int saveSMS(SMSPO sms) {
+    public boolean saveSMS(SMSPO sms) {
         session = HibernateSessionFactory.getSession();
         try {
-            sms.setTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+            sms.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             transaction = session.beginTransaction();
             session.save(sms);
             transaction.commit();
-            return sms.getSid();
+            return true;
         } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
         } finally {
             HibernateSessionFactory.closeSession();
         }
-        return -1;
+        return false;
     }
     /**
      * 根据用户id给出短消息

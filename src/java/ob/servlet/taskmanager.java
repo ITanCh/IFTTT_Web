@@ -313,7 +313,7 @@ public class taskmanager extends HttpServlet {
     public TaskPO task() {
         if (taskpo == null) {
             taskpo = new TaskPO();
-            taskpo.setCtime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+            taskpo.setCtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         }
         taskpo.setUid(loginedUserid);
         taskpo.setTaskname(taskname);

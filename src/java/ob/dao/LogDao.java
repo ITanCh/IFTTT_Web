@@ -27,7 +27,7 @@ public class LogDao {
     public int saveLog(LogPO Log) {
         session = HibernateSessionFactory.getSession();
         try {
-            Log.setTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+            Log.setTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             transaction = session.beginTransaction();
             session.save(Log);
             transaction.commit();
