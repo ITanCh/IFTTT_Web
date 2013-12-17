@@ -58,7 +58,7 @@ function okchangepw(){
     if(window.XMLHttpRequest) {  
         changepwrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     }else if(window.ActiveXObject) {  
-        changepwrequset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+        changepwrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if(changepwrequest!==null){ 
             document.getElementById("changepwbutton").setAttribute("disabled","disabled");
@@ -127,7 +127,7 @@ function okchangemail(){
     if(window.XMLHttpRequest) {  
         changemailrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     }else if(window.ActiveXObject) {  
-        changemailrequset = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+        changemailrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if(changemailrequest!==null){ 
             document.getElementById("changemailbutton").setAttribute("disabled","disabled");
@@ -163,5 +163,30 @@ function changemailback(){
 }
 
 
+//get message from servlet
+var messagerequest;
+function getmessage(){
+     if(window.XMLHttpRequest) {  
+        messagerequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
+    }else if(window.ActiveXObject) {  
+        messagerequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+    }
+    if(messagerequest!==null){ 
+            messagerequest.open("GET","getmessage",true);
+            messagerequest.onreadystatechange=messageback;
+            messagerequest.send(null);
+    }  
+}
 
-
+function messageback(){
+    if(messagerequest.readyState===4){ 
+        if(messagerequest.status===200){  
+            var flag=messagerequest.responseText;
+            if(flag!=="fail"){
+                var obj=eval('('+flag+')');
+                
+                
+            }
+        }
+    }
+}
