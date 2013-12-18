@@ -65,9 +65,13 @@ public class taskmanager extends HttpServlet {
                                 outinfo = "Sorry,This this_type is disabled.";
                             } else if (Config.DisableThat[taskpo.getThattype()]) {
                                 outinfo = "Sorry,This that_type is disabled.";
-                            } else {//没有被禁用，可以开始
+                            } else if(po.getCoins() < Config.LEVELCOST[po.getLevel()]){//钱不够
+                                outinfo = "Sorry,your coins aren't enough";
+                            } else{//没有被禁用，可以开始
                                 if (RunningTask.addTask(taskpo)) {
                                     outinfo = "success";
+                                    po.setCoins(po.getCoins() - Config.LEVELCOST[po.getLevel()]);
+                                    userdao.updateInfo(po);
                                     TaskLog.AddLog(loginedUserid, loginedUserName, taskpo.getTaskname(), 4);//开始任务的log
                                 } else {
                                     outinfo = "start task failed";
