@@ -227,22 +227,22 @@ function viewtaskback(){
             var thistext;
             if(obj.thistype===0){            //time
                 thisradio=document.getElementById("thisradio1");
-                thistext='<input id="this0_1" name="this" type="text" disabled="disabled" value="'+obj.thisstr1+'"/>\n\
+                thistext='<input id="this0_1" name="this" type="text" disabled="disabled" value="'+obj.thisstr1+'" onclick="SelectDate(this,\'yyyy-MM-dd\')"/>\n\
                 <br><br>\n\
-                <input id="this0_2"  name="this" type="text" disabled="disabled" value="'+obj.thisstr2+'"/>';
+                <input id="this0_2"  name="this" type="text" disabled="disabled" value="'+obj.thisstr2+'"   onclick="SelectDate(this,\'hh:mm:ss\')"/>';
             }
             else if(obj.thistype===1){       //mail
                 thisradio=document.getElementById("thisradio2");
                 thistext='<input id="this1_1"  name="this" type="text" disabled="disabled" value="'+obj.thisstr1+'"/>\n\
                 <br><br>\n\
-                <input id="this1_2"  name="this" type="text" disabled="disabled" placeholder="Default Password is the last one"/>';
+                <input id="this1_2"  name="this" type="password" disabled="disabled" placeholder="Default Password is the last one"/>';
             }
             else if(obj.thistype===2){       //weibo
                 thisradio=document.getElementById("thisradio3");
                 thistext='<textarea id="this2_3"  name="this" >'+obj.thistext+'</textarea><br>\n\
                     <input id="this2_1" name="this"  type="text"  value="'+obj.thisstr1+'"/>\n\
                     <br><br>\n\
-                    <input id="this2_2"  name="this" type="text"  placeholder="Default Password is the last one"/>';
+                    <input id="this2_2"  name="this" type="password"  placeholder="Default Password is the last one"/>';
             }
             thisradio.checked=true;
             thiscontent.innerHTML=thistext;
@@ -256,7 +256,7 @@ function viewtaskback(){
                 thatradio=document.getElementById("thatradio1");
                 thattext='<textarea id="that0_1"   name="that">'+obj.thattext+'</textarea><br>\n\
                 <input id="that0_2" name="that" type="text" value="'+obj.thatusername+'" /><br><br>\n\
-                <input id="that0_3" name="that" type="pw" placeholder="Default Password is the last one" />';
+                <input id="that0_3" name="that" type="password" placeholder="Default Password is the last one" />';
             }
             else if(obj.thattype===1){       //send mail
                 thatradio=document.getElementById("thatradio2");
@@ -322,13 +322,13 @@ function editthis(id){
     else if(id==="thisradio2"){       //mail
         text="<input id='this1_1' type='text' placeholder='name@example.com'/>\n\
                 <br><br>\n\
-                <input id='this1_2' type='text' placeholder='Password'/>";       
+                <input id='this1_2' type='password' placeholder='Password'/>";       
     }
     else if(id==="thisradio3"){       //weibo
         text="<textarea id='this2_3' placeholder='The content you look for'></textarea><br>\n\
                     <input id='this2_1' type='text' placeholder='Weibo account '/>\n\
                     <br><br>\n\
-                    <input id='this2_2' type='text' placeholder='Password'/>";  
+                    <input id='this2_2' type='password' placeholder='Password'/>";  
     }
     content.innerHTML=text;
 }
@@ -339,7 +339,7 @@ function editthat(id){
     if(id==="thatradio1"){            //send weibo
         text='<textarea id="that0_1" placeholder="Say something"></textarea><br>\n\
                 <input id="that0_2" type="text" placeholder="Weibo account" /><br><br>\n\
-                <input id="that0_3" type="pw" placeholder="Password" />';
+                <input id="that0_3" type="password" placeholder="Password" />';
     }
     else if(id==="thatradio2"){       //send mail
          text='<textarea id="that1_1"  placeholder="Say something"></textarea><br>\n\
@@ -554,7 +554,7 @@ function choosethis(id){
     else if(id==="createthisradio2"){       //mail
         var text="<input id='cthis1_1' type='text' placeholder='name@example.com'/>\n\
                 <br><br>\n\
-                <input id='cthis1_2' type='text' placeholder='Password'/>";
+                <input id='cthis1_2' type='password' placeholder='Password'/>";
         content.innerHTML=text;
         
     }
@@ -562,7 +562,7 @@ function choosethis(id){
         var text="<textarea id='cthis2_3' placeholder='The content you look for'></textarea><br>\n\
                     <input id='cthis2_1' type='text' placeholder='Weibo account '/>\n\
                     <br><br>\n\
-                    <input id='cthis2_2' type='text' placeholder='Password'/>";
+                    <input id='cthis2_2' type='password' placeholder='Password'/>";
                 
         content.innerHTML=text;
     }
@@ -574,7 +574,7 @@ function choosethat(id){
     if(id==="createthatradio1"){            //send weibo
         var text='<textarea id="cthat0_1" placeholder="Say something"></textarea><br>\n\
                 <input id="cthat0_2" type="text" placeholder="Weibo account" /><br><br>\n\
-                <input id="cthat0_3" type="pw" placeholder="Password" />';
+                <input id="cthat0_3" type="password" placeholder="Password" />';
                         
         content.innerHTML=text;
     }

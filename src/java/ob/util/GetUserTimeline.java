@@ -17,16 +17,16 @@ import weibo4j.model.WeiboException;
 
 public class GetUserTimeline {
 
-	public static void main(String[] args) {
-		String access_token = args[0];
+	public static String getTimeline(String access_token) {
 		Timeline tm = new Timeline();
 		tm.client.setToken(access_token);
 		try {
 			StatusWapper status = tm.getUserTimeline();
-			System.out.println(status.getStatuses().get(0).getText());
+			return status.getStatuses().get(0).getText();
 
 		} catch (WeiboException e) {
 			e.printStackTrace();
+                        return null;
 		}
 	}
 
