@@ -10,6 +10,7 @@ import PO.SMSPO;
 import PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -36,6 +37,7 @@ public class sendmsg extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         outinfo = null;
         failcount = 0;
         loginedUserName = (String) request.getSession().getAttribute("username");
@@ -46,6 +48,9 @@ public class sendmsg extends HttpServlet {
                 if (po.getUsername().equals(loginedUserName)) {
                     uname = request.getParameter("name");
                     content = request.getParameter("msg");
+                    if(content != null){
+                        content = URLDecoder.decode(content, "UTF-8");
+                    }
                     if(uname != null && content != null){
                         //SMSPO smspo = new SMSPO();
                         //smspo.setFromuname(loginedUserName);

@@ -444,8 +444,10 @@ function sendmsg() {
         msgrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if (msgrequest !== null) {
+        url = "sendmsg?name=" + name + "&msg=" + content;
+        url = encodeURI(encodeURI(url));
         document.getElementById("sendmsgbutton").setAttribute("disabled", "disabled");
-        msgrequest.open("GET", "sendmsg?name=" + name + "&msg=" + content, true);
+        msgrequest.open("GET",url , true);
         msgrequest.onreadystatechange = msgback;
         msgrequest.send(null);
     }
