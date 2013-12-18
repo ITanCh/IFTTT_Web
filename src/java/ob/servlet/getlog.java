@@ -60,11 +60,11 @@ public class getlog extends HttpServlet {
                                 outinfo.append("\t任务：").append(logpo.getTname());
                                 outinfo.append("\t操作类型：");
                                 switch(logpo.getType()){//0新建，1修改，2删除，3开始，4停止
-                                    case 0:outinfo.append("新建");break;
-                                    case 1:outinfo.append("修改");break;
-                                    case 2:outinfo.append("删除");break;
-                                    case 3:outinfo.append("开始");break;
-                                    case 4:outinfo.append("停止");break;
+                                    case 1:outinfo.append("新建");break;
+                                    case 2:outinfo.append("修改");break;
+                                    case 3:outinfo.append("删除");break;
+                                    case 4:outinfo.append("开始");break;
+                                    case 5:outinfo.append("停止");break;
                                     default:outinfo.append("未知");
                                 }
                                 outinfo.append("\n");
