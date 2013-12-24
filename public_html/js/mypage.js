@@ -125,7 +125,11 @@ function startback(){
             if(flag==="success"){
                 createtable();
                 return;
-            }      
+            }
+            else{
+                document.getElementById("tableinfo").innerHTML='<div class="notice error">\n\
+                <i class="icon-remove-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
+            }
         }   
         //obj.removeAttribute("disabled");
     }
@@ -152,7 +156,11 @@ function stopback(){
             if(flag==="success"){
                 createtable();
                 return;
-            }      
+            }
+            else{
+                document.getElementById("tableinfo").innerHTML='<div class="notice error">\n\
+                <i class="icon-remove-sign icon-large"></i>'+flag+'<a href="#close" class="icon-remove"></a></div>';
+            }
         }  
         //obj.removeAttribute("disabled");
     }

@@ -7,202 +7,279 @@
 /*
  * show personal information
  */
-function showinfo(){
-    var mailaddr=document.getElementById("mail").innerHTML;
-    document.getElementById("changemailaddr").value=mailaddr;
+function showinfo() {
+    var mailaddr = document.getElementById("mail").innerHTML;
+    document.getElementById("changemailaddr").value = mailaddr;
 }
 
 //when user want to change name
 
-function changepw(){
+function changepw() {
     document.getElementById("changepw1").removeAttribute("disabled");
     document.getElementById("changepw2").removeAttribute("disabled");
     document.getElementById("changepw3").removeAttribute("disabled");
-    document.getElementById("changepw1").setAttribute("class","enable");
-    document.getElementById("changepw2").setAttribute("class","enable");
-    document.getElementById("changepw3").setAttribute("class","enable");
-    var button=document.getElementById("changepwbutton");
-    button.setAttribute("class","pill orange small");
-    button.setAttribute("onclick","okchangepw()");
-    button.innerHTML='<i class="icon-ok-sign"></i> OK';
+    document.getElementById("changepw1").setAttribute("class", "enable");
+    document.getElementById("changepw2").setAttribute("class", "enable");
+    document.getElementById("changepw3").setAttribute("class", "enable");
+    var button = document.getElementById("changepwbutton");
+    button.setAttribute("class", "pill orange small");
+    button.setAttribute("onclick", "okchangepw()");
+    button.innerHTML = '<i class="icon-ok-sign"></i> OK';
 }
 
 //name has been changed
 var changepwrequest;
-function okchangepw(){
-    var pw1=document.getElementById("changepw1").value;
-    var pw2=document.getElementById("changepw2").value;
-    var pw3=document.getElementById("changepw3").value;
-     if(pw2===""){                                      //if name is empty
-        var info="<div class='notice error'><i class='icon-remove-sign '>\n\
+function okchangepw() {
+    var pw1 = document.getElementById("changepw1").value;
+    var pw2 = document.getElementById("changepw2").value;
+    var pw3 = document.getElementById("changepw3").value;
+    if (pw2 === "") {                                      //if name is empty
+        var info = "<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Password cannot be empty<a href='#close' class='icon-remove'></a></div>";
-        document.getElementById("changepwinfo").innerHTML=info;
+        document.getElementById("changepwinfo").innerHTML = info;
         return false;
     }
-    
-    var reg=/^[a-zA-Z0-9]{6,}$/;     //pw1          
-    if(!reg.test(pw2)){
-         var info="<div class='notice error'><i class='icon-remove-sign '>\n\
+
+    var reg = /^[a-zA-Z0-9]{6,}$/;     //pw1          
+    if (!reg.test(pw2)) {
+        var info = "<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Password must consist of 'a-z'or'A-Z'(length>=6) <a href='#close' class='icon-remove'></a></div>";
-        document.getElementById("changepwinfo").innerHTML=info;
+        document.getElementById("changepwinfo").innerHTML = info;
         return false;
     }
-    
-     if(pw2!==pw3){                                      //if pw are different
-        var info="<div class='notice error'><i class='icon-remove-sign '>\n\
+
+    if (pw2 !== pw3) {                                      //if pw are different
+        var info = "<div class='notice error'><i class='icon-remove-sign '>\n\
               </i>The two passwords differ<a href='#close' class='icon-remove'></a></div>";
-        document.getElementById("changepwinfo").innerHTML=info; 
+        document.getElementById("changepwinfo").innerHTML = info;
         return false;
     }
-    
-    if(window.XMLHttpRequest) {  
+
+    if (window.XMLHttpRequest) {
         changepwrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
-    }else if(window.ActiveXObject) {  
+    } else if (window.ActiveXObject) {
         changepwrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
-    if(changepwrequest!==null){ 
-            document.getElementById("changepwbutton").setAttribute("disabled","disabled");
-            changepwrequest.open("POST","edituserinfo?oldpw="+pw1+"&newpw="+pw2,true);
-            changepwrequest.onreadystatechange=changepwback;
-            changepwrequest.send(null);
-    }  
+    if (changepwrequest !== null) {
+        document.getElementById("changepwbutton").setAttribute("disabled", "disabled");
+        changepwrequest.open("POST", "edituserinfo?oldpw=" + pw1 + "&newpw=" + pw2, true);
+        changepwrequest.onreadystatechange = changepwback;
+        changepwrequest.send(null);
+    }
 }
 
-function changepwback(){
-    if(changepwrequest.readyState===4){  
-        if(changepwrequest.status===200){  
-            var flag=changepwrequest.responseText;
-            if(flag==="success"){
-                document.getElementById("changepw1").setAttribute("disabled","disabled");
-                document.getElementById("changepw2").setAttribute("disabled","disabled");
-                document.getElementById("changepw3").setAttribute("disabled","disabled");
-                document.getElementById("changepw1").value="";
-                document.getElementById("changepw2").value="";
-                document.getElementById("changepw3").value="";
-                var button=document.getElementById("changepwbutton");
-                button.setAttribute("class","pill green small");
-                button.setAttribute("onclick","changepw()");
-                button.innerHTML='<i class="icon-pencil"></i> Edit';
-                document.getElementById("changepwinfo").innerHTML="";
+function changepwback() {
+    if (changepwrequest.readyState === 4) {
+        if (changepwrequest.status === 200) {
+            var flag = changepwrequest.responseText;
+            if (flag === "success") {
+                document.getElementById("changepw1").setAttribute("disabled", "disabled");
+                document.getElementById("changepw2").setAttribute("disabled", "disabled");
+                document.getElementById("changepw3").setAttribute("disabled", "disabled");
+                document.getElementById("changepw1").value = "";
+                document.getElementById("changepw2").value = "";
+                document.getElementById("changepw3").value = "";
+                var button = document.getElementById("changepwbutton");
+                button.setAttribute("class", "pill green small");
+                button.setAttribute("onclick", "changepw()");
+                button.innerHTML = '<i class="icon-pencil"></i> Edit';
+                document.getElementById("changepwinfo").innerHTML = "";
             }
-            else{
-                    var info="<div class='notice error'><i class='icon-remove-sign '>\n\
-                    </i>"+flag+"<a href='#close' class='icon-remove'></a></div>";
-                    document.getElementById("changepwinfo").innerHTML=info;
-            } 
+            else {
+                var info = "<div class='notice error'><i class='icon-remove-sign '>\n\
+                    </i>" + flag + "<a href='#close' class='icon-remove'></a></div>";
+                document.getElementById("changepwinfo").innerHTML = info;
+            }
         }
-     document.getElementById("changepwbutton").removeAttribute("disabled");
+        document.getElementById("changepwbutton").removeAttribute("disabled");
     }
 }
 
 //when user want to change mail
 
-function changemail(){
+function changemail() {
     document.getElementById("changemailaddr").removeAttribute("disabled");
-    document.getElementById("changemailaddr").setAttribute("class","enabled");
-    var button=document.getElementById("changemailbutton");
-    button.setAttribute("class","pill orange small");
-    button.setAttribute("onclick","okchangemail()");
-    button.innerHTML='<i class="icon-ok-sign"></i> OK';
+    document.getElementById("changemailaddr").setAttribute("class", "enabled");
+    var button = document.getElementById("changemailbutton");
+    button.setAttribute("class", "pill orange small");
+    button.setAttribute("onclick", "okchangemail()");
+    button.innerHTML = '<i class="icon-ok-sign"></i> OK';
 }
 
 //mail has been changed
 var changemailrequest;
-function okchangemail(){
-    var mail=document.getElementById("changemailaddr").value;
-    if(mail===""){                                      //if mail is empty
-        var info="<div class='notice error'><i class='icon-remove-sign '>\n\
+function okchangemail() {
+    var mail = document.getElementById("changemailaddr").value;
+    if (mail === "") {                                      //if mail is empty
+        var info = "<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Mail address cannot be empty<a href='#close' class='icon-remove'></a></div>";
-        document.getElementById("changemailinfo").innerHTML=info;
+        document.getElementById("changemailinfo").innerHTML = info;
         return false;
     }
-    
-    var reg=/^[a-z0-9][a-z0-9\._-]*@[a-z0-9][a-z0-9-]*\.([a-z0-9][a-z0-9-]*\.)*[a-z]+$/;               //mail address
-    if(!reg.test(mail)){
-         var info="<div class='notice error'><i class='icon-remove-sign '>\n\
+
+    var reg = /^[a-z0-9][a-z0-9\._-]*@[a-z0-9][a-z0-9-]*\.([a-z0-9][a-z0-9-]*\.)*[a-z]+$/;               //mail address
+    if (!reg.test(mail)) {
+        var info = "<div class='notice error'><i class='icon-remove-sign '>\n\
                  </i>Mail address is not valid <a href='#close' class='icon-remove'></a></div>";
-        document.getElementById("changemailinfo").innerHTML=info;
+        document.getElementById("changemailinfo").innerHTML = info;
         return false;
     }
-    if(window.XMLHttpRequest) {  
+    if (window.XMLHttpRequest) {
         changemailrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
-    }else if(window.ActiveXObject) {  
+    } else if (window.ActiveXObject) {
         changemailrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
-    if(changemailrequest!==null){ 
-            document.getElementById("changemailbutton").setAttribute("disabled","disabled");
-            changemailrequest.open("POST","edituserinfo?mail="+mail,true);
-            changedmail = mail;
-            changemailrequest.onreadystatechange=changemailback;
-            changemailrequest.send(null);
-    }  
+    if (changemailrequest !== null) {
+        document.getElementById("changemailbutton").setAttribute("disabled", "disabled");
+        changemailrequest.open("POST", "edituserinfo?mail=" + mail, true);
+        changedmail = mail;
+        changemailrequest.onreadystatechange = changemailback;
+        changemailrequest.send(null);
+    }
 }
 
 var changedmail;
-function changemailback(){
-    if(changemailrequest.readyState===4){ 
-        if(changemailrequest.status===200){  
-            var flag=changemailrequest.responseText;
-            if(flag==="success"){
-                document.getElementById("mail").innerHTML=changedmail;
-                document.getElementById("changemailaddr").setAttribute("class","disabled");
-                document.getElementById("changemailaddr").setAttribute("disabled","disabled");
-                var button=document.getElementById("changemailbutton");
-                button.setAttribute("class","pill green small");
-                button.setAttribute("onclick","changemail()");
-                button.innerHTML='<i class="icon-pencil"></i> Edit';
+function changemailback() {
+    if (changemailrequest.readyState === 4) {
+        if (changemailrequest.status === 200) {
+            var flag = changemailrequest.responseText;
+            if (flag === "success") {
+                document.getElementById("mail").innerHTML = changedmail;
+                document.getElementById("changemailaddr").setAttribute("class", "disabled");
+                document.getElementById("changemailaddr").setAttribute("disabled", "disabled");
+                var button = document.getElementById("changemailbutton");
+                button.setAttribute("class", "pill green small");
+                button.setAttribute("onclick", "changemail()");
+                button.innerHTML = '<i class="icon-pencil"></i> Edit';
             }
-            else{
-                    var info="<div class='notice error'><i class='icon-remove-sign '>\n\
-                    </i>"+flag+"<a href='#close' class='icon-remove'></a></div>";
-                    document.getElementById("changemailinfo").innerHTML=info;
-            }  
+            else {
+                var info = "<div class='notice error'><i class='icon-remove-sign '>\n\
+                    </i>" + flag + "<a href='#close' class='icon-remove'></a></div>";
+                document.getElementById("changemailinfo").innerHTML = info;
+            }
         }
-       document.getElementById("changemailbutton").removeAttribute("disabled");
+        document.getElementById("changemailbutton").removeAttribute("disabled");
     }
 }
 
 
 //get message from servlet
 var messagerequest;
-function getmessage(){
-     if(window.XMLHttpRequest) {  
+function getmessage() {
+    if (window.XMLHttpRequest) {
         messagerequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
-    }else if(window.ActiveXObject) {  
+    } else if (window.ActiveXObject) {
         messagerequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
-    if(messagerequest!==null){ 
-            messagerequest.open("GET","getmessage",true);
-            messagerequest.onreadystatechange=messageback;
-            messagerequest.send(null);
-    }  
+    if (messagerequest !== null) {
+        messagerequest.open("GET", "getmessage", true);
+        messagerequest.onreadystatechange = messageback;
+        messagerequest.send(null);
+    }
 }
 
-function messageback(){
-    if(messagerequest.readyState===4){ 
-        if(messagerequest.status===200){  
-            var flag=messagerequest.responseText;
-            if(flag!=="fail"){
-                var obj=eval('('+flag+')');
-                document.getElementById("message").innerHTML='<div id="jp-container" class="jp-container"></div>\n\
-                            <button class="small red" onclick="closemsg()"><i class="icon-plus-sign"></i> close</button>';
-                var msg='';
-                for(var i=0,l=obj.length;i<l;i++){  
-                   msg+='<a target="_blank">\n\
+function messageback() {
+    if (messagerequest.readyState === 4) {
+        if (messagerequest.status === 200) {
+            var flag = messagerequest.responseText;
+            if (flag !== "fail") {
+                var obj = eval('(' + flag + ')');
+                document.getElementById("message").innerHTML = '<div id="jp-container" class="jp-container"></div>\n\
+                            <button class="small red" onclick="closemsg()"><i class="icon-plus-sign"></i> close</button><br>\n\
+                              <button id="sendmsgbutton" type="button" class="blue" onclick="sendmsg()">Send Message</button>\n\
+                        <input type="text" id="touser" placeholder="send to..">\n\
+                        <br>\n\
+                        <textarea id="msgtext" placeholder="what you want him to know.."></textarea>\n\
+                        <div id="msginfo"></div>';
+                var msg = '';
+                for (var i = 0, l = obj.length; i < l; i++) {
+                    msg += '<a target="_blank">\n\
                             <div>\n\
-                            <h5>'+obj[i].fromuname+'</h5>\n\
-                            <h6>'+obj[i].time+'</h6>'+obj[i].content+'\n\
-                        </div></a>'; 
+                            <h6>' + obj[i].fromuname + '</h6>\n\
+                            <h6>' + obj[i].time + '</h6>' + obj[i].content + '\
+                            <button class="small red" onclick="deletemsg(' + obj[i].msgid + ')">\n\
+                        </div></a>';
                 }
-                document.getElementById("jp-container").innerHTML=msg;
+                document.getElementById("jp-container").innerHTML = msg;
                 msgready();
             }
         }
     }
 }
-function closemsg(){
-     document.getElementById("message").innerHTML='';
+//delete a msg
+var deletemsgrequest;
+function deletemsg(id) {
+    if (window.XMLHttpRequest) {
+        deletemsgrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
+    } else if (window.ActiveXObject) {
+        deletemsgrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+    }
+    if (deletemsgrequest !== null) {
+        deletemsgrequest.open("GET", "getmessage?delete=true" + "&msgid=" + id, true);
+        deletemsgrequest.onreadystatechange = deletemsgback;
+        deletemsgrequest.send(null);
+    }
 }
+
+function deletemsgback() {
+    if (deletemsgrequest.readyState === 4) {
+        if (deletemsgrequest.status === 200) {
+            var flag =deletemsgrequest.responseText;
+            if (flag === "seccess") {
+                //re get message
+                getmessage();
+            }
+        }
+    }
+}
+
+//close msg frame
+function closemsg() {
+    document.getElementById("message").innerHTML = '';
+}
+
+//send message
+var msgrequest;
+function sendmsg() {
+    var name = document.getElementById("touser").value;
+    var content = document.getElementById("msgtext").value;
+
+    if (window.XMLHttpRequest) {
+        msgrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
+    } else if (window.ActiveXObject) {
+        msgrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
+    }
+    if (msgrequest !== null) {
+        url = "sendmsg?name=" + name + "&msg=" + content;
+        url = encodeURI(encodeURI(url));
+        document.getElementById("sendmsgbutton").setAttribute("disabled", "disabled");
+        msgrequest.open("GET",url , true);
+        msgrequest.onreadystatechange = msgback;
+        msgrequest.send(null);
+    }
+}
+
+function msgback() {
+    if (msgrequest.readyState === 4) {
+        if (msgrequest.status === 200) {
+            var flag = msgrequest.responseText;
+            if (flag === 'success') {
+                var info = "<div class='notice success'><i class='icon-ok'></i>\n\
+                                Send successfully !<a href='#close' class='icon-remove'></a></div>";
+                document.getElementById("msginfo").innerHTML = info;
+            }
+            else {
+                var info = "<div class='notice error'><i class='icon-remove-sign '>\n\
+                            </i>"+flag+"<a href='#close' class='icon-remove'></a></div>";
+                document.getElementById("msginfo").innerHTML = info;
+            }
+        }
+        document.getElementById("sendmsgbutton").removeAttribute("disabled");
+    }
+
+}
+
+//about msg frame 
 function msgready() {
 
     // the element we want to apply the jScrollPane
