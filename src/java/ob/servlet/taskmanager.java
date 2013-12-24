@@ -62,9 +62,9 @@ public class taskmanager extends HttpServlet {
                     } else {
                         if (start != null) {
                             if (Config.DisableThis[taskpo.getThistype()]) {
-                                outinfo = "Sorry,This this_type is disabled.";
+                                outinfo = "ThisType 中的 " + LogText.thistype_name[taskpo.getThistype()] + " " + LogText.enable_disable[0];
                             } else if (Config.DisableThat[taskpo.getThattype()]) {
-                                outinfo = "Sorry,This that_type is disabled.";
+                                outinfo = "ThisType 中的 " + LogText.thattype_name[taskpo.getThattype()] + " " + LogText.enable_disable[0];
                             } else if(po.getCoins() < Config.LEVELCOST[po.getLevel()]){//钱不够
                                 outinfo = "Sorry,your coins aren't enough";
                             } else{//没有被禁用，可以开始

@@ -52,6 +52,10 @@
         <servlet-name>sendmsg</servlet-name>
         <servlet-class>ob.servlet.sendmsg</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>delmsg</servlet-name>
+        <servlet-class>ob.servlet.delmsg</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>getreg</servlet-name>
         <url-pattern>/getreg</url-pattern>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>sendmsg</servlet-name>
         <url-pattern>/sendmsg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>delmsg</servlet-name>
+        <url-pattern>/delmsg</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

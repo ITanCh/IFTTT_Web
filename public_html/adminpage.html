@@ -37,17 +37,17 @@ edit user level/money/pw
             <input type="text" id="editlevelname" placeholder="User name">
             <button id="editlevelbutton" type="button" class="blue" onclick="editlevel()">Edit Level</button>
             <span id="editlevelinfo"></span> 
-            <input type="text" id="editmoney" placeholder="New Money">
+            <input type="text" id="editmoney" placeholder="Add Money">
             <input type="text" id="editmoneyname" placeholder="User name">
-            <button id="editmoneybutton" type="button" class="blue" onclick="editmoney()">Edit Money</button>
+            <button id="editmoneybutton" type="button" class="blue" onclick="editmoney()">Add Money</button>
             <span id="editmoneyinfo"></span> 
             <hr>
             <label>Edit This: </label>
             <select id="editthis" >
-            <option value="0">-- Choose --</option>
-            <option value="1">Time Out</option>
-            <option value="2">Receive Mail</option>
-            <option value="3">Monitor Weibo</option>
+            <option value="">-- Choose --</option>
+            <option value="0">Time Out</option>
+            <option value="1">Receive Mail</option>
+            <option value="2">Monitor Weibo</option>
             </select>
             <button id="disthisbutton" type="button" class="red" onclick="editthis(0)">Disable This</button>
             <button id="enthisbutton" type="button" class="green" onclick="editthis(1)">Enable This</button>
@@ -56,12 +56,12 @@ edit user level/money/pw
             <br>
             <label>Edit That: </label>
             <select id="editthat" >
-            <option value="0">-- Choose --</option>
-            <option value="1">Send Weibo</option>
-            <option value="2">Send Mail</option>
+            <option value="">-- Choose --</option>
+            <option value="0">Send Weibo</option>
+            <option value="1">Send Mail</option>
             </select>
-            <button id="disthatbutton" type="button" class="red" onclick="editthat()">Disable That</button>
-            <button id="enthatbutton" type="button" class="green" onclick="editthat()">Enable That</button>
+            <button id="disthatbutton" type="button" class="red" onclick="editthat(0)">Disable That</button>
+            <button id="enthatbutton" type="button" class="green" onclick="editthat(1)">Enable That</button>
             <span id="editthatinfo"></span> 
             <hr> 
             <button id="logbutton" type="button" class="blue" onclick="loguser()">Get Log</button>

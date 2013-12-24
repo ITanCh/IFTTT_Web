@@ -5,24 +5,22 @@
  */
 package ob.servlet;
 
+import PO.SMSPO;
 import PO.UserInfoPO;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ob.dao.SMSDao;
 import ob.dao.UserDao;
 
 /**
  *
  * @author oubeichen
  */
-public class getmessage extends HttpServlet {
+public class delmsg extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,17 +33,28 @@ public class getmessage extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        outinfo = "fail";
-        String loginedUserName = (String) request.getSession().getAttribute("username");
-        if (loginedUserName != null && !loginedUserName.equals("")) {
+        outinfo = "error";
+        loginedUserName = (String) request.getSession().getAttribute("username");
+        if (loginedUserName != null && !loginedUserName.equals("")) {//到这里才是登录成功
             int loginedUserid = (Integer) request.getSession().getAttribute("userid");
-            po = dao.getinfo(loginedUserid);
-            if (po != null) {
-                if (po.getUsername().equals(loginedUserName)) {//到这里才是登录成功
-                    FilterProvider filters = new SimpleFilterProvider().addFilter("smsFilter",
-                            SimpleBeanPropertyFilter.serializeAllExcept("uid"));
-                    outinfo = mapper.writer(filters).writeValueAsString(po.getSms());
+            String SID_Str = request.getParameter("msgid");
+            int sid = -1;
+            try {
+                sid = Integer.parseInt(SID_Str);
+            } catch (Exception e) {
+                outinfo = "Msg id error!";
+            }
+            SMSPO spo = smsdao.getSMSbyID(sid);
+            if (spo.getUid() == loginedUserid) {//判断一下是否是该用户的消息
+                if (sid != -1) {
+                    if (smsdao.delSMS(spo)) {
+                        outinfo = "success";
+                    } else {
+                        outinfo = "Delete msg error!";
+                    }
                 }
+            } else {
+                outinfo = "This is not your message!";
             }
         }
         response.setContentType("text/html;charset=UTF-8");
@@ -96,8 +105,9 @@ public class getmessage extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    private final ObjectMapper mapper = new ObjectMapper(); // can reuse, share globally
-    private String outinfo;
-    private final UserDao dao = new UserDao();
+    private String loginedUserName;
+    private String outinfo;//输出
     private UserInfoPO po;
+    private final SMSDao smsdao = new SMSDao();
+    private final UserDao dao = new UserDao();
 }

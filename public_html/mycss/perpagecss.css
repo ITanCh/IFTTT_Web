@@ -306,6 +306,9 @@ link with personalpage.html
     margin-bottom: 10px;
 }
 
+#msgtext{
+    width:80%;
+}
 
     .jp-container{width:700px;height:200px;position:relative;background:#fff;border:1px solid #D8DFEA;float:left;}
     .jp-container a{color: #000 ;padding:15px 20px;display:block;line-height:20px;background-color: #fff;border-bottom:1px solid #F2F4F8;border-top:1px solid #D8DFEA;}

@@ -5,6 +5,7 @@
  */
 package ob.servlet;
 
+import PO.SMSPO;
 import PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ob.config.Config;
+import ob.config.LogText;
+import ob.dao.SMSDao;
 import ob.dao.UserDao;
 import ob.util.MD5Util;
 
@@ -36,61 +39,80 @@ public class admin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         outinfo = "error";
-        getdata(request);
-        loginedUserName = (String) request.getSession().getAttribute("username");
-        if (loginedUserName != null && !loginedUserName.equals("")) {
-            if (request.getSession().getAttribute("userid") != null) {
-                loginedUserid = (Integer) request.getSession().getAttribute("userid");
-                dao = new UserDao();
-                po = dao.getinfo(loginedUserid);
-                if (po != null && po.getUsername().equals(loginedUserName) && po.isAdmin()) {//判断是否管理员
-                    if(edit != -1){//开启关闭this that
-                       if (validate()) {
-                           if(thisid != -1){
-                               Config.DisableThis[thisid] = (edit == 1);
-                           }else if(thatid != -1){
-                               Config.DisableThat[thatid] = (edit == 1);
-                           }
-                           outinfo = "success";
-                       }
-                    }
-                    else if (name != null) {//修改用户
-                        List list = dao.queryInfo("username", name);
-                        if (list != null) {
-                            Iterator it = list.iterator();
-                            while (it.hasNext()) {
-                                po = (UserInfoPO) it.next();
-                                if (po.getUsername().equals(name)) {
-                                    if (validate()) {
-                                        if(delete != null){//删除用户
-                                           if(dao.deleteInfo(po)){
-                                               outinfo = "success";
-                                           }else{
-                                               outinfo = "删除用户失败";
-                                           }
-                                        }else{
-                                           if(pw != null){
-                                               po.setPassword(MD5Util.MD5(pw));
-                                           }else if(level != -1){//用else if 防止一次修改多个项目
-                                               po.setLevel(level);
-                                           }else if(money != -1){
-                                               po.setCoins(po.getCoins() + money);//加钱
-                                           }
-                                           if(dao.updateInfo(po)){
-                                               outinfo = "success";
-                                           }else{
-                                               outinfo = "修改用户失败";
-                                           }
-                                        }
+        if (getdata(request)) {
+            loginedUserName = (String) request.getSession().getAttribute("username");
+            if (loginedUserName != null && !loginedUserName.equals("")) {
+                if (request.getSession().getAttribute("userid") != null) {
+                    loginedUserid = (Integer) request.getSession().getAttribute("userid");
+                    po = dao.getinfo(loginedUserid);
+                    if (po != null && po.getUsername().equals(loginedUserName) && po.isAdmin()) {//判断是否管理员
+                        if (edit != -1) {//开启关闭this that
+                            if (validate()) {
+                                String cont = null;//用于给所有用户发消息提醒禁用、启用
+                                if (thisid != -1) {
+                                    if (Config.DisableThis[thisid] == (edit == 0)) {
+                                        outinfo = "该type已被启用/禁用";
+                                    } else {
+                                        Config.DisableThis[thisid] = (edit == 0);
+                                        cont = "ThisType 中的 " + LogText.thistype_name[thisid] + " " + LogText.enable_disable[edit];
+                                        outinfo = "success";
+                                    }
+                                } else if (thatid != -1) {
+                                    if (Config.DisableThat[thatid] == (edit == 0)) {
+                                        outinfo = "该type已被启用/禁用";
+                                    } else {
+                                        Config.DisableThat[thatid] = (edit == 0);
+                                        cont = "ThatType 中的 " + LogText.thattype_name[thatid] + " " + LogText.enable_disable[edit];
+                                        outinfo = "success";
+                                    }
+                                }
+                                if(cont != null){//被禁用/启用，提醒所有用户
+                                    List list = dao.getAllUser();
+                                    Iterator it = list.iterator();
+                                    while (it.hasNext()) {//对所有用户发消息
+                                        UserInfoPO dstpo = (UserInfoPO) it.next();
+                                        smsdao.saveSMS(newsms(dstpo.getUid(), cont));
                                     }
                                 }
                             }
-                        } else {
-                            outinfo = "找不到对应用户";
+                        } else if (name != null) {//修改用户
+                            List list = dao.queryInfo("username", name);
+                            if (list != null) {
+                                Iterator it = list.iterator();
+                                while (it.hasNext()) {
+                                    po = (UserInfoPO) it.next();
+                                    if (po.getUsername().equals(name)) {
+                                        if (validate()) {
+                                            if (delete != null) {//删除用户
+                                                if (dao.deleteInfo(po)) {
+                                                    outinfo = "success";
+                                                } else {
+                                                    outinfo = "删除用户失败";
+                                                }
+                                            } else {
+                                                if (pw != null) {
+                                                    po.setPassword(MD5Util.MD5(pw));
+                                                } else if (level != -1) {//用else if 防止一次修改多个项目
+                                                    po.setLevel(level);
+                                                } else if (money != -1) {
+                                                    po.setCoins(po.getCoins() + money);//加钱
+                                                }
+                                                if (dao.updateInfo(po)) {
+                                                    outinfo = "success";
+                                                } else {
+                                                    outinfo = "修改用户失败";
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
+                                outinfo = "找不到对应用户";
+                            }
                         }
+                    } else {
+                        outinfo = "尚未登录管理员，请重新登录";
                     }
-                } else {
-                    outinfo = "尚未登录管理员，请重新登录";
                 }
             }
         }
@@ -144,9 +166,8 @@ public class admin extends HttpServlet {
     }// </editor-fold>
 
     private boolean getdata(HttpServletRequest request) {
-        String temp;
+        String temp = request.getParameter("thisid");
         try {
-            temp = request.getParameter("thisid");
             if (temp != null) {
                 thisid = Integer.parseInt(temp);
             } else {
@@ -156,8 +177,8 @@ public class admin extends HttpServlet {
             outinfo = "This id必须为数字";
             return false;
         }
+        temp = request.getParameter("thatid");
         try {
-            temp = request.getParameter("thatid");
             if (temp != null) {
                 thatid = Integer.parseInt(temp);
             } else {
@@ -167,8 +188,8 @@ public class admin extends HttpServlet {
             outinfo = "That id必须为数字";
             return false;
         }
+        temp = request.getParameter("edit");
         try {
-            temp = request.getParameter("edit");
             if (temp != null) {
                 edit = Integer.parseInt(temp);
             } else {
@@ -181,8 +202,8 @@ public class admin extends HttpServlet {
         name = request.getParameter("name");
         pw = request.getParameter("pw");
         delete = request.getParameter("delete");
+        temp = request.getParameter("level");
         try {
-            temp = request.getParameter("level");
             if (temp != null) {
                 level = Integer.parseInt(temp);
             } else {
@@ -192,8 +213,8 @@ public class admin extends HttpServlet {
             outinfo = "Level必须为数字";
             return false;
         }
+        temp = request.getParameter("money");
         try {
-            temp = request.getParameter("money");
             if (temp != null) {
                 money = Integer.parseInt(temp);
             } else {
@@ -225,22 +246,21 @@ public class admin extends HttpServlet {
                     }
                 }
             }
-        }
-        else if (name != null) {
+        } else if (name != null) {
             if (pw != null) {
                 if (!pw.matches("^[a-zA-Z0-9]{6,30}$")) {//不为空且格式不对
                     outinfo = "密码只能为6~30位的字母和数字";
                     return false;
                 }
             }
-            if(level != -1){
-                if(level < 0 || level > Config.MAXLEVEL){//超过最高等级
+            if (level != -1) {
+                if (level < 0 || level > Config.MAXLEVEL) {//超过最高等级
                     outinfo = "level 有误";
                     return false;
                 }
             }
-            if(money != -1){
-                if(money < 0){//money不能为负数
+            if (money != -1) {
+                if (money < 0) {//money不能为负数
                     outinfo = "money 有误";
                     return false;
                 }
@@ -248,6 +268,14 @@ public class admin extends HttpServlet {
         }
         //不是enable disable
         return true;
+    }
+
+    private SMSPO newsms(int uid, String content) {
+        SMSPO sms = new SMSPO();
+        sms.setFromuname(loginedUserName);
+        sms.setContent(content);
+        sms.setUid(uid);
+        return sms;
     }
     private String outinfo;
     private String name;
@@ -262,5 +290,6 @@ public class admin extends HttpServlet {
     private String loginedUserName;
     private int loginedUserid;
     private UserInfoPO po;
-    private UserDao dao;
+    private final UserDao dao = new UserDao();
+    private final SMSDao smsdao = new SMSDao();
 }

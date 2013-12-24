@@ -283,7 +283,7 @@ function editthis(i) {
         editthisrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if (editthisrequest !== null) {
-        document.getElementById("editthisbutton").setAttribute("disabled", "disabled");
+        //document.getElementById("editthisbutton").setAttribute("disabled", "disabled");
         editthisrequest.open("GET", "admin?thisid=" + thisid + "&edit=" + i, true);
         editthisrequest.onreadystatechange = editthisback;
         editthisrequest.send(null);
@@ -313,14 +313,14 @@ function editthisback() {
 var editthatrequest;
 function editthat(i) {
     var thatid = document.getElementById("editthat").value;
-    alert(thatid);
+    //alert(thatid);
     if (window.XMLHttpRequest) {
         editthatrequest = new XMLHttpRequest();  //IE7, Firefox, Opera 
     } else if (window.ActiveXObject) {
         editthatrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if (editthatrequest !== null) {
-        document.getElementById("editthatbutton").setAttribute("disabled", "disabled");
+        //document.getElementById("editthatbutton").setAttribute("disabled", "disabled");
         editthatrequest.open("GET", "admin?thatid=" + thatid + "&edit=" + i, true);
         editthatrequest.onreadystatechange = editthatback;
         editthatrequest.send(null);

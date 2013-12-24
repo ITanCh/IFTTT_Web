@@ -185,10 +185,10 @@ function messageback() {
             if (flag !== "fail") {
                 var obj = eval('(' + flag + ')');
                 document.getElementById("message").innerHTML = '<div id="jp-container" class="jp-container"></div>\n\
-                            <button class="small red" onclick="closemsg()"><i class="icon-plus-sign"></i> close</button><br>\n\
+                            <button class="small red" onclick="closemsg()"><i class="icon-plus-sign"></i> close</button><br><br>\n\
                               <button id="sendmsgbutton" type="button" class="blue" onclick="sendmsg()">Send Message</button>\n\
                         <input type="text" id="touser" placeholder="send to..">\n\
-                        <br>\n\
+                        <br><br>\n\
                         <textarea id="msgtext" placeholder="what you want him to know.."></textarea>\n\
                         <div id="msginfo"></div>';
                 var msg = '';
@@ -197,7 +197,7 @@ function messageback() {
                             <div>\n\
                             <h6>' + obj[i].fromuname + '</h6>\n\
                             <h6>' + obj[i].time + '</h6>' + obj[i].content + '\
-                            <button class="small red" onclick="deletemsg(' + obj[i].msgid + ')">\n\
+                            <button class="small red" onclick="deletemsg(' + obj[i].sid + ')">\n\
                         </div></a>';
                 }
                 document.getElementById("jp-container").innerHTML = msg;
@@ -215,7 +215,7 @@ function deletemsg(id) {
         deletemsgrequest = new ActiveXObject("Microsoft.XMLHTTP");   //IE5,IE6
     }
     if (deletemsgrequest !== null) {
-        deletemsgrequest.open("GET", "getmessage?delete=true" + "&msgid=" + id, true);
+        deletemsgrequest.open("GET", "delmsg?delete=true" + "&msgid=" + id, true);
         deletemsgrequest.onreadystatechange = deletemsgback;
         deletemsgrequest.send(null);
     }
@@ -225,7 +225,7 @@ function deletemsgback() {
     if (deletemsgrequest.readyState === 4) {
         if (deletemsgrequest.status === 200) {
             var flag =deletemsgrequest.responseText;
-            if (flag === "seccess") {
+            if (flag === "success") {
                 //re get message
                 getmessage();
             }

@@ -16,4 +16,7 @@ public class LogText {
     public static final String LOGINERROR = "Login Error";
     public static final String ADDTASKERROR = "Add Task Error";
     public static final String EDITTASKERROR = "Edit Task Error";
+    public static final String[] thistype_name = {"定时", "收邮件", "监控微博"};
+    public static final String[] thattype_name = {"发微博", "发邮件"};
+    public static final String[] enable_disable = {"已被禁用","已被启用"};
 }

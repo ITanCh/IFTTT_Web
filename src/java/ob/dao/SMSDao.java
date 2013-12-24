@@ -64,6 +64,38 @@ public class SMSDao {
             HibernateSessionFactory.closeSession();
         }
     }
+        public SMSPO getSMSbyID(int sid) {
+        try {
+            session = HibernateSessionFactory.getSession();
+            transaction = session.beginTransaction();
+            SMSPO spo = (SMSPO)session.get(SMSPO.class, sid);
+            transaction.commit();
+            return spo;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return null;
+        } finally {
+            HibernateSessionFactory.closeSession();
+        }
+    }
+    public boolean delSMS(SMSPO spo){
+        try {
+            session = HibernateSessionFactory.getSession();
+            transaction = session.beginTransaction();
+            if(spo != null){
+            session.delete(spo);
+            }
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            transaction.rollback();
+            e.printStackTrace();
+            return false;
+        } finally {
+            HibernateSessionFactory.closeSession();
+        }
+    }
     /*
     @Deprecated
     public boolean sendAdminSMS(String content) {
