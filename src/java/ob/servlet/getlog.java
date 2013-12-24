@@ -5,8 +5,8 @@
  */
 package ob.servlet;
 
-import PO.LogPO;
-import PO.UserInfoPO;
+import ob.PO.LogPO;
+import ob.PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Iterator;

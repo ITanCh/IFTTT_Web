@@ -5,8 +5,8 @@
  */
 package ob.servlet;
 
-import PO.TaskPO;
-import PO.UserInfoPO;
+import ob.PO.TaskPO;
+import ob.PO.UserInfoPO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;

@@ -5,7 +5,7 @@
  */
 package ob.dao;
 
-import PO.LogPO;
+import ob.PO.LogPO;
 import addHibernateFile.HibernateSessionFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;

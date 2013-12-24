@@ -6,7 +6,7 @@
 
 package ob.dao;
 
-import PO.SMSPO;
+import ob.PO.SMSPO;
 import addHibernateFile.HibernateSessionFactory;
 import java.text.SimpleDateFormat;
 import java.util.Date;

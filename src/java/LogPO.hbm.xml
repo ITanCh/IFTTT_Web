@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="PO.LogPO" table="log">
-        <id name="lid" type="integer">
-            <column name="lid"/>
-            <generator class="identity"/>
-        </id>
-        <property name="uid" type="integer">
-            <column name="uid" not-null="true" />
-        </property>
-        <property name="uname" type="string">
-            <column name="uname" not-null="true" />
-        </property>
-        <property name="tname" type="string">
-            <column name="tname" not-null="true" />
-        </property>
-        <property name="type" type="integer">
-            <column name="type" not-null="true" />
-        </property>
-        <property name="time" type="string">
-            <column name="time" not-null="false" />
-        </property>
-    </class>
+  <class name="ob.PO.LogPO" table="log">
+    <id name="lid" type="integer">
+      <column name="lid"/>
+      <generator class="identity"/>
+    </id>
+    <property name="uid" type="integer">
+      <column name="uid" not-null="true"/>
+    </property>
+    <property name="uname" type="string">
+      <column name="uname" not-null="true"/>
+    </property>
+    <property name="tname" type="string">
+      <column name="tname" not-null="true"/>
+    </property>
+    <property name="type" type="integer">
+      <column name="type" not-null="true"/>
+    </property>
+    <property name="time" type="string">
+      <column name="time" not-null="false"/>
+    </property>
+  </class>
 </hibernate-mapping>

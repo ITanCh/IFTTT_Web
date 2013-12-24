@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package PO;
+package ob.PO;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
 import java.util.HashSet;

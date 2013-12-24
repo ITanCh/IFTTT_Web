@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-  <class name="PO.SMSPO" table="sms">
-        <id name="sid" type="integer">
-            <column name="sid"/>
-            <generator class="identity"/>
-        </id>
-        <property name="uid" type="integer">
-            <column name="uid" not-null="true" />
-        </property>
-        <property name="fromuname" type="string">
-            <column name="fromuname" not-null="true" />
-        </property>
-        <property name="content" type="text">
-            <column name="content" not-null="true" />
-        </property>
-        <property name="time" type="string">
-            <column name="time" not-null="false" />
-        </property>
+  <class name="ob.PO.SMSPO" table="sms">
+    <id name="sid" type="integer">
+      <column name="sid"/>
+      <generator class="identity"/>
+    </id>
+    <property name="uid" type="integer">
+      <column name="uid" not-null="true"/>
+    </property>
+    <property name="fromuname" type="string">
+      <column name="fromuname" not-null="true"/>
+    </property>
+    <property name="content" type="text">
+      <column name="content" not-null="true"/>
+    </property>
+    <property name="time" type="string">
+      <column name="time" not-null="false"/>
+    </property>
   </class>
 </hibernate-mapping>

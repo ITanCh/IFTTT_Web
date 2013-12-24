@@ -5,7 +5,7 @@
  */
 package ob.dao;
 
-import PO.UserInfoPO;
+import ob.PO.UserInfoPO;
 import addHibernateFile.HibernateSessionFactory;
 import java.util.List;
 import org.hibernate.Query;

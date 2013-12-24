@@ -6,7 +6,7 @@
 
 package ob.manager;
 
-import PO.LogPO;
+import ob.PO.LogPO;
 import java.util.List;
 import ob.dao.LogDao;
 

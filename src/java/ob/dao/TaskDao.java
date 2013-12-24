@@ -6,7 +6,7 @@
 
 package ob.dao;
 
-import PO.TaskPO;
+import ob.PO.TaskPO;
 import addHibernateFile.HibernateSessionFactory;
 import java.util.List;
 import org.hibernate.Query;
