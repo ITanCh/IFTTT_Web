@@ -251,7 +251,7 @@ function sendmsg() {
     }
     if (msgrequest !== null) {
         url = "sendmsg?name=" + name + "&msg=" + content;
-        url = encodeURI(encodeURI(url));
+        url = encodeURIComponent(encodeURIComponent(url));
         document.getElementById("sendmsgbutton").setAttribute("disabled", "disabled");
         msgrequest.open("GET",url , true);
         msgrequest.onreadystatechange = msgback;

@@ -430,7 +430,7 @@ function okedit(id){
             document.getElementById("deletetask").setAttribute('disabled','disabled');
             document.getElementById("oktask").setAttribute('class','');
             document.getElementById("oktask").setAttribute('disabled','disabled');
-            url = encodeURI(encodeURI(url));
+            url = encodeURIComponent(encodeURIComponent(url));
             editrequest.open("POST",url,true);       //gettaskinfo
             editrequest.onreadystatechange=editback;
             editrequest.send(null);
@@ -647,7 +647,7 @@ function createtask(){
     if(createrequest!==null){  
             document.getElementById("createbutton").setAttribute('class','');
             document.getElementById("createbutton").setAttribute('disabled','disabled');
-            url = encodeURI(encodeURI(url));
+            url = encodeURIComponent(encodeURIComponent(url));
             createrequest.open("POST",url,true);       //gettaskinfo
             createrequest.onreadystatechange=createback;
             createrequest.send(null);
