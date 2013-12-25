@@ -33,7 +33,8 @@ public class Config {
         'B', 'S', '7', 'D', 'I', 'P'};//不同网站用不同乱序改字版MD5，提高破解难度
     private static final boolean DisableThis[] = new boolean[MAXTHISTYPE + 1];//禁用This
     private static final boolean DisableThat[] = new boolean[MAXTHATTYPE + 1];//禁用That
-
+    private static final Properties props = new Properties();
+    private static final String path = "enable_disable.properties";
     /**
      * @return the DisableThis
      */
@@ -66,13 +67,15 @@ public class Config {
 
     public Config() {
         //TODO 从配置文件读取配置
-        try {
+
+    }static{
+       try {
             props.load(new FileInputStream(path));
             for (int i = 0; i <= MAXTHISTYPE; i++) {
-                DisableThis[i] = Boolean.getBoolean(props.getProperty("DisableThis" + i, "false"));
+                DisableThis[i] = Boolean.parseBoolean(props.getProperty("DisableThis" + i, "false"));
             }
             for (int i = 0; i <= MAXTHATTYPE; i++) {
-                DisableThat[i] = Boolean.getBoolean(props.getProperty("DisableThat" + i, "false"));
+                DisableThat[i] = Boolean.parseBoolean(props.getProperty("DisableThat" + i, "false"));
             }
         } catch (Exception e) {
 
@@ -95,7 +98,5 @@ public class Config {
             Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private static final Properties props = new Properties();
-    private static final String path = "enable_disable.properties";
     //private static final String path = Thread.currentThread().getContextClassLoader().getResource("enable_disable.properties").toString().substring(6);
 }
