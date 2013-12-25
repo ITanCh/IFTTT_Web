@@ -46,6 +46,7 @@ public class Config {
      */
     public static void setDisableThis(int id, boolean edit) {
         DisableThis[id] = edit;
+        writeprops();
     }
 
     /**
@@ -66,7 +67,7 @@ public class Config {
     public Config() {
         //TODO 从配置文件读取配置
         try {
-            props.load(new FileInputStream("enable_disable.properties"));
+            props.load(new FileInputStream(path));
             for (int i = 0; i <= MAXTHISTYPE; i++) {
                 DisableThis[i] = Boolean.getBoolean(props.getProperty("DisableThis" + i, "false"));
             }
@@ -89,10 +90,12 @@ public class Config {
             props.setProperty("DisableThat" + i, String.valueOf(DisableThat[i]));
         }
         try {
-            props.store(new FileOutputStream("enable_disable.properties"), "");
+            props.store(new FileOutputStream(path), "禁止、启用THIS、THAT的配置文件");
         } catch (IOException ex) {
             Logger.getLogger(Config.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     private static final Properties props = new Properties();
+    private static final String path = "enable_disable.properties";
+    //private static final String path = Thread.currentThread().getContextClassLoader().getResource("enable_disable.properties").toString().substring(6);
 }
