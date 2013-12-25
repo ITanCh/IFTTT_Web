@@ -50,18 +50,18 @@ public class admin extends HttpServlet {
                             if (validate()) {
                                 String cont = null;//用于给所有用户发消息提醒禁用、启用
                                 if (thisid != -1) {
-                                    if (Config.DisableThis[thisid] == (edit == 0)) {
+                                    if (Config.getDisableThis(thisid) == (edit == 0)) {
                                         outinfo = "该type已被启用/禁用";
                                     } else {
-                                        Config.DisableThis[thisid] = (edit == 0);
+                                        Config.setDisableThis(thisid, (edit == 0));
                                         cont = "ThisType 中的 " + LogText.thistype_name[thisid] + " " + LogText.enable_disable[edit];
                                         outinfo = "success";
                                     }
                                 } else if (thatid != -1) {
-                                    if (Config.DisableThat[thatid] == (edit == 0)) {
+                                    if (Config.getDisableThat(thatid) == (edit == 0)) {
                                         outinfo = "该type已被启用/禁用";
                                     } else {
-                                        Config.DisableThat[thatid] = (edit == 0);
+                                        Config.setDisableThat(thatid, (edit == 0));
                                         cont = "ThatType 中的 " + LogText.thattype_name[thatid] + " " + LogText.enable_disable[edit];
                                         outinfo = "success";
                                     }
