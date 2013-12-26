@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+administrator page
+he can change this ,change that 
+delete user
+edit user level/money/pw
+@author tianchi
+-->
+<html>
+    <head>
+        <title>Administrator</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width"> 
+        <script type="text/javascript" src="js/bxslider.js"></script>
+        <script type="text/javascript" src="js/adminjs.js"></script>
+        <script src="js/kickstart.js"></script> <!-- KICKSTART -->
+        <link rel="stylesheet" href="css/kickstart.css" media="all" /> <!-- KICKSTART -->
+        <link rel="stylesheet" href="mycss/admincss.css"  />
+    </head>
+    <body>
+        <div id="top">
+            <a href="index.html"><i class="icon-2x icon-fire"> IFTTT</i></a>
+            <h5>Welcome administrator..</h5>
+        </div>
+        <div id="mainbody">
+            <input type="text" id="deleteuser" placeholder="Delete user">
+            <button id="deletebutton" type="button" class="red" onclick="deleteuser()">Delete</button>
+            <span id="deleteinfo"></span>
+            <hr>
+            <input type="password" id="editpw" placeholder="New password">
+            <input type="text" id="editpwname" placeholder="User name">
+            <button id="editpwbutton" type="button" class="blue" onclick="editpw()">Edit Password</button>
+            <span id="editpwinfo"></span>
+            
+            <input type="text" id="editlevel" placeholder="New Level">
+            <input type="text" id="editlevelname" placeholder="User name">
+            <button id="editlevelbutton" type="button" class="blue" onclick="editlevel()">Edit Level</button>
+            <span id="editlevelinfo"></span> 
+            <input type="text" id="editmoney" placeholder="Add Money">
+            <input type="text" id="editmoneyname" placeholder="User name">
+            <button id="editmoneybutton" type="button" class="blue" onclick="editmoney()">Add Money</button>
+            <span id="editmoneyinfo"></span> 
+            <hr>
+            <label>Edit This: </label>
+            <select id="editthis" >
+            <option value="">-- Choose --</option>
+            <option value="0">Time Out</option>
+            <option value="1">Receive Mail</option>
+            <option value="2">Monitor Weibo</option>
+            </select>
+            <button id="disthisbutton" type="button" class="red" onclick="editthis(0)">Disable This</button>
+            <button id="enthisbutton" type="button" class="green" onclick="editthis(1)">Enable This</button>
+            <span id="editthisinfo"></span> 
+            
+            <br>
+            <label>Edit That: </label>
+            <select id="editthat" >
+            <option value="">-- Choose --</option>
+            <option value="0">Send Weibo</option>
+            <option value="1">Send Mail</option>
+            </select>
+            <button id="disthatbutton" type="button" class="red" onclick="editthat(0)">Disable That</button>
+            <button id="enthatbutton" type="button" class="green" onclick="editthat(1)">Enable That</button>
+            <span id="editthatinfo"></span> 
+            <hr> 
+            <button id="logbutton" type="button" class="blue" onclick="loguser()">Get Log</button>
+            <br>
+            <textarea id="logtext" disabled=""></textarea>
+            <br>
+            <ul class="button-bar">
+            <li class="first"><a onclick="forwardpage()"><i class="icon-caret-left"></i></a></li>
+            <li class="last"><a onclick="nextpage()"><i class="icon-caret-right"></i></a></li>
+            </ul>
+            <br>
+            <button id="sendmsgbutton" type="button" class="blue" onclick="sendmsg()">Send Message</button>
+            <input type="text" id="touser" placeholder="send to..">
+            <br>
+            <textarea id="msgtext" placeholder="what you want him to know.."></textarea>
+            <div id="msginfo"></div>
+            <br>
+            
+        </div>
+        <div id="buttonhr"><hr></div>
+    </body>
+</html>
+

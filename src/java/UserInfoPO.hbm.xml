@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="ob.PO.UserInfoPO" table="user">
+    <id name="uid" type="integer">
+      <column name="uid"/>
+      <generator class="identity"/>
+    </id>
+    <property name="username" type="string">
+      <column length="30" name="username" not-null="true"/>
+    </property>
+    <property name="password" type="string">
+      <column length="32" name="password" not-null="true"/>
+    </property>
+    <property name="mail" type="string">
+      <column length="50" name="mail" not-null="false"/>
+    </property>
+    <property name="coins" type="long">
+      <column name="coins" not-null="true"/>
+    </property>
+    <property name="level" type="integer">
+      <column name="level" not-null="true"/>
+    </property>
+    <property name="admin" type="boolean">
+      <column length="1" name="admin" not-null="false"/>
+    </property>
+    <!--一对多映射user到task，单的一方配置-->
+    <set cascade="all-delete-orphan" lazy="false" name="task" order-by="ctime desc" table="task">
+      <key column="uid"/>
+      <one-to-many class="ob.PO.TaskPO"/>
+    </set>
+    <!--一对多映射user到log，单的一方配置-->
+    <set lazy="false" name="log" order-by="lid desc" table="log">
+      <key column="uid"/>
+      <one-to-many class="ob.PO.LogPO"/>
+    </set>
+    <!--一对多映射user到sms，单的一方配置-->
+    <set cascade="all-delete-orphan" lazy="false" name="sms" order-by="sid desc" table="sms">
+      <key column="uid"/>
+      <one-to-many class="ob.PO.SMSPO"/>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,319 @@
+/*
+link with personalpage.html
+*/
+/* 
+    Created on : 2013-11-23, 19:37:46
+    Author     : TianChi
+*/
+#top{
+    margin-top:-10px;
+    margin-left: 0px;
+    height: 45px;
+    width: 101%;
+    min-width: 1200px;
+    margin-bottom: 10px;
+    background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
+    border-bottom: 1.5px solid #ccc;
+    -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) ;
+}
+
+#logo{
+    float:left;
+    margin-left: 15%;
+    height: 100%;
+    width:150px;
+    padding-top: 7px;
+    border-right: 1.5px solid #ccc;
+}
+
+#title{ 
+        float:left;
+        margin-top: 10px;
+        margin-left: 3%;
+        width:400px;
+}
+#title ul{
+	list-style: none;
+}
+
+#title li{
+	float:left;
+	margin-right: 50px;
+}
+
+#title a{
+	font-size:16px;	
+        color:#555555;
+        text-decoration: none;  
+        font-family: Verdana;
+}
+
+#title a:hover{
+    color: #50B1FE;
+}
+
+#top_right{
+    float:right;
+    margin-right:10%;
+    margin-top:14px;
+}
+
+#top_right a{
+    text-decoration: none;
+}
+
+.setting{
+    margin-left:10px; 
+}
+
+.signout{
+    margin-left: 10px;
+}
+
+#mainbody{
+    margin-top:50px;
+    width: 100%;
+    min-width: 1200px;
+}
+
+#left{
+    float:left;
+    margin-left: 15%;
+    width:250px;
+    font-family: Microsoft YaHei UI;
+    border-bottom: 2px solid   #ccc;
+}
+.head{
+    border-radius:10px;
+}
+
+.user_name{
+    height: 60px;
+    border-bottom: 2px solid   #ccc;
+}
+
+.level_icon{
+    color: #FC730A;
+}
+.level{
+    margin-left: 20px;
+}
+.money_icon{
+    color: #080;
+}
+
+.money{
+      margin-left: 20px;
+}
+
+.mail_icon{
+    color: #EF0251;
+}
+
+.mail{
+      margin-left: 20px; 
+      margin-bottom:10px;
+}
+
+
+#right{
+    float:left;
+    margin-left:4%;
+    width: 700px;
+    font-family:  Microsoft YaHei UI;
+    }
+
+/*about view task*/
+#tabr1{
+    padding: 0px;
+    border-color: #fff;
+}
+
+#taskstable{
+     margin-top: 20px;
+     border: 2px solid #ccc;
+     border-radius: 5px;
+}
+
+.stopicon{
+    color: #EF0251;
+}
+
+.starticon{
+    color: limegreen;
+}
+#taskview{
+    margin-top: 20px;
+}
+
+.viewtaskbutton{
+    border: #fff;
+}
+
+#thismenu{
+    height:100px;
+    width:170px;
+}
+
+#thismenu fieldset{
+    margin-top: 0px;
+}
+
+#thiscontent{
+    margin-top: 0px;
+    height: 200px;
+    border:2px solid #ccc;
+    border-radius: 5px;
+    padding-top:50px;
+    padding-left: 30px;
+    padding-right: 200px;
+}
+#thiscontent input{
+    float: left;
+}
+
+#thiscontent textArea{
+    float: right;
+    height:100px;
+}
+
+
+
+#thatmenu{
+    height:80px;
+    width:155px;
+    margin-top: 20px;
+}
+
+#thatmenu fieldset{
+    margin-top: 0px;
+}
+
+
+#thatcontent{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    height: 200px;
+    border:2px solid #ccc;
+    border-radius: 5px;
+    padding-top:20px;
+    padding-left: 30px;
+    padding-right: 200px;
+}
+
+#thatcontent input{
+    float: left;
+}
+
+#thatcontent textArea{
+    float: right;
+    height:150px;
+}
+
+#taskview button{
+    border: #fff;
+}
+
+
+
+/*about create task*/
+#tabr2{
+    border: #fff;
+}
+#createtaskview{
+    margin-top: 20px;
+}
+
+#createthismenu{
+    height:100px;
+    width:170px;
+}
+
+#createthismenu fieldset{
+    margin-top: 0px;
+}
+
+#createthiscontent{
+    margin-top: 0px;
+    height: 200px;
+    border:2px solid #ccc;
+    border-radius: 5px;
+    padding-top:50px;
+    padding-left: 30px;
+    padding-right: 200px;
+}
+#createthiscontent input{
+    float: left;
+}
+
+#createthiscontent textArea{
+    float: right;
+    height:100px;
+}
+
+#createthatmenu{
+    height:80px;
+    width:155px;
+    margin-top: 20px;
+}
+
+#createthatmenu fieldset{
+    margin-top: 0px;
+}
+
+
+#createthatcontent{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    height: 200px;
+    border:2px solid #ccc;
+    border-radius: 5px;
+    padding-top:20px;
+    padding-left: 30px;
+    padding-right: 200px;
+}
+
+#createthatcontent input{
+    float: left;
+}
+
+#createthatcontent textArea{
+    float: right;
+    height:150px;
+}
+
+#changepwdiv{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    line-height: 40px;
+}
+
+#changepwinfo{
+ margin-right: 50%;
+}
+
+#changemaildiv{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#changemailinfo{
+    margin-right: 50%;
+}
+
+#topup{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#msgtext{
+    width:80%;
+}
+
+    .jp-container{width:700px;height:200px;position:relative;background:#fff;border:1px solid #D8DFEA;float:left;}
+    .jp-container a{color: #000 ;padding:15px 20px;display:block;line-height:20px;background-color: #fff;border-bottom:1px solid #F2F4F8;border-top:1px solid #D8DFEA;}
+    .jp-container a:first-child{border-top:none;}
+    .jp-container a:last-child{border-bottom:none;}
+    .jp-container a:hover{background:#ECEFF5;border-bottom-color:#ECEFF5;}
+    .jp-container a h3{ font-size:14px;font-weight:bold;padding:2px 0 5px 0;text-transform:uppercase;}
+    .jp-container a img{float:left;margin:5px 10px 0px 0px;padding:3px;background:#fff;border:1px solid #D8DFEA;}

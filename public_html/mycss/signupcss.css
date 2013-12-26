@@ -1,0 +1,84 @@
+/*
+link with signup.html
+*/
+/* 
+    Created on : 2013-11-22, 19:11:27
+    Author     : TianChi
+*/
+
+
+#top{
+    margin-left: auto;
+    margin-right: auto;
+    width: 700px;
+    margin-top:20px;
+    border-bottom: 1.5px solid #ccc;
+    font-family: Microsoft YaHei UI;
+}
+
+#mainbody{
+    width: 700px;
+    margin-top:40px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 100px;
+    padding-top: 50px;
+    line-height: 300%;
+    border: 2px solid #ccc;
+    border-radius: 20px;
+    font-size:20px;
+    font-family:Microsoft YaHei UI;
+    font-weight: bold;
+    background: -webkit-gradient(linear, 0% 20%, 0% 92%, from(#fff), to(#f3f3f3), color-stop(.1,#fff));
+    border-bottom: 1.5px solid #ccc;
+    -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2) ;
+}
+#username{
+    float:left;
+}
+#nameinfo{
+    margin-top:-10px;
+    float:left;
+    margin-left: 20px;
+    font-size: 15px;
+    width:300px;
+}
+#usermail{
+    float:left;
+}
+#mailinfo{
+    margin-top:-10px;
+    float:left;
+    margin-left: 20px;
+    font-size: 15px;
+    width:300px;
+}
+#pw1{
+    float:left;
+}
+#pw1info{
+    margin-top:-10px;
+    margin-top:-10px;
+    float:left;
+    margin-left: 20px;
+    font-size: 15px;
+    width:300px;
+}
+#pw2{
+    float:left;
+}
+#pw2info{
+    margin-top:-10px;
+    margin-top:-10px;
+    float:left;
+    margin-left: 20px;
+    font-size: 15px;
+    width:300px;
+}
+
+#buttonhr{
+    margin-top:20px;
+    margin-left: auto;
+    margin-right: auto;
+     width: 700px;
+}
