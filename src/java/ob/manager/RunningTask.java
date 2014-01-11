@@ -15,22 +15,22 @@ import java.util.HashMap;
  */
 public class RunningTask {
     private static final HashMap<String,TaskPO> tasks = new HashMap<String,TaskPO>();
-    public static boolean addTask(TaskPO task){
+    public synchronized static boolean addTask(TaskPO task){
         tasks.put(task.getTid(),task);
         task.setIsrunning(true);
         task.start();
         return true;
     }
-    public static boolean isHere(String tid){
+    public synchronized static boolean isHere(String tid){
         return tasks.containsKey(tid);
     }
-    public static String getStatus(String tid){
+    public synchronized static String getStatus(String tid){
         if(tasks.containsKey(tid)){
             return tasks.get(tid).getStatus();
         }
         return null;
     }
-    public static boolean delTask(String tid){
+    public synchronized static boolean delTask(String tid){
         if(tasks.containsKey(tid)){
             TaskPO po = tasks.get(tid);
             po.setIsrunning(false);
